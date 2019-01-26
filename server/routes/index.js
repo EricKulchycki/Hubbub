@@ -1,9 +1,6 @@
-var express = require('express');
-var router = express.Router();
-
-/* GET home page. */
-router.get('/sayHello', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
-
-module.exports = router;
+module.exports = (app) => {
+  app.get( "/sayHello", (req, res) => {
+	console.log("Requested say hello");
+	res.send('Hello from the back-end.');
+  });
+}
