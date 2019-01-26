@@ -1,26 +1,16 @@
 {
   "name": "server",
-  "version": "1.0.0",
-  "description": "Sample back end source code for React application",
-  "main": "server.js",
+  "version": "0.0.0",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./bin/www"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/BilalAlGhazi/sample-react-app.git"
-  },
-  "author": "Bilal Alghazi",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/BilalAlGhazi/sample-react-app/issues"
-  },
-  "homepage": "https://github.com/BilalAlGhazi/sample-react-app#readme",
   "dependencies": {
-    "compression": "^1.7.3",
-    "cors": "^2.8.5",
-    "express": "^4.16.4",
-    "helmet": "^3.15.0",
-    "morgan": "^1.9.1"
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
+    "express": "~4.16.0",
+    "http-errors": "~1.6.2",
+    "jade": "~1.11.0",
+    "morgan": "~1.9.0"
   }
 }
