@@ -13,13 +13,14 @@ app.use(cors())
 // Constants
 const APP_PORT = 4000;
 const indexRouter = require("./routes/index");
+const db = require("./models");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 
 // Routes
-indexRouter(app);
+indexRouter(app, db);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -38,5 +39,8 @@ app.use(function(err, req, res, next) {
   console.log("test");
 });
 
-app.listen(APP_PORT);
-console.log('Webserver listening to port', APP_PORT);
+db.sequelize.sync().then( () => {
+  app.listen(APP_PORT, () => 
+    console.log('Webserver listening to port', APP_PORT)
+  );
+});
