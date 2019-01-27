@@ -4,11 +4,9 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 const morgan = require('morgan');
-const cors = require('cors');
 
 const app = express();
 app.use(morgan('combined'));
-app.use(cors())
 
 // Constants
 const APP_PORT = 4000;
