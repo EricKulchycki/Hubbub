@@ -30,3 +30,181 @@
     transform: rotate(360deg);
   }
 }
+
+/* wrappers & containers */
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-content: space-around;
+  height: 87vh;
+  width: 90vw;  
+}
+
+/* card */
+.card {
+  background-color: #FFF;
+  border-radius: 3%;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  word-wrap: break-word;
+  width: 215px;
+  height: 100%;
+  margin-bottom: 20px;
+  transition: .5s;
+}
+
+.card:hover {
+  box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.45);
+}
+
+.close {
+  border-radius: 50%;
+  text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.25);
+  float: right;
+  top: -228px;
+  right: -6px;
+  font-size: 2em;
+  position: relative;
+  color: #fff;
+  transition: .5s;
+}
+
+.close:hover {
+  cursor: pointer;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+}
+
+img {
+  width: 215px;
+  border-radius: 3% 3% 0 0;
+}
+
+h4 {
+  font-size: 1.2em;
+  margin: 15px;
+  color: #757575;
+}
+
+/* Button reset */
+button {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+  margin-bottom: 20px;
+}
+
+/* Shared button styles */
+.button-wrapper {
+  height: 300px;
+}
+
+button {
+  border-radius: 50%;
+  width: 215px;
+  height: 215px;
+  box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.25);
+  transition-timing-function: ease-in;
+  transition: 0.3s;
+  transform: scale(0.7);
+}
+
+button:hover {
+  box-shadow: 2px 5px 5px rgba(0, 0, 0, 0.5);
+}
+
+button.disabled {
+  background-color: #999 !important;
+  cursor: no-drop;
+}
+
+button.disabled:hover {
+  box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.25);
+}
+
+button.disabled:hover span {
+  text-shadow: 1px 2px 2px rgba(0, 0, 0, 0.25);
+}
+
+button span {
+  font-size: 10em !important;
+  text-shadow: 1px 2px 2px rgba(0, 0, 0, 0.25);
+  transition: 0.3s;
+  color: #fff;
+}
+
+button:hover span {
+  text-shadow: 2px 5px 5px rgba(0, 0, 0, 0.5);
+  transform: rotate(-1.1deg)
+}
+
+/* Google */
+button.google {
+  border: 3px solid #ffffff;
+  background: #0057e7;
+}
+
+button.google:hover {
+  background: #008744;
+}
+
+/* footer */
+footer {
+  display: flex;
+  justify-content: space-between;
+  width: 87vw;
+}
+
+footer a {
+  color: #fff;
+}
+
+footer span {
+  font-size: 3em !important;
+  text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+  transition: .3s;
+  padding-top: 3px;
+}
+
+footer span:hover {
+  cursor: pointer;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+footer .small-button {
+  border-radius: 50%;
+  border: 1px solid #fff;
+  width: 55px;
+  height: 55px;
+  transition: .3s;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  text-align: center;
+}
+
+footer .small-button:hover {
+  background: #767676;
+  box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.45);
+}
+
+footer .small-button.github {
+  background: #6e5494;
+}
+
+footer .small-button.medium {
+  background: #00ab6c;
+  font-size: 0.85em;
+}
+
+footer .small-button.medium span {
+  position: relative;
+  top: 4px;
+}
