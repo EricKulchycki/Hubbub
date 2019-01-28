@@ -11,6 +11,7 @@ app.use(morgan('combined'));
 // Constants
 const APP_PORT = 4000;
 const indexRouter = require("./routes/index");
+const userRouter = require("./routes/user");
 const db = require("./models");
 
 app.use(bodyParser.json());
@@ -19,6 +20,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 // Routes
 indexRouter(app, db);
+userRouter(app, db);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
