@@ -1,9 +1,9 @@
 {
-  "expoServerPort": null,
-  "packagerPort": null,
-  "packagerPid": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null,
-  "devToolsPort": 19002
+  "devToolsPort": 19002,
+  "expoServerPort": 19000,
+  "packagerPort": 19001,
+  "packagerPid": 38200,
+  "expoServerNgrokUrl": "https://te-5ku.anonymous.mobile.exp.direct",
+  "packagerNgrokUrl": "https://packager.te-5ku.anonymous.mobile.exp.direct",
+  "ngrokPid": 2968
 }

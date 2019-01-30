@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "AwesomeProject",
-    "slug": "AwesomeProject",
+    "name": "mobile",
+    "slug": "mobile",
     "privacy": "public",
     "sdkVersion": "32.0.0",
     "platforms": [
