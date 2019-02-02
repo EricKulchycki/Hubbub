@@ -9,4 +9,4 @@ jobs:
 
       - run: npm install
 
-      - run: ssh -o "StrictHostKeyChecking no" root@142.93.147.148 "cd ..; cd /home/hubbub; git pull; cd client; npm install; cd ..; cd server; npm install; forever start app.js"
+      - run: ssh -o "StrictHostKeyChecking no" root@142.93.147.148 "softeng2; cd ..; cd /home/hubbub; git pull; cd client; npm install; cd ..; cd server; npm install; forever start app.js"
