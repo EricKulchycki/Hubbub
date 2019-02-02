@@ -1,0 +1,26 @@
+{
+  "development": {
+    "username": "hubbub",
+    "password": "whatsthehubbub",
+    "database": "hubbub",
+    "host": "142.93.147.148",
+    "dialect": "mysql",
+	"operatorsAliases": "false"
+  },
+  "test": {
+    "username": "hubbub",
+    "password": "whatsthehubbub",
+    "database": "hubbub",
+    "host": "142.93.147.148",
+    "dialect": "mysql",
+	"operatorsAliases": "false"
+  },
+  "production": {
+    "username": "hubbub",
+    "password": "whatsthehubbub",
+    "database": "hubbub",
+    "host": "142.93.147.148",
+    "dialect": "mysql",
+	"operatorsAliases": "false"
+  }
+}
