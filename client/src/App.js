@@ -22,6 +22,8 @@ class App extends Component {
       this.setState({ data: dataFromServer });
     });
   }
+
+  //Testing saving git creds
   
   render() {
     return (
