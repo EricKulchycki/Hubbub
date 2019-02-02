@@ -7,4 +7,4 @@ jobs:
     steps:
       - checkout
 
-      - run: ssh -o "StrictHostKeyChecking=no" root@142.93.147.148 " cd ..; cd /home/hubbub; git pull git@github.com:EricKulchycki/Hubbub.git; cd client; npm install; cd ..; cd server; npm install;"
+      - run: ssh -o "StrictHostKeyChecking=no" root@142.93.147.148 " cd ..; cd /home/hubbub; git pull https://github.com/EricKulchycki/Hubbub.git; cd client; npm install; cd ..; cd server; npm install;"
