@@ -1,0 +1,15 @@
+version: 2
+jobs:
+  build:
+    docker:
+      — image: circleci/node:7.10
+    working_directory: ~/repo
+    steps:
+      — checkout
+      - run: npm install
+ 
+      — run: cd client
+      - run: npm install
+      - run: cd ..
+      - run: cd server
+      - run: npm install
