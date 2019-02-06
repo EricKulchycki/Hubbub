@@ -1,0 +1,10 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:7.10
+    working_directory: ~/repo
+    steps:
+      - checkout
+
+      - run: ssh -o "StrictHostKeyChecking=no" root@142.93.147.148 " cd ..; cd /home; git fetch --all; git reset --hard origin/master; git pull git@github.com:EricKulchycki/Hubbub.git; cd client; npm install; cd ..; cd server; npm install;"
