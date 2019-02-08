@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
       category: {
         type: DataTypes.ENUM('MOVIE', 'TV-SHOW', 'VIDEO GAME', 'COMIC')
       },
-	  title: DataTypes.STRING,
+	    title: DataTypes.STRING,
       rating: DataTypes.INTEGER,
       body: DataTypes.STRING,
     },
@@ -18,10 +18,10 @@ module.exports = (sequelize, DataTypes) => {
   );
   
   Post.associate = (models) => {
-	Post.belongsTo(models.user, {
-		foreignKey: 'userId',
-		constraints: false
-	});
+	  Post.belongsTo(models.user, {
+		  foreignKey: 'userId',
+		  constraints: false
+  	});
 };
 
   return Post;

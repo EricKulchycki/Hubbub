@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
   const Friend = sequelize.define('friend', {
-        id: {
+    id: {
 			type: DataTypes.INTEGER,
 			primaryKey: true,
 			autoIncrement: true
@@ -9,17 +9,17 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       freezeTableName: true,
-	  defaultScope: {
-		attributes: { exclude: ['id', 'updatedAt'] },
-	  }
+	  	defaultScope: {
+				attributes: { exclude: ['id', 'updatedAt'] },
+	  	}
     }
   );
   
   Friend.associate = (models) => {
-	Friend.belongsTo(models.user, {
-		foreignKey: 'friendId',
-		constraints: false
-	});
+		Friend.belongsTo(models.user, {
+			foreignKey: 'friendId',
+			constraints: false
+		});
 };
 
   return Friend;

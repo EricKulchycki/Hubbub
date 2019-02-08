@@ -24,12 +24,12 @@ module.exports = (app, db) => {
   
   app.post("/api/v1/user/list", (req, res) => {
     console.log("Requested user");
-	console.log(req.body);
-	let firstNameValue = req.body.firstName.toLowerCase();
+  	console.log(req.body);
+  	let firstNameValue = req.body.firstName.toLowerCase();
   	db.user.findAll({
-		where: {
-			firstName: db.Sequelize.where(db.Sequelize.fn('LOWER', db.Sequelize.col('firstName')), 'LIKE', '%' + firstNameValue + '%')
-		}
+	  	where: {
+		  	firstName: db.Sequelize.where(db.Sequelize.fn('LOWER', db.Sequelize.col('firstName')), 'LIKE', '%' + firstNameValue + '%')
+	  	}
   	}).then( (result) => res.json(result) );
   });
 }
