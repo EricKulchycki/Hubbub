@@ -21,6 +21,7 @@ const APP_PORT = 4000;
 const indexRouter = require("./routes/index");
 const userRouter = require("./routes/user");
 const postRouter = require("./routes/post");
+const friendRouter = require("./routes/friend");
 const db = require("./models");
 
 var server = http.createServer(app);
@@ -55,6 +56,7 @@ app.use('/', authRouter)
 indexRouter(app, db);
 userRouter(app, db);
 postRouter(app, db);
+friendRouter(app, db);
 
 
 db.sequelize.sync().then( () => {
