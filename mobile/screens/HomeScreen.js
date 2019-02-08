@@ -8,9 +8,17 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+
+import SearchableDropdown from 'react-native-searchable-dropdown';
+import {Header} from 'react-native-elements';
+
 import { WebBrowser } from 'expo';
 
 import { MonoText } from '../components/StyledText';
+
+var items = [
+  {id: 1, name:'Eric',}, {id:2, name:'Ericson',}, {id:3, name:'John',}, {id:4, name:'test4',},
+];
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -20,8 +28,43 @@ export default class HomeScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+        <Header backgroundColor = "#FF0000"
+          leftComponent={{icon: 'menu', color: '#fff'}}
+          rightComponent={{icon: 'home', color: '#fff'}}
+        />
+
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+
         </ScrollView>
+
+        <SearchableDropdown
+          onTextChange={text => alert(text)}
+          onItemSelect={item => alert(JSON.stringify(item))}
+          containerStyle={{padding: 10, width: 300, position: 'absolute', alignSelf: 'center', top: 22}}
+          textInputStyle={{
+            padding: 5,
+            paddingHorizontal: 10,
+            borderWidth: 1,
+            borderColor: '#fff',
+            borderRadius: 5,
+            color: '#fff',
+          }}
+          itemStyle={{
+            padding: 10,
+            marginTop: 2,
+            backgroundColor: '#fff',
+            borderColor: '#f00',
+            borderWidth: 1,
+            borderRadius: 5,
+          }}
+          itemTextStyle={{color: '#000'}}
+          itemsContainerStyle={{maxHeight: 130}}
+          items={items}
+          // defaultIndex={2}
+          placeholder="Search"
+          underlineColorAndroid="transparent"
+        />
+
       </View>
     );
   }
