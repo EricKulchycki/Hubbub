@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
+<<<<<<< HEAD
 import Post from '../components/Post';
 import '../css/Post.css';
 import PostForm from './PostForm';
 import '../css/Postform.css';
+=======
+import Header from './Header'
+>>>>>>> Updated login page and implemented search bar+header bar
 
 class MainPage extends Component {
   constructor(props) {
@@ -12,6 +16,7 @@ class MainPage extends Component {
   }
    
   state = {
+<<<<<<< HEAD
     data :'',
     posts : [
         {
@@ -34,6 +39,34 @@ class MainPage extends Component {
         }
     ]
 
+=======
+    people: [
+      {
+        name: "Jon",
+        avatar: 1
+      },
+      {
+        name: "Mark",
+        avatar: 2
+      },
+      {
+        name: "Log",
+        avatar: 3
+      },
+      {
+        name: "Jonathan",
+        avatar: 3
+      },
+      {
+        name: "Jumbo",
+        avatar: 4
+      },
+      {
+        name: "Lorin",
+        avatar: 5
+      }
+    ]
+>>>>>>> Updated login page and implemented search bar+header bar
   }
   
   //pass this function as a prop to the child "postForm" so
@@ -50,6 +83,7 @@ class MainPage extends Component {
 
   render() {
     return (
+<<<<<<< HEAD
       //load a list of posts. in the posts them self, define how they shoudl look. then have the container just display that
      <div style={{backgroundColor: '#cc3300'}}>
      <div style={{marginLeft: '25%', marginRight: '25%', backgroundColor: '#f4f4f4'}}>
@@ -62,6 +96,10 @@ class MainPage extends Component {
           </div>
           
       </div>
+=======
+      <div className="MainPage">
+        <Header header={this.state.people}/>
+>>>>>>> Updated login page and implemented search bar+header bar
       </div>
     );
   }
