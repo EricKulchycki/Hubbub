@@ -23,7 +23,11 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.expo.Hubbub",
+    },
+    "android": {
+      "package": "com.expo.Hubbub",
     }
   }
 }
