@@ -1,6 +1,6 @@
 module.exports = (app, db) => {
 
-  const Op = db.Sequelize.Op;
+  const Op = db.sequelize.Op;
   
   app.get("/api/v1/post/:id", (req, res) => {
   	console.log("Requested post " + req.params.id);
