@@ -12,18 +12,47 @@ class MainPage extends Component {
     this.componentDidMount = this.componentDidMount.bind(this)
     this.updateFeed = this.updateFeed.bind(this)
     this.state = {
-      posts: []
+      
+      posts: [{user:{username: 'Steve'},title: 'Spiderman',category: 'Movie',body:'I liked this movie '}],
+      people: [
+        {
+          name: "Jon",
+          avatar: 1
+        },
+        {
+          name: "Mark",
+          avatar: 2
+        },
+        {
+          name: "Log",
+          avatar: 3
+        },
+        {
+          name: "Jonathan",
+          avatar: 3
+        },
+        {
+          name: "Jumbo",
+          avatar: 4
+        },
+        {
+          name: "Lorin",
+          avatar: 5
+        }
+  ]
     };
  }
    
   
 
   componentDidMount() {
-    axios.get(`http://localhost:4000/api/v1/posts/all`)
+    axios.get(`http://localhost:4000/api/v1/post/cat:MOVIE`)
     .then((response) => {
+      
+      if(response.data != null){
       this.setState({ posts : response.data});
       console.log(response);
-      
+      }
     })
     .catch(function (error) {
       console.log(error);
@@ -40,15 +69,15 @@ class MainPage extends Component {
 }
 
 
-
-
   render() {
     
     return (
       //load a list of posts. in the posts them self, define how they shoudl look. then have the container just display that
+     <div>
+     <div className="MainPage">
+      <Header header={this.state.people}/></div>
+     
      <div style={{backgroundColor: '#cc3300'}}>
-       <div className="MainPage">
-        <Header header={this.state.people}/></div>
      <div style={{marginLeft: '25%', marginRight: '25%', backgroundColor: '#f4f4f4'}}>
          <h1 style={{textAlign: 'center'}}>Activity Feed</h1>
           <div >
@@ -60,13 +89,10 @@ class MainPage extends Component {
           
       </div>
       </div>
+      </div>
     );
   }
 }
 
-//button, that on click renders a popup
-//so in the button, onClick method calls a render of a class
-//      <div className="MainPage">
-//<Header header={this.state.people}/>
 
 export default MainPage;
