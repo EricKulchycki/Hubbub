@@ -7,7 +7,9 @@ jobs:
     steps:
       - checkout
 
-      - run: ssh -o "StrictHostKeyChecking=no" root@142.93.147.148 " cd ..; 
+      - run: >
+        ssh -o "StrictHostKeyChecking=no" root@142.93.147.148
+        cd ..; 
         cd /home; 
         git fetch --all; 
         git reset --hard origin/master; 
