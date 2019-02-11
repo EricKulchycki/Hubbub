@@ -13,9 +13,11 @@ export default class OAuth extends Component {
   componentDidMount() {
     const { socket, provider } = this.props
 
-    socket.on(provider, user => {  
-      this.popup.close()
-      this.setState({user})
+    socket.on(provider, user => {
+		if(this.popup) {
+			this.popup.close()
+			this.setState({user})
+		}
     })
   }
 
