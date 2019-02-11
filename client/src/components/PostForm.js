@@ -27,8 +27,6 @@ class PostForm extends Component {
     }
   };
  
-  //add variable for the form text
-
  
   handleInputChange(event) {
     const target = event.target;
@@ -41,18 +39,17 @@ class PostForm extends Component {
   }
 
 
+
+
   handleFormSubmit() {
     axios.post('http://localhost:4000/api/v1/post/create',{ 
-    body: this.body,
-    category: this.category,
-    createdAt: "2019-02-08T21:05:05.000Z",
-    id: 9,
-    rating: null,
-    title: this.title,
-    updatedAt: "2019-02-08T21:05:05.000Z",
-    user: {createdAt: "2019-01-27T11:47:59.000Z", email: "test", firstName: "Albert", id: 1, lastName: "Einstein",
-            password: "test", updatedAt: "2019-01-27T11:48:03.000Z", username: "test"},
-    userId: 9}).then(function (response) {
+     JSON: {
+      title: this.title,
+      category: this.category,
+      body: this.body,
+      userId: 9,
+      rating: null
+  }}).then(function (response) {
       console.log(response);
     })
     .catch(function (error) {
@@ -84,7 +81,7 @@ class PostForm extends Component {
                     <FormGroup>
                         <Label style= {{    
                           display: 'flex',
-                          fontWeight: '600'}}>Category</Label>
+                          fontWeight: '600'}}>Title</Label>
                         <Input
                         value={this.state.title}
                         onChange={this.handleInputChange}

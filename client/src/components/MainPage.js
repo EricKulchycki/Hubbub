@@ -59,8 +59,7 @@ class MainPage extends Component {
     });
 }
 
-  //pass this function as a prop to the child "postForm" so
-  // that it can have access to the parents state
+
   updateFeed(newArray){
     newArray = Array.from(newArray);
     //console.log(newArray)
