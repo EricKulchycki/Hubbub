@@ -1,9 +1,9 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 26840,
-  "expoServerNgrokUrl": "https://k6-7f2.j-erasmo.mobile.exp.direct",
-  "packagerNgrokUrl": "https://packager.k6-7f2.j-erasmo.mobile.exp.direct",
-  "ngrokPid": 35400
+  "expoServerPort": null,
+  "packagerPort": null,
+  "packagerPid": null,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null
 }
