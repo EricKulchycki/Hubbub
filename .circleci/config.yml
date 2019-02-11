@@ -8,8 +8,7 @@ jobs:
       - checkout
 
       - run:
-        name: Build
-        command: |
+        - >-
           ssh -o "StrictHostKeyChecking=no" root@142.93.147.148 '
           cd ..; 
           cd /home; 
