@@ -7,4 +7,4 @@ jobs:
     steps:
       - checkout
 
-      - run: ssh -o "StrictHostKeyChecking=no" root@142.93.147.148 "cd ..; cd /home; git fetch --all; git reset --hard origin/master; git pull git@github.com:EricKulchycki/Hubbub.git; cd client; npm install; cd ..; cd server; npm install; npm audit fix; node app.js; forever stop app.js; forever start app.js;"
+      - run: ssh -o "StrictHostKeyChecking=no" root@142.93.147.148 "cd ..; cd /home; git fetch --all; git reset --hard origin/master; git pull git@github.com:EricKulchycki/Hubbub.git; cd client; npm install; cd ..; cd server; npm install; npm audit fix; forever stop app.js; forever start app.js;"
