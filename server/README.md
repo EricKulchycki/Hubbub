@@ -37,13 +37,17 @@ POST:
 
 /api/v1/user/create
 
+Body: JSON: {
+    username:
+    password:
+    email:
+}
+
 ### Get list of all users
 
-POST:
+GET:
 
-/api/v1/user/create
-
-Body: JSON: {firstName: }
+/api/v1/user/list
 
 ### Get post by id
 
@@ -81,3 +85,9 @@ Body: JSON: {
     userId:
     friendId:
 }
+
+### Get all posts from a given category
+
+GET:
+
+/api/v1/post/:cat
