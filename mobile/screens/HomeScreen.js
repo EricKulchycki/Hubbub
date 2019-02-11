@@ -10,7 +10,8 @@ import {
   Modal,
   TouchableHighlight,
   Picker,
-  TextInput
+  TextInput,
+  ActivityIndicator, ListView
 } from 'react-native';
 
 import SearchableDropdown from 'react-native-searchable-dropdown';
@@ -24,6 +25,7 @@ var items = [
   {id: 1, name:'Eric',}, {id:2, name:'Ericson',}, {id:3, name:'John',}, {id:4, name:'test4',},
 ];
 
+var friendsList;
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -36,7 +38,28 @@ export default class HomeScreen extends React.Component {
     nameOfMedia: '',
     checked: false,
     details: '',
+    friendData: [],
+    isLoading: true
   };
+
+  componentDidMount = () => {
+    fetch('http://192.168.100.125:4000/api/v1/friend/1', {
+      method: 'GET'
+    })
+    .then((response) => response.json())
+    .then((responseJson) => {
+      console.log(responseJson);
+      this.setState({
+        isLoading: false,
+        friendData: responseJson,
+      }, function(){
+
+      });
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+  }
 
   setModalVisible(visible){
     this.setState({modalVisible: visible});
@@ -47,6 +70,20 @@ export default class HomeScreen extends React.Component {
   }
 
   render() {
+    if(this.state.isLoading){
+      return(
+        <View>
+          <ActivityIndicator />
+        </View>
+      );
+    }
+    friendsList = this.state.friendData.map(function(item) {
+      return {
+        id: item.user.id,
+        name: item.user.firstName + " " + item.user.lastName
+      };
+    });
+    console.log(friendsList);
     return (
       <View style={styles.container}>
         <Header backgroundColor = "#FF0000"
@@ -70,7 +107,7 @@ export default class HomeScreen extends React.Component {
 
         <SearchableDropdown
           onTextChange={text => alert(text)}
-          onItemSelect={item => alert(JSON.stringify(item))}
+          onItemSelect={friendsList => alert(JSON.stringify(friendsList))}
           containerStyle={{padding: 10, width: 300, position: 'absolute', alignSelf: 'center', top: 22}}
           textInputStyle={{
             padding: 5,
@@ -90,7 +127,7 @@ export default class HomeScreen extends React.Component {
           }}
           itemTextStyle={{color: '#000'}}
           itemsContainerStyle={{maxHeight: 130}}
-          items={items}
+          items={friendsList}
           // defaultIndex={2}
           placeholder="Search"
           underlineColorAndroid="transparent"
@@ -159,7 +196,7 @@ export default class HomeScreen extends React.Component {
                 />
 
                 <TouchableHighlight
-                  style={{position: 'relative', left: 340}} 
+                  style={{position: 'relative', left: 340}}
                   onPress={() => {
                     this.setModalVisible(!this.state.modalVisible);
                   }}>
