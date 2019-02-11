@@ -90,4 +90,4 @@ Body: JSON: {
 
 GET:
 
-/api/v1/post/:cat
+/api/v1/post/?cat=category_wanted

@@ -40,7 +40,7 @@ module.exports = (app, db) => {
   });
 
   //Get all posts of a given category
-  app.get("/api/v1/post/:cat", (req, res) => {
+  app.get("/api/v1/posts/categories/:cat", (req, res) => {
     console.log("Requested posts " + req.params.cat);
   	db.post.findAll({
   		where: {
