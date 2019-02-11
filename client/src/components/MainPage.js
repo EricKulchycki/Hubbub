@@ -1,74 +1,35 @@
 import React, { Component } from 'react';
-<<<<<<< HEAD
+import Header from './Header'
 import Post from '../components/Post';
-import '../css/Post.css';
 import PostForm from './PostForm';
 import '../css/Postform.css';
-=======
-import Header from './Header'
->>>>>>> Updated login page and implemented search bar+header bar
+import axios from 'axios';
 
 class MainPage extends Component {
   constructor(props) {
     super(props)
 
+    this.componentDidMount = this.componentDidMount.bind(this)
     this.updateFeed = this.updateFeed.bind(this)
-  }
+    this.state = {
+      posts: []
+    };
+ }
    
-  state = {
-<<<<<<< HEAD
-    data :'',
-    posts : [
-        {
-          id: 1,
-          catagory: 'Action',
-          contentName: 'National Treasure',
-          body: 'Nick Cage is funny'
-        },
-        {
-          id: 2,
-          catagory: 'Action',
-          contentName: 'Spiderman',
-          body: 'I Like spiderman'
-        },
-        {
-          id: 3,
-          catagory: 'Horror',
-          contentName: 'Halloween',
-          body: 'It was Scary'
-        }
-    ]
-
-=======
-    people: [
-      {
-        name: "Jon",
-        avatar: 1
-      },
-      {
-        name: "Mark",
-        avatar: 2
-      },
-      {
-        name: "Log",
-        avatar: 3
-      },
-      {
-        name: "Jonathan",
-        avatar: 3
-      },
-      {
-        name: "Jumbo",
-        avatar: 4
-      },
-      {
-        name: "Lorin",
-        avatar: 5
-      }
-    ]
->>>>>>> Updated login page and implemented search bar+header bar
-  }
   
+
+  componentDidMount() {
+    axios.get(`http://localhost:4000/api/v1/posts/all`)
+    .then((response) => {
+      this.setState({ posts : response.data});
+      console.log(response);
+      
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+}
+
   //pass this function as a prop to the child "postForm" so
   // that it can have access to the parents state
   updateFeed(newArray){
@@ -82,24 +43,22 @@ class MainPage extends Component {
 
 
   render() {
+    
     return (
-<<<<<<< HEAD
       //load a list of posts. in the posts them self, define how they shoudl look. then have the container just display that
      <div style={{backgroundColor: '#cc3300'}}>
+       <div className="MainPage">
+        <Header header={this.state.people}/></div>
      <div style={{marginLeft: '25%', marginRight: '25%', backgroundColor: '#f4f4f4'}}>
          <h1 style={{textAlign: 'center'}}>Activity Feed</h1>
           <div >
-            <Post post={this.state.posts} />
+          <Post post={this.state.posts} />
           </div>
           <div>
           <PostForm updateFeed={this.updateFeed}/>
           </div>
           
       </div>
-=======
-      <div className="MainPage">
-        <Header header={this.state.people}/>
->>>>>>> Updated login page and implemented search bar+header bar
       </div>
     );
   }
@@ -107,6 +66,7 @@ class MainPage extends Component {
 
 //button, that on click renders a popup
 //so in the button, onClick method calls a render of a class
-
+//      <div className="MainPage">
+//<Header header={this.state.people}/>
 
 export default MainPage;
