@@ -43,7 +43,7 @@ POST:
 
 /api/v1/user/create
 
-Body: JSON: {firstName: value }
+Body: JSON: {firstName: }
 
 ### Get post by id
 
@@ -61,7 +61,7 @@ Body: JSON: {
     title:
     category:
     body:
-    userID:
+    userId:
     rating:
 }
 
@@ -78,6 +78,6 @@ POST:
 /api/v1/friend/create
 
 Body: JSON: {
-    userID:
-    friendID:
+    userId:
+    friendId:
 }
