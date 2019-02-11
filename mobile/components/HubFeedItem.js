@@ -6,18 +6,18 @@ export default class HubFeedItem extends React.Component{
   render(){
     return(
       <View>
-        <Text style = {styles.name}>
-          {post.userID}
+        <Text>
+          {this.props.name}
         </Text>
-        <Text style = {styles.title}>
-
+        <Text>
+          {this.props.title}
         </Text>
         <Rating
-          startingValue = {post.rating}
+          startingValue = {this.props.rating}
           readonly = {true}
         />
-        <Text style = {styles.rating}>
-
+        <Text>
+          {this.props.body}
         </Text>
 
       </View>

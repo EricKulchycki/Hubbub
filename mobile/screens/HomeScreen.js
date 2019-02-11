@@ -10,6 +10,7 @@ import {
   List,
   FlatList
 } from 'react-native';
+import HubFeedItem from '../components/HubFeedItem';
 import { WebBrowser } from 'expo';
 
 
@@ -23,44 +24,43 @@ export default class HomeScreen extends React.Component {
       user:props.user
     };
   }
-  static navigationOptions = {
-    header: null,
-  };
 
   arrayholder = [];
 
-  getRemoteRequest = () => {
-    const url = 'http://localhost:4000/api/v1/posts/all';
+  componentDidMount(){
+    const url = 'http://192.168.0.115:4000/api/v1/posts/all';
     this.setState({loading: true});
 
     fetch(url)
-    .then(res => res.json())
-    .then(res => {
+    .then((res) => res.json())
+    .then((resJson) => {
       this.setState({
-        data: res.results,
-        error: res.error || null,
+        data: resJson,
         loading: false,
       });
-
-      this.arrayholder = res.results
+      console.log(resJson[0].title);
+      this.arrayholder = resJson
     })
     .catch(error => {
+      console.log("cannot get posts");
       this.setState({ error, loading:false });
     })
-  };
+  }
 
   render() {
     return (
       <View style={styles.container}>
-          <Text> HomeScreen </Text>
           <FlatList
             data = {this.state.data}
             renderItem={({item}) => (
               <HubFeedItem
-                post = {item}
+                name = {item.user.username}
+                title = {item.title}
+                rating = {item.rating}
+                body = {item.body}
               />
             )}
-            ItemSeparatorComponent= {this.renderSeparator}
+            keyExtractor={item => item.id.toString()}
           />
       </View>
     );
