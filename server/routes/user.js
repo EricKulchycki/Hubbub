@@ -23,7 +23,7 @@ module.exports = (app, db) => {
   });
   
   app.post("/api/v1/user/list", (req, res) => {
-    console.log("Requested user");
+    console.log("Requested users");
   	console.log(req.body);
   	let firstNameValue = req.body.firstName.toLowerCase();
   	db.user.findAll({
@@ -32,4 +32,6 @@ module.exports = (app, db) => {
 	  	}
   	}).then( (result) => res.json(result) );
   });
+
+
 }
