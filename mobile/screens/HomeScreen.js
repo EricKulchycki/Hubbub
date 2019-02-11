@@ -8,7 +8,13 @@ import {
   TouchableOpacity,
   View,
   List,
-  FlatList
+  FlatList,
+  Modal,
+  TouchableHighlight,
+  Picker,
+  TextInput,
+  ActivityIndicator,
+  ListView
 } from 'react-native';
 import HubFeedItem from '../components/HubFeedItem';
 import { WebBrowser } from 'expo';
@@ -18,7 +24,12 @@ export default class HomeScreen extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      loading: false,
+      modalVisible:false,
+      pickerSelection: '',
+      checked: false,
+      details:'',
+      friendData: [],
+      loading: true,
       data: [],
       error:null,
       user:props.user
