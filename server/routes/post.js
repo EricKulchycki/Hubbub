@@ -38,4 +38,15 @@ module.exports = (app, db) => {
 		  include: [db.user]
 	}).then( (result) => res.json(result) );
   });
+
+  //Get all posts of a given category
+  app.get("/api/v1/post/:cat", (req, res) => {
+  	console.log("Requested post " + req.params.cat);
+  	db.post.findAll({
+  		where: {
+  			category: req.params.cat
+  		},
+	  	include: [db.user]
+  	}).then( (result) => res.json(result));
+  });
 }
