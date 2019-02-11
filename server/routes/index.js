@@ -10,9 +10,9 @@ module.exports = (app, db) => {
   });
 		//create post will have different values send in the message body
 		//should be sent in JSON, then must parse and store in db
-		app.put("/createpost/", (req, res) => 
-			db.posts.store({
+		// app.put("/createpost/", (req, res) => 
+		// 	db.posts.store({
 				
-			});	
-		);
+		// 	});	
+		// );
 }
