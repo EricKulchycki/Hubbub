@@ -20,7 +20,7 @@ export default class HomeScreen extends React.Component {
       loading: false,
       data: [],
       error:null,
-      user:null
+      user:props.user
     };
   }
   static navigationOptions = {
@@ -30,7 +30,7 @@ export default class HomeScreen extends React.Component {
   arrayholder = [];
 
   getRemoteRequest = () => {
-    const url = '';
+    const url = 'http://localhost:4000/api/v1/posts/all';
     this.setState({loading: true});
 
     fetch(url)
@@ -55,9 +55,11 @@ export default class HomeScreen extends React.Component {
           <Text> HomeScreen </Text>
           <FlatList
             data = {this.state.data}
-          /*renderItem={({item}) => (
-              //Insert "Post" component here <- TODO: CREATE POST VIEW COMPONENT
-            )}*/
+            renderItem={({item}) => (
+              <HubFeedItem
+                post = {item}
+              />
+            )}
             ItemSeparatorComponent= {this.renderSeparator}
           />
       </View>
