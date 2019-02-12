@@ -14,37 +14,10 @@ class MainPage extends Component {
     this.state = {
       
       posts: [{user:{username: 'Steve'},title: 'Spiderman',category: 'Movie',body:'I liked this movie '}],
-      people: [
-        {
-          name: "Jon",
-          avatar: 1
-        },
-        {
-          name: "Mark",
-          avatar: 2
-        },
-        {
-          name: "Log",
-          avatar: 3
-        },
-        {
-          name: "Jonathan",
-          avatar: 3
-        },
-        {
-          name: "Jumbo",
-          avatar: 4
-        },
-        {
-          name: "Lorin",
-          avatar: 5
-        }
-  ]
+      people: []
     };
  }
-   
   
-
   componentDidMount() {
     axios.get(`http://localhost:4000/api/v1/post/cat:MOVIE`)
     .then((response) => {
@@ -58,15 +31,21 @@ class MainPage extends Component {
       console.log(error);
     });
 }
-
-
+  
   updateFeed(newArray){
     newArray = Array.from(newArray);
     //console.log(newArray)
   //Array.prototype.push.apply(newArray,  this.posts);   
   this.setState({posts: newArray})
 }
-
+  
+  // query database for user suggestions by using user input
+  searchUsers = (firstName) => {
+    axios.post(`http://localhost:4000/api/v1/user/list`, {
+      firstName: firstName
+  })
+    .then(res => this.setState({ people: res.data}));
+    }
 
   render() {
     
@@ -74,7 +53,8 @@ class MainPage extends Component {
       //load a list of posts. in the posts them self, define how they shoudl look. then have the container just display that
      <div>
      <div className="MainPage">
-      <Header header={this.state.people}/></div>
+      <Header header={this.state.people} searchUsers={this.searchUsers}/>
+     </div>
      
      <div style={{backgroundColor: '#cc3300'}}>
      <div style={{marginLeft: '25%', marginRight: '25%', backgroundColor: '#f4f4f4'}}>
