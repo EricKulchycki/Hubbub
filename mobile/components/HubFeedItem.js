@@ -5,7 +5,7 @@ import {Rating} from 'react-native-elements'
 export default class HubFeedItem extends React.Component{
   render(){
     return(
-      <View>
+      <View style={{paddingHorizontal: 5}}>
         <Text>
           {this.props.name}
         </Text>

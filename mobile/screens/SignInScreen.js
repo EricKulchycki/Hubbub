@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     flex: 1,
-    backgroundColor: '#ff4136'
+    backgroundColor: '#a93226'
   },
   icon: {
     height: 200,
