@@ -37,8 +37,6 @@ class HomePage extends Component {
 			/>
        )}
           <p style={pStyle}>Your friends share your taste. Keep up with the real critics.</p>
-          
-          
         </div>
       </div>
     );
