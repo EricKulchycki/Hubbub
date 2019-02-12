@@ -1,6 +1,6 @@
 module.exports = (app, db) => {
 
-  //const Op = db.sequelize.Op;
+  const Op = db.sequelize.Op;
   
   app.get("/api/v1/post/:id", (req, res) => {
   	console.log("Requested post " + req.params.id);
@@ -27,17 +27,17 @@ module.exports = (app, db) => {
   });
 
   // TEMPORARY ROUTE FOR TESTING - SHOULD DELETE OR MODIFY FOR FRIENDS
-  // app.get("/api/v1/posts/all", (req, res) => {
-  // 	console.log("Requested all posts");
-  //   db.post.findAll({
-  // 		where: {
-  // 			id: {
-	// 			  [Op.gt]: 0
-	// 	  	}
-  // 		},
-	// 	  include: [db.user]
-	// }).then( (result) => res.json(result) );
-  // });
+   app.get("/api/v1/posts/all", (req, res) => {
+   	console.log("Requested all posts");
+    db.post.findAll({
+   		where: {
+   			id: {
+	 			  [Op.gt]: 0
+	 	  	}
+   		},
+	 	  include: [db.user]
+	 }).then( (result) => res.json(result) );
+   });
 
   //Get all posts of a given category
   app.get("/api/v1/posts/categories/:cat", (req, res) => {
