@@ -26,6 +26,7 @@ import { WebBrowser } from 'expo';
 // ];
 var friendsList;
 
+
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
     header: null,
@@ -107,8 +108,8 @@ export default class HomeScreen extends React.Component {
   render() {
     if(this.state.loading){
       return(
-        <View>
-          <ActivityIndicator />
+        <View style={{flex: 1, justifyContent: 'center', flexDirection: 'row'}}>
+          <ActivityIndicator size={100} color="#d98880"/>
         </View>
       );
     }
@@ -124,7 +125,7 @@ export default class HomeScreen extends React.Component {
         <Header backgroundColor = "#a93226"
           leftComponent={
               <Icon
-                iconStyle={{alignSelf: 'flex-start', right: 7}}
+                iconStyle={{alignSelf: 'flex-start', paddingRight: 10}}
                 name='alpha-h'
                 type='material-community'
                 size={50}
@@ -255,7 +256,7 @@ export default class HomeScreen extends React.Component {
           underlineColorAndroid="transparent"
         />
         <TouchableHighlight
-          style={{position: 'relative', alignSelf: 'flex-end'}}
+          style={{position: 'absolute', alignSelf: 'flex-end', bottom: 0}}
           onPress={() => {
             this.setModalVisible(true);
           }}>
