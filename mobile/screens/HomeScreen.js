@@ -50,7 +50,7 @@ export default class HomeScreen extends React.Component {
 
 
   componentDidMount(){
-    const url = 'http://192.168.100.125:4000/api/v1/posts/all';
+    const url = 'http://142.93.147.148:4000/api/v1/posts/all';
     this.setState({loading: true});
 
     fetch(url)
@@ -68,7 +68,7 @@ export default class HomeScreen extends React.Component {
       this.setState({ error, loading:false });
     })
 
-    fetch('http://192.168.100.125:4000/api/v1/friend/1', {
+    fetch('http://142.93.147.148:4000/api/v1/friend/1', {
       method: 'GET'
     })
     .then((response) => response.json())
@@ -255,7 +255,7 @@ export default class HomeScreen extends React.Component {
           underlineColorAndroid="transparent"
         />
         <TouchableHighlight
-          style={{position: 'relative', alignSelf: 'flex-end'}}
+          style={{position: 'absolute', alignSelf: 'flex-end', bottom:0}}
           onPress={() => {
             this.setModalVisible(true);
           }}>
