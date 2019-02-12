@@ -160,7 +160,7 @@ export default class HomeScreen extends React.Component {
     if(this.state.loading){
       return(
         <View style={{flex: 1, justifyContent: 'center', flexDirection: 'row'}}>
-          <ActivityIndicator size={100} color="#d98880"/>
+          <ActivityIndicator size='small' color="#d98880"/>
         </View>
       );
     }
