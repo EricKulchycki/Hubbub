@@ -45,9 +45,13 @@ Body: JSON: {
 
 ### Get list of all users
 
-GET:
+POST:
 
 /api/v1/user/list
+
+Body: JSON: {
+    firstName:
+}
 
 ### Get post by id
 
