@@ -21,9 +21,6 @@ import HubFeedItem from '../components/HubFeedItem';
 import SearchableDropdown from 'react-native-searchable-dropdown';
 import { WebBrowser } from 'expo';
 
-// var items = [
-//   {id: 1, name:'Eric',}, {id:2, name:'Ericson',}, {id:3, name:'John',}, {id:4, name:'test4',},
-// ];
 var friendsList;
 
 
@@ -35,26 +32,27 @@ export default class HomeScreen extends React.Component {
     super(props);
     this.state = {
       modalVisible:false,
-      pickerSelection: '',
-      checked: false,
+      pickerSelection: 'MOVIE',
       nameOfMedia: '',
+      givenRating: 3,
+      checked: false,
       details:'',
       friendData: [],
       loading: true,
       data: [],
       error:null,
-      user:props.user
+      user:props.user,
     };
   }
 
   arrayholder = [];
 
-
+/*React calls this after all the elements of the page is rendered correctly*/
   componentDidMount(){
-    const url = 'http://142.93.147.148:4000/api/v1/posts/all';
+    const url = 'http://142.93.147.148:4000';
     this.setState({loading: true});
 
-    fetch(url)
+    fetch(url + '/api/v1/posts/all')
     .then((res) => res.json())
     .then((resJson) => {
       this.setState({
@@ -69,7 +67,7 @@ export default class HomeScreen extends React.Component {
       this.setState({ error, loading:false });
     })
 
-    fetch('http://142.93.147.148:4000/api/v1/friend/1', {
+    fetch(url + '/api/v1/friend/1', {
       method: 'GET'
     })
     .then((response) => response.json())
@@ -87,12 +85,65 @@ export default class HomeScreen extends React.Component {
     });
   }
 
-  setModalVisible(visible){
+/*updates the state if the new post pop up is visible*/
+  setModalVisible = (visible) => {
     this.setState({modalVisible: visible});
   }
+/*updates the state for given rating*/
+  ratingCompleted = (rating) => {
+    this.setState({givenRating: rating});
+    alert(rating);
+  }
+/*sends a post request then refreshes the feed*/
+  createNewPost = () => {
+    const url = 'http://142.93.147.148:4000';
+    console.log(this.state.nameOfMedia);
+    console.log(this.state.pickerSelection);
+    console.log(this.state.details);
+    console.log(this.state.givenRating);
+    if(!this.state.checked){
+      fetch(url + '/api/v1/post/create', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          title: this.state.nameOfMedia,
+          category: this.state.pickerSelection,
+          body: this.state.details,
+          userId: 1,
+          rating: this.state.givenRating,
+        }),
+      });
+    }
+    else{
+      alert("No post created");
+    }
+    this.refreshHubFeed();
+    this.setModalVisible(!this.state.modalVisible);
 
-  ratingCompleted(rating){
-    alert(rating)
+
+  }
+/*sends another get request for posts to update the feed*/
+  refreshHubFeed = () => {
+    const url = 'http://142.93.147.148:4000';
+    this.setState({loading: true});
+
+    fetch(url + '/api/v1/posts/all')
+    .then((res) => res.json())
+    .then((resJson) => {
+      this.setState({
+        data: resJson,
+      });
+      console.log(resJson[0].title);
+      this.arrayholder = resJson
+    })
+    .catch(error => {
+      console.log("cannot get posts");
+      this.setState({ error, loading:false });
+    })
+    this.setState({loading: false});
   }
 
   renderSeparator = () => (
@@ -119,7 +170,8 @@ export default class HomeScreen extends React.Component {
         name: item.user.firstName + " " + item.user.lastName
       };
     });
-    //console.log(friendsList);
+    console.log(this.state.data);
+
     return (
       <View style={styles.container}>
         <Header backgroundColor = "#a93226"
@@ -134,17 +186,16 @@ export default class HomeScreen extends React.Component {
           }
         />
 
-       <Modal
-        animationType="slide"
-        transparent={false}
-        visible={this.state.modalVisible}
-        onRequestClose={() => {
-          alert('Modal has been closed.');
-          this.setModalVisible(!this.state.modalVisible);
-       }}>
-        <ScrollView>
-          <View style={{paddingHorizontal: 5, marginTop: 22}}>
-            <View>
+        <Modal
+          animationType="slide"
+          transparent={false}
+          visible={this.state.modalVisible}
+          onRequestClose={() => {
+            alert('Modal has been closed.');
+            this.setModalVisible(!this.state.modalVisible);
+          }}>
+          <ScrollView>
+            <View style={{paddingHorizontal: 5, marginTop: 22}}>
               <Text style = {{fontWeight: 'bold', fontSize: 34}}>
               New Post
               </Text>
@@ -157,10 +208,10 @@ export default class HomeScreen extends React.Component {
                 onValueChange={(itemValue, itemIndex) =>
                   this.setState({pickerSelection: itemValue})
                 }>
-                <Picker.Item label="Movie" value="0"/>
-                <Picker.Item label="TV-Show" value="1"/>
-                <Picker.Item label="Video Game" value="2"/>
-                <Picker.Item label="Comic" value="3"/>
+                <Picker.Item label="Movie" value="MOVIE"/>
+                <Picker.Item label="TV-Show" value="TV-SHOW"/>
+                <Picker.Item label="Video Game" value="VIDEO GAME"/>
+                <Picker.Item label="Comic" value="COMIC"/>
               </Picker>
 
               <Text style = {{paddingTop: 10, fontSize: 22}}>
@@ -172,50 +223,62 @@ export default class HomeScreen extends React.Component {
                 value={this.state.nameOfMedia}
               />
 
-             <Text style = {{paddingTop: 10, fontSize: 22}}>
+              <Text style = {{paddingTop: 10, fontSize: 22}}>
               Rating
-             </Text>
-             <Rating
-               onFinishRating={this.ratingCompleted}
-             />
-             <CheckBox
-               title='Disable Rating'
-               checked={this.state.checked}
-               onPress={() => this.setState({checked: !this.state.checked})}
-             />
+              </Text>
+              <Rating
+                onFinishRating={this.ratingCompleted}
+              />
+              <CheckBox
+                title='Disable Rating'
+                checked={this.state.checked}
+                onPress={() => this.setState({checked: !this.state.checked})}
+              />
 
-             <Text style = {{paddingTop: 10, fontSize: 22}}>
+              <Text style = {{paddingTop: 10, fontSize: 22}}>
               Details
-             </Text>
-             <TextInput
-               multiline={true}
-               textAlignVertical= 'top'
-               scrollEnabled={true}
-               numberOfLines={4}
-               style = {{paddingHorizontal: 5, borderColor: '#ccd1d1', borderWidth: 1}}
-               onChangeText={(details) => this.setState({details})}
-               value={this.state.details}
-             />
+              </Text>
+              <TextInput
+                multiline={true}
+                textAlignVertical= 'top'
+                scrollEnabled={true}
+                numberOfLines={4}
+                style = {{paddingHorizontal: 5, borderColor: '#ccd1d1', borderWidth: 1}}
+                onChangeText={(details) => this.setState({details})}
+                value={this.state.details}
+              />
 
-             <TouchableHighlight
-               style={{position: 'relative', alignSelf: 'flex-end'}}
-               onPress={() => {
-                 this.setModalVisible(!this.state.modalVisible);
-               }}>
-               <Icon
-                 reverse
-                 name='add-circle'
-                 type='material'
-                 size={24}
-                 color='#a93226'/>
-             </TouchableHighlight>
-
-             </View>
             </View>
-         </ScrollView>
-       </Modal>
+          </ScrollView>
 
-       <FlatList
+          <TouchableHighlight
+            style={{position: 'absolute', alignSelf: 'flex-start', bottom: 0}}
+            onPress={() => {
+              this.setModalVisible(!this.state.modalVisible);
+            }}>
+            <Icon
+              reverse
+              name='remove-circle'
+              type='material'
+              size={24}
+              color='#a93226'/>
+          </TouchableHighlight>
+
+          <TouchableHighlight
+            style={{position: 'absolute', alignSelf: 'flex-end', bottom: 0}}
+            onPress={() => {
+              this.createNewPost();
+            }}>
+            <Icon
+              reverse
+              name='add-circle'
+              type='material'
+              size={24}
+              color='#a93226'/>
+          </TouchableHighlight>
+        </Modal>
+
+        <FlatList
           data = {this.state.data}
           renderItem={({item}) => (
             <HubFeedItem
@@ -227,33 +290,32 @@ export default class HomeScreen extends React.Component {
           )}
           ItemSeparatorComponent = {this.renderSeparator}
           keyExtractor={item => item.id.toString()}
-       />
-       <SearchableDropdown
-         onTextChange={text => alert(text)}
-         onItemSelect={friendsList => alert(JSON.stringify(friendsList))}
-         containerStyle={{padding: 10, width: 300, position: 'absolute', alignSelf: 'center', top: 22}}
-         textInputStyle={{
-           padding: 5,
-           paddingHorizontal: 10,
-           borderWidth: 1,
-           borderColor: '#ccd1d1',
-           borderRadius: 5,
-           color: '#ccd1d1',
+        />
+        <SearchableDropdown
+          onTextChange={text => alert(text)}
+          onItemSelect={friendsList => alert(JSON.stringify(friendsList))}
+          containerStyle={{padding: 10, width: 300, position: 'absolute', alignSelf: 'center', top: 22}}
+          textInputStyle={{
+            padding: 5,
+            paddingHorizontal: 10,
+            borderWidth: 1,
+            borderColor: '#ccd1d1',
+            borderRadius: 5,
+            color: '#ccd1d1',
          }}
          itemStyle={{
-           padding: 10,
-           marginTop: 2,
-           backgroundColor: '#ccd1d1',
+            padding: 10,
+            marginTop: 2,
+            backgroundColor: '#ccd1d1',
             borderColor: '#a93226',
             borderWidth: 1,
             borderRadius: 5,
-          }}
-          itemTextStyle={{color: '#000'}}
-          itemsContainerStyle={{maxHeight: 130}}
-          items={friendsList}
-          // defaultIndex={2}
-          placeholder="Search"
-          underlineColorAndroid="transparent"
+         }}
+         itemTextStyle={{color: '#000'}}
+         itemsContainerStyle={{maxHeight: 130}}
+         items={friendsList}
+         placeholder="Search"
+         underlineColorAndroid="transparent"
         />
         <TouchableHighlight
           style={{position: 'absolute', alignSelf: 'flex-end', bottom: 0}}
