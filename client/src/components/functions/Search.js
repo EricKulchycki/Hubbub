@@ -3,35 +3,19 @@ import React, { Component } from 'react'
 export class Search extends Component {
   state = {
       query: '',
-      result: [],
   }
 
+  // prevents user from entering search
   enterPress(event) {
      event.preventDefault();
   }
 
+  // retrieve user input that will be used to query the database
   handleInput = () => {
       this.setState({
           query: this.search.value
       }, () => {
-          let tempList = [];
-          let newList = [];
-        
-          if (this.state.query && this.state.query.length > 1) {
-              tempList = this.props.ser;
-              newList = tempList.filter(data => {
-                  const dataLower = data.name.toLowerCase();
-                  const queryLower = this.state.query.toLowerCase();
-                  return dataLower.includes(queryLower);
-              });
-              
-          }else {
-             newList = [];
-          }
-
-          this.setState({
-              result: newList
-          })
+          return this.props.searchUsers(this.state.query);
       })
   }
   
@@ -45,11 +29,13 @@ export class Search extends Component {
                 list="people"
                 style={searchStyle}                
             />
-            <datalist id="people" >
-                {this.state.result.map((res) =>
-                    <option value={res.name}/>
-                    )}
-            </datalist>       
+            <datalist id="people" > {/*diplay user suggestions */}
+                {this.props.ser.map((res) => (
+                    <React.Fragment>
+                    <option value={res.firstName}/>                    
+                    </React.Fragment>
+                ))}
+            </datalist>     
         </form>
     )
   }
