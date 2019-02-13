@@ -13,19 +13,16 @@ exports.twitter = (req, res) => {
 
 exports.google = (req, res) => {
   const io = req.app.get('io')
-  var user = { 
-    name: req.user.displayName,
-    photo: req.user.photos[0].value.replace(/sz=50/gi, 'sz=250')
-  }
   userClass.getUser(req.app, db, req.user.emails[0].value).then((foundUser) => {
-		if(foundUser) {
+		if (foundUser) {
 			console.log("User Exists");
-			io.in(req.session.socketId).emit('google', user);
+			foundUser.dataValues.photo = req.user.photos[0].value.replace(/sz=50/gi, 'sz=250');
+			io.in(req.session.socketId).emit('google', foundUser);
 		} else {
 			userClass.createUser(req.app, db, req.user).then((createdUser) => {
 				console.log("Created User");
-				console.log(createdUser);
-				io.in(req.session.socketId).emit('google', user);
+				createdUser.dataValues.photo = req.user.photos[0].value.replace(/sz=50/gi, 'sz=250');
+				io.in(req.session.socketId).emit('google', createdUser);
 			});
 		}
   });
