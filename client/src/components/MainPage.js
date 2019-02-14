@@ -19,7 +19,7 @@ class MainPage extends Component {
  }
   
   componentDidMount() {
-    axios.get(`http://localhost:4000/api/v1/post/cat:MOVIE`)
+    axios.get(`http://localhost:4000/api/v1/posts/all`)
     .then((response) => {
       
       if(response.data != null){

@@ -35,6 +35,7 @@ class PostForm extends Component {
 
     this.setState({
       [name]: value
+    
     });
   }
 
@@ -42,14 +43,18 @@ class PostForm extends Component {
 
 
   handleFormSubmit() {
+
+    console.log(this.state.title)
+    console.log(this.state.category)
+    console.log(this.state.body)
+
     axios.post('http://localhost:4000/api/v1/post/create',{ 
-     JSON: {
-      title: this.title,
-      category: this.category,
-      body: this.body,
-      userId: 9,
+     title: this.state.title,
+      category: this.state.category,
+      body: this.state.body,
+      userId: 20,
       rating: null
-  }}).then(function (response) {
+  }).then(function (response) {
       console.log(response);
     })
     .catch(function (error) {
