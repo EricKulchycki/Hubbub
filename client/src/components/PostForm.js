@@ -55,15 +55,6 @@ class PostForm extends Component {
     console.log(this.state.body)
 
     axios.post('http://localhost:4000/api/v1/post/create',{ 
-<<<<<<< HEAD
-     title: this.state.title,
-      category: this.state.category,
-      body: this.state.body,
-      userId: 20,
-      rating: null
-  }).then(function (response) {
-      console.log(response);
-=======
       title: this.state.title,
       category: this.state.category,
       body: this.state.body,
@@ -71,7 +62,6 @@ class PostForm extends Component {
       rating: null
   }).then(function (response) {
 	 
->>>>>>> 52fe6986190a190f42a79639eb24227fc5f79683
     })
     .catch(function (error) {
       console.log(error);
