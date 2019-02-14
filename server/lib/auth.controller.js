@@ -12,20 +12,23 @@ exports.twitter = (req, res) => {
 }
 
 exports.google = (req, res) => {
+  console.log(req);
   const io = req.app.get('io')
-  var user = { 
-    name: req.user.displayName,
-    photo: req.user.photos[0].value.replace(/sz=50/gi, 'sz=250')
-  }
+  //foundUser is a user from the database
   userClass.getUser(req.app, db, req.user.emails[0].value).then((foundUser) => {
-		if(foundUser) {
-			console.log("User Exists");
-			io.in(req.session.socketId).emit('google', user);
+		if (foundUser) {
+
+      console.log("User Exists");
+      //.dataValues is part of the sequelize library, accesses values of the user.
+      foundUser.dataValues.photo = req.user.photos[0].value.replace(/sz=50/gi, 'sz=250');
+      //emit sends the data over the socket to the client
+      io.in(req.session.socketId).emit('google', foundUser);
+      
 		} else {
 			userClass.createUser(req.app, db, req.user).then((createdUser) => {
 				console.log("Created User");
-				console.log(createdUser);
-				io.in(req.session.socketId).emit('google', user);
+				createdUser.dataValues.photo = req.user.photos[0].value.replace(/sz=50/gi, 'sz=250');
+				io.in(req.session.socketId).emit('google', createdUser);
 			});
 		}
   });
