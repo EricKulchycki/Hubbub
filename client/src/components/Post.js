@@ -10,14 +10,14 @@ class Post extends Component {
   }
 
   render() {
-    return this.props.post.map((i)  => (
+    return  (
       <div style={this.getStyle()}>
-      <h1 style={{fontSize:'16px', textAlign: 'left', margin: '0%'}}> {i.user.username} </h1>
-      <h2  style={{fontSize:'13px', textAlign: 'left', margin: '0%'}}>{i.title} </h2>
-       <h3  style={{fontSize:'12px', textAlign: 'left', margin: '0%'}} >Category: {i.category}</h3>
-        <p  style={{fontSize:'12px'}} >{i.body}</p>
+      <h1 style={{fontSize:'16px', textAlign: 'left', margin: '0%'}}> {this.props.post.user.username} </h1>
+      <h2  style={{fontSize:'13px', textAlign: 'left', margin: '0%'}}>{this.props.post.title} </h2>
+       <h3  style={{fontSize:'12px', textAlign: 'left', margin: '0%'}} >Category: {this.props.post.category}</h3>
+        <p  style={{fontSize:'12px'}} >{this.props.post.body}</p>
         </div>
-    ));
+    );
   }
 }
 

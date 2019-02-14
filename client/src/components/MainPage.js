@@ -25,7 +25,6 @@ class MainPage extends Component {
       
       if(response.data != null){
       this.setState({ posts : response.data});
-      console.log(response);
       }
     })
     .catch(function (error) {
@@ -34,9 +33,7 @@ class MainPage extends Component {
 }
   
   updateFeed(newArray){
-    newArray = Array.from(newArray);
-    //console.log(newArray)
-  //Array.prototype.push.apply(newArray,  this.posts);   
+  newArray = Array.from(newArray); 
   this.setState({posts: newArray})
 }
   
@@ -57,14 +54,20 @@ class MainPage extends Component {
       //load a list of posts. in the posts them self, define how they shoudl look. then have the container just display that
      <div>
      <div className="MainPage">
-      <Header header={this.state.people} searchUsers={this.searchUsers}/>
+      <Header header={this.state.people} />
      </div>
      
      <div style={{backgroundColor: '#cc3300'}}>
      <div style={{marginLeft: '25%', marginRight: '25%', backgroundColor: '#f4f4f4'}}>
          <h1 style={{textAlign: 'center'}}>Activity Feed</h1>
           <div >
-          <Post post={this.state.posts} />
+		  <ul>
+				{this.state.posts.map(post => (
+					<li key={post.id}>
+						<Post post={post} />
+					</li>
+				))}
+		  </ul>
           </div>
           <div>
           <PostForm updateFeed={this.updateFeed}/>

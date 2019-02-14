@@ -43,14 +43,13 @@ class PostForm extends Component {
 
   handleFormSubmit() {
     axios.post('http://localhost:4000/api/v1/post/create',{ 
-     JSON: {
-      title: this.title,
-      category: this.category,
-      body: this.body,
+      title: this.state.title,
+      category: this.state.category,
+      body: this.state.body,
       userId: 9,
       rating: null
-  }}).then(function (response) {
-      console.log(response);
+  }).then(function (response) {
+  
     })
     .catch(function (error) {
       console.log(error);
