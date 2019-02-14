@@ -19,6 +19,7 @@ import {
 import {Header, Icon, Rating, CheckBox} from 'react-native-elements';
 import HubFeedItem from '../components/HubFeedItem';
 import SearchableDropdown from 'react-native-searchable-dropdown';
+import CreatePostButton from '../components/CreatePostButton';
 import { WebBrowser } from 'expo';
 
 var friendsList;
@@ -122,8 +123,6 @@ export default class HomeScreen extends React.Component {
     }
     this.refreshHubFeed();
     this.setModalVisible(!this.state.modalVisible);
-
-
   }
 /*sends another get request for posts to update the feed*/
   refreshHubFeed = () => {
@@ -186,97 +185,10 @@ export default class HomeScreen extends React.Component {
           }
         />
 
-        <Modal
-          animationType="slide"
-          transparent={false}
-          visible={this.state.modalVisible}
-          onRequestClose={() => {
-            alert('Modal has been closed.');
-            this.setModalVisible(!this.state.modalVisible);
-          }}>
-          <ScrollView>
-            <View style={{paddingHorizontal: 5, marginTop: 22}}>
-              <Text style = {{fontWeight: 'bold', fontSize: 34}}>
-              New Post
-              </Text>
-
-              <Text style = {{paddingTop: 10, fontSize: 22}}>
-              Category
-              </Text>
-              <Picker
-                selectedValue={this.state.pickerSelection}
-                onValueChange={(itemValue, itemIndex) =>
-                  this.setState({pickerSelection: itemValue})
-                }>
-                <Picker.Item label="Movie" value="MOVIE"/>
-                <Picker.Item label="TV-Show" value="TV-SHOW"/>
-                <Picker.Item label="Video Game" value="VIDEO GAME"/>
-                <Picker.Item label="Comic" value="COMIC"/>
-              </Picker>
-
-              <Text style = {{paddingTop: 10, fontSize: 22}}>
-                Name of media
-              </Text>
-              <TextInput
-                style = {{paddingHorizontal: 5, borderColor: '#ccd1d1', borderWidth: 1}}
-                onChangeText={(nameOfMedia) => this.setState({nameOfMedia})}
-                value={this.state.nameOfMedia}
-              />
-
-              <Text style = {{paddingTop: 10, fontSize: 22}}>
-              Rating
-              </Text>
-              <Rating
-                onFinishRating={this.ratingCompleted}
-              />
-              <CheckBox
-                title='Disable Rating'
-                checked={this.state.checked}
-                onPress={() => this.setState({checked: !this.state.checked})}
-              />
-
-              <Text style = {{paddingTop: 10, fontSize: 22}}>
-              Details
-              </Text>
-              <TextInput
-                multiline={true}
-                textAlignVertical= 'top'
-                scrollEnabled={true}
-                numberOfLines={4}
-                style = {{paddingHorizontal: 5, borderColor: '#ccd1d1', borderWidth: 1}}
-                onChangeText={(details) => this.setState({details})}
-                value={this.state.details}
-              />
-
-            </View>
-          </ScrollView>
-
-          <TouchableHighlight
-            style={{position: 'absolute', alignSelf: 'flex-start', bottom: 0}}
-            onPress={() => {
-              this.setModalVisible(!this.state.modalVisible);
-            }}>
-            <Icon
-              reverse
-              name='remove-circle'
-              type='material'
-              size={24}
-              color='#a93226'/>
-          </TouchableHighlight>
-
-          <TouchableHighlight
-            style={{position: 'absolute', alignSelf: 'flex-end', bottom: 0}}
-            onPress={() => {
-              this.createNewPost();
-            }}>
-            <Icon
-              reverse
-              name='add-circle'
-              type='material'
-              size={24}
-              color='#a93226'/>
-          </TouchableHighlight>
-        </Modal>
+        <CreatePostButton
+          refreshFeed = {() => { this.refreshHubFeed()}}
+          setModalVisible = {this.state.modalVisible}
+        />
 
         <FlatList
           data = {this.state.data}
@@ -329,6 +241,7 @@ export default class HomeScreen extends React.Component {
             size={24}
             color='#a93226'/>
         </TouchableHighlight>
+
       </View>
     );
   }
