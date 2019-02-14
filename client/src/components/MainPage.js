@@ -5,6 +5,7 @@ import PostForm from './PostForm';
 import '../css/Postform.css';
 import axios from 'axios';
 
+
 class MainPage extends Component {
   constructor(props) {
     super(props)
@@ -13,7 +14,7 @@ class MainPage extends Component {
     this.updateFeed = this.updateFeed.bind(this)
     this.state = {
       
-      posts: [{user:{username: 'Steve'},title: 'Spiderman',category: 'Movie',body:'I liked this movie '}],
+      posts: [],
       people: []
     };
  }
@@ -41,10 +42,13 @@ class MainPage extends Component {
   
   // query database for user suggestions by using user input
   searchUsers = (firstName) => {
-    axios.post(`http://localhost:4000/api/v1/user/list`, {
-      firstName: firstName
-  })
-    .then(res => this.setState({ people: res.data}));
+		if (firstName.length <= 0) {
+			this.setState({ people: []});
+			return;
+		}
+		axios.post(`http://localhost:4000/api/v1/user/list`, {
+			firstName: firstName
+		}).then(res => { this.setState({ people: res.data}); });
     }
 
   render() {

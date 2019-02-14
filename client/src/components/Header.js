@@ -8,7 +8,7 @@ export class Header extends Component {
   render() {
     return (
       <header style={headerStyle}>
-      <Link to='/main'><img src={logo} style={imgStyle} alt="logo"/></Link> {/* refreshes the main page*/}
+      <Link to='/main'><img src={logo} style={imgStyle} alt="logo"/></Link>
       <Search ser={this.props.header} searchUsers={this.props.searchUsers}/>  
       </header>
     );
