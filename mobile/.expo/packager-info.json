@@ -1,9 +1,9 @@
 {
-  "expoServerNgrokUrl": "https://ib-5p9.j-erasmo.mobile.exp.direct",
-  "packagerNgrokUrl": "https://packager.ib-5p9.j-erasmo.mobile.exp.direct",
-  "ngrokPid": 3544,
-  "packagerPort": 19001,
-  "packagerPid": 40156,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null,
+  "packagerPort": null,
+  "packagerPid": null,
   "devToolsPort": 19002,
-  "expoServerPort": 19000
+  "expoServerPort": null
 }
