@@ -19,7 +19,7 @@ signIn = async () => {
       this.setState({
             user: user
       });
-      this.props.navigation.navigate('App', {user: this.user});
+      this.props.navigation.navigate('Home', {user: this.user});
     }
     else{
       console.log("cancelled");

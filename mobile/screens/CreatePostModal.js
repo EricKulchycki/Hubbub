@@ -1,8 +1,8 @@
 import React from 'react';
-import {Modal, Picker, Text, TextInput, ScrollView, TouchableHighlight} from 'react-native';
-import {Icon, Rating, Checkbox} from 'react-native-elements';
+import {View, Modal, Picker, Text, TextInput, ScrollView, TouchableHighlight} from 'react-native';
+import {Icon, Rating, CheckBox} from 'react-native-elements';
 
-export default class CreatePostButton extends React.Component{
+export default class CreatePostModal extends React.Component{
     constructor(props){
       super(props);
       this.state = {
@@ -13,6 +13,10 @@ export default class CreatePostButton extends React.Component{
           checked: false,
           details:'',
       };
+    }
+
+    setModalVisible = (visible) =>{
+      this.setState({modalVisible:visible});
     }
 
     /*updates the state for given rating*/
@@ -47,18 +51,19 @@ export default class CreatePostButton extends React.Component{
           alert("No post created");
         }
         this.props.refreshFeed();
-        this.setModalVisible(!this.state.modalVisible);
+        this.setModalVisible(false);
     }
 
     render(){
       return(
+        <View style={{flex:1}}>
         <Modal
           animationType="slide"
           transparent={false}
           visible={this.state.modalVisible}
           onRequestClose={() => {
             alert('Modal has been closed.');
-            this.setModalVisible(!this.state.modalVisible);
+            this.setModalVisible(false);
           }}>
           <ScrollView>
             <View style={{paddingHorizontal: 5, marginTop: 22}}>
@@ -120,7 +125,7 @@ export default class CreatePostButton extends React.Component{
           <TouchableHighlight
             style={{position: 'absolute', alignSelf: 'flex-start', bottom: 0}}
             onPress={() => {
-              this.setModalVisible(!this.state.modalVisible);
+              this.setModalVisible(false);
             }}>
             <Icon
               reverse
@@ -142,9 +147,7 @@ export default class CreatePostButton extends React.Component{
               color='#a93226'/>
           </TouchableHighlight>
         </Modal>
-
-
-
+        </View>
       );
     }
 }

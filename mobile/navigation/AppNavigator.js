@@ -1,6 +1,7 @@
 import React from 'react'
 import HomeScreen from '../screens/HomeScreen'
 import SignInScreen from '../screens/SignInScreen'
+import CreatePostModal from '../screens/CreatePostModal'
 import AuthLoadingScreen from '../screens/AuthLoadingScreen'
 import { createAppContainer, createStackNavigator, createSwitchNavigator } from 'react-navigation';
 
