@@ -1,0 +1,15 @@
+.background-primary {
+	background-color: #A93226;
+}
+
+.header-layout {
+	padding: 9px 20px;
+	position: relative;
+}
+
+.logo-style {
+	max-width: 2%;
+	max-height: 4%;
+	overflow: hidden;
+	border: 4px;
+}
