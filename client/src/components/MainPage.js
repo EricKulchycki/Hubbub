@@ -20,7 +20,9 @@ class MainPage extends Component {
  }
   
   componentDidMount() {
-    axios.get(`http://localhost:4000/api/v1/posts/all`)
+    axios.post(`http://localhost:4000/api/v1/posts/all`, {
+			userId: 1
+		})
     .then((response) => {
       
       if(response.data != null){
