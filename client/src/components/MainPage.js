@@ -20,9 +20,8 @@ class MainPage extends Component {
  }
   
   componentDidMount() {
-    axios.post(`http://localhost:4000/api/v1/posts/all`, {
-			userId: 1
-		})
+    let reqURI = "http://localhost:4000/api/v1/posts/allFriends/" + "1";
+    axios.get(reqURI)
     .then((response) => {
       
       if(response.data != null){
