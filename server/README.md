@@ -53,26 +53,6 @@ Body: JSON: {
     firstName:
 }
 
-### Get post by id
-
-GET:
-
-/api/v1/post/:id
-
-### Create new post
-
-POST:
-
-/api/v1/post/create
-
-Body: JSON: {
-    title:
-    category:
-    body:
-    userId:
-    rating:
-}
-
 ### Get all friends for given user
 
 GET:
@@ -95,3 +75,31 @@ Body: JSON: {
 GET:
 
 /api/v1/posts/categories/:cat
+
+### Get post by id
+
+GET:
+
+/api/v1/post/:id
+
+### Create new post
+
+POST:
+
+/api/v1/post/create
+
+Body: JSON: {
+    title:
+    category:
+    body:
+    userId:
+    rating:
+}
+
+### get all of a users friends posts
+
+GET:
+
+/api/v1/posts/allFriends/:userId
+
+userId is the ID of the currently logged in user, the posts from all the currently logged in users friends will be sent back in json format.

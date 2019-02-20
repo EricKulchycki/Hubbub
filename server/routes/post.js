@@ -29,22 +29,22 @@ module.exports = (app, db) => {
     }).then( (result) => res.json(result) );
   });
 
-   //Get all posts of friends given a userId
-   app.post("/api/v1/posts/all", (req, res) => {
-	console.log("Requested all posts");
-	let userId = req.body.userId;
-	// Get the users friends, store the ids in a list, and then get a list of posts using those ids
-	friendModule.getFriends(app, db, userId).then( (friends) => {
-		var friendIds = friends.map(function(friend) {return friend.user.id;});
-		db.post.findAll({
-			where: {
-				userId: {
-					[Op.or]: friendIds
-				}
-			},
-			include: [db.user]
-		}).then( (result) => res.json(result) );
-	});
+	//Get all posts of friends given a userId
+	app.get("/api/v1/posts/allFriends/:userId", (req, res) => {
+		let userId = req.params.userId;
+		console.log("Requested all posts from " + userId + "'s friends");
+		// Get the users friends, store the ids in a list, and then get a list of posts using those ids
+		friendModule.getFriends(app, db, userId).then( (friends) => {
+			var friendIds = friends.map(function(friend) {return friend.user.id;});
+			db.post.findAll({
+				where: {
+					userId: {
+						[Op.or]: friendIds
+					}
+				},
+				include: [db.user]
+			}).then( (result) => res.json(result) );
+		});
    });
 
   //Get all posts of a given category
