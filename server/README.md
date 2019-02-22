@@ -70,6 +70,17 @@ Body: JSON: {
     friendId:
 }
 
+### Delete a friendship
+
+POST:
+
+/api/v1/friend/delete
+
+Body: JSON: {
+    userId:
+    friendId:
+}
+
 ### Get all posts from a given category
 
 GET:
