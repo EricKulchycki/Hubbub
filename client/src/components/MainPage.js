@@ -3,6 +3,8 @@ import Header from './Header'
 import Post from '../components/Post';
 import PostForm from './PostForm';
 import '../css/Postform.css';
+import '../css/Application.css';
+import '../css/MainPage.css';
 import axios from 'axios';
 
 
@@ -20,7 +22,8 @@ class MainPage extends Component {
  }
   
   componentDidMount() {
-    axios.get(`http://localhost:4000/api/v1/posts/all`)
+    let reqURI = "http://localhost:4000/api/v1/posts/allFriends/" + "1";
+    axios.get(reqURI)
     .then((response) => {
       
       if(response.data != null){
@@ -51,31 +54,28 @@ class MainPage extends Component {
   render() {
     
     return (
-      //load a list of posts. in the posts them self, define how they shoudl look. then have the container just display that
-     <div>
-     <div className="MainPage">
-      <Header header={this.state.people} />
-     </div>
-     
-     <div style={{backgroundColor: '#cc3300'}}>
-     <div style={{marginLeft: '25%', marginRight: '25%', backgroundColor: '#f4f4f4'}}>
-         <h1 style={{textAlign: 'center'}}>Activity Feed</h1>
-          <div >
-		  <ul>
-				{this.state.posts.map(post => (
-					<li key={post.id}>
-						<Post post={post} />
-					</li>
-				))}
-		  </ul>
-          </div>
-          <div>
-          <PostForm updateFeed={this.updateFeed}/>
-          </div>
-          
-      </div>
-      </div>
-      </div>
+		//load a list of posts. in the posts them self, define how they shoudl look. then have the container just display that
+		<div>
+			<div className="MainPage">
+				<Header header={this.state.people} />
+			</div>
+			
+			<div className="application-background-primary">
+				<div className="application-background-secondary post-list-layout">
+					<h1 className="text-center">Activity Feed</h1>
+					<div>
+						{this.state.posts.map(post => (
+							<li key={post.id}>
+								<Post post={post} />
+							</li>
+						))}
+					</div>
+					<div>
+						<PostForm updateFeed={this.updateFeed}/>
+					</div>
+				</div>
+			</div>
+		</div>
     );
   }
 }
