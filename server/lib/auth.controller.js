@@ -12,7 +12,6 @@ exports.twitter = (req, res) => {
 }
 
 exports.google = (req, res) => {
-  console.log(req);
   const io = req.app.get('io')
   //foundUser is a user from the database
   userClass.getUser(req.app, db, req.user.emails[0].value).then((foundUser) => {

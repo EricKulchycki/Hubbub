@@ -3,6 +3,12 @@
 
 Hubbub is a social media platform that allows users to share and review media they consume with friends. 
 
+To hit the endpoints on our backend server, please use the address http://142.93.147.148:4000
+
+[Link for mobile apk:](https://expo.io/artifacts/65bdf30e-1a1d-4e92-8ba4-d87c19a70551)
+
+All mobile code for sprint 1 is in modile_s1. 
+
 Instructions to Run:
 
 1. Enter server folder ( 'cd server' )

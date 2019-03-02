@@ -1,0 +1,22 @@
+.background-primary {
+	background-color: #A93226;
+}
+
+.header-layout {
+	color: '#FFFFFF',
+}
+
+.logo-style {
+	max-height: 45%;
+	max-width: 3%;
+	border-radius: 4px;
+	position: absolute;
+	top: 15px;
+	left: 16px;
+}
+
+.greet-style {
+	position: absolute;
+	top: 15px;
+	right: 200px;
+}
