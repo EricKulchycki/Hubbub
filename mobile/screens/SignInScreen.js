@@ -1,44 +1,43 @@
 import React from 'react'
 import { StyleSheet, Text, View, Image, Button, Platform } from "react-native"
 import * as Constants from 'expo-constants';
-import {Google} from 'expo'
+import {WebBrowser, Linking} from 'expo';
 import GoogleSignInButton from "../components/GoogleSignInButton";
-
-
-
-signIn = async () => {
-  try {
-    const result = await Google.logInAsync({
-      androidClientId: "95848856284-t9lde7p79l0i22dcp3oc47rr47566gc7.apps.googleusercontent.com",
-      iosClientId: "95848856284-mo1fa9cfmojhjionnbq548sm3eoqfubo.apps.googleusercontent.com",
-      webClientId: "95848856284-c286cmuj00kroedj58ufbpnddqm5g6b9.apps.googleusercontent.com",
-      scopes: ['profile', 'email']
-    });
-
-    if (result.type === "success") {
-      this.setState({
-            user: user
-      });
-      this.props.navigation.navigate('Home', {user: this.user});
-    }
-    else{
-      console.log("cancelled");
-    }
-  }
-  catch(e){
-    console.log("error", e);
-  }
-}
+import io from 'socket.io-client';
 
 
 export default class SignInScreen extends React.Component {
   constructor(props){
     super(props);
-    this.state = {user: null};
+    this.state = {
+      user: {},
+    }
+    socket = io('http://142.93.147.148:4000');
   }
+
+
   static navigationOptions = () => ({
     header: null,
   });
+
+  componentDidMount() {
+    socket.on('google', response => {
+      console.log("user object retrieved form server."); 
+        if(logInVisible){
+          this.setState({
+            user: response,
+          });
+          WebBrowser.dismissBrowser();
+          this.props.navigation.navigate('App', {user: this.state.user});
+        }
+    });
+  }
+
+signIn = async() =>{
+  url = 'http://142.93.147.148:4000/google?socketId=${socket.id}';
+  redirectUrl = Linking.makeUrl();
+  WebBrowser.openAuthSessionAsync(url, redirectUrl);
+}
 
  render() {
    return (
@@ -47,7 +46,7 @@ export default class SignInScreen extends React.Component {
           style = {styles.icon}
           source = {require('../assets/images/alpha-h-box/drawable-hdpi/ic_alpha_h_box_grey600_48dp.png')}
         />
-        <GoogleSignInButton  onPress ={() => this.props.navigation.navigate('App', {user: this.state.user})}>
+      <GoogleSignInButton  onPress ={this.signIn}>
             Sign In With Google!
         </GoogleSignInButton>
      </View>

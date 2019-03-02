@@ -6,17 +6,19 @@ export default class HubFeedItem extends React.Component{
   render(){
     return(
       <View style={{paddingHorizontal: 5}}>
-        <Text>
+        <Text style = {styles.name}>
           {this.props.name}
         </Text>
-        <Text>
+        <Text style = {styles.title}>
           {this.props.title}
         </Text>
         <Rating
           startingValue = {this.props.rating}
           readonly = {true}
+          imageSize = {25}
+          style = {styles.rating}
         />
-        <Text>
+        <Text style = {styles.body}>
           {this.props.body}
         </Text>
 
@@ -29,8 +31,17 @@ const styles = StyleSheet.create({
   container:{},
   imageContainer:{},
   contentContainer:{},
-  name:{},
-  title:{},
-  rating:{},
-  body:{}
-})
+  name:{
+    fontSize: 18
+  },
+  title:{
+    fontWeight: 'bold',
+    fontSize: 20
+  },
+  rating:{
+    alignItems: 'flex-start'
+  },
+  body:{
+    fontSize: 15
+  }
+});
