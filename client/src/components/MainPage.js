@@ -21,10 +21,10 @@ class MainPage extends Component {
       people: [],
       friends: [],
     };
- }
+     }
   
   componentDidMount() {
-    let reqURI = "http://localhost:4000/api/v1/posts/allFriends/" + "1";
+    let reqURI = "http://localhost:4000/api/v1/posts/allFriends/1"; //+1
     axios.get(reqURI)
     .then((response) => {
       

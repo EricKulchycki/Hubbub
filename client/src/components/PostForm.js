@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Popup from "reactjs-popup";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
-
+import Rating from 'react-rating';
 
 import {
     Container, Col, Form,
@@ -50,15 +50,15 @@ class PostForm extends Component {
 
   handleFormSubmit() {
 
-    console.log(this.state.title)
-    console.log(this.state.category)
-    console.log(this.state.body)
+    //console.log(this.state.title)
+    //console.log(this.state.category)
+    //console.log(this.state.body)
 
     axios.post('http://localhost:4000/api/v1/post/create',{ 
       title: this.state.title,
       category: this.state.category,
       body: this.state.body,
-      userId: 9,
+      userId: 9,					///change to get the user id
       rating: null
   }).then(function (response) {
 	 
@@ -115,7 +115,10 @@ class PostForm extends Component {
 								placeholder="Movie Category"
 								/>
 							</FormGroup>
-							</Col>
+							</Col> 
+								<Col> <Label>Rating:</Label><Rating initialRating={0} emptySymbol="fa fa-star-o fa-2x" fullSymbol="fa fa-star fa-2x"/>
+								</Col>
+				
 							<Col>
 							<FormGroup>
 								<Label style= {{    
