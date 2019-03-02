@@ -17,8 +17,11 @@ class OAuth extends Component {
     socket.on(provider, user => {
 		if(this.popup) {
 			this.popup.close()
-      this.setState({user})
-      this.props.history.push("/main");
+      //this.setState({user})
+      this.props.history.push({
+        pathname: '/main',
+        data: user
+      });
 		}
     })
   }
