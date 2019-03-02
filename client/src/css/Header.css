@@ -3,20 +3,13 @@
 }
 
 .header-layout {
-	color: '#FFFFFF',
+	padding: 9px 20px;
+	position: relative;
 }
 
 .logo-style {
-	max-height: 45%;
-	max-width: 3%;
-	border-radius: 4px;
-	position: absolute;
-	top: 15px;
-	left: 16px;
-}
-
-.greet-style {
-	position: absolute;
-	top: 15px;
-	right: 200px;
+	max-width: 2%;
+	max-height: 4%;
+	overflow: hidden;
+	border: 4px;
 }
