@@ -188,7 +188,9 @@ export default class HomeScreen extends React.Component {
                 color='#ccd1d1'
                 />
             </TouchableHighlight>
+          }
         />
+
         <FlatList
           data = {this.state.data}
           renderItem={({item}) => (
