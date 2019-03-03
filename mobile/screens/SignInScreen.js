@@ -22,7 +22,7 @@ export default class SignInScreen extends React.Component {
 
   componentDidMount() {
     socket.on('google', response => {
-      console.log("user object retrieved form server."); 
+      console.log("user object retrieved form server.");
         if(logInVisible){
           this.setState({
             user: response,
@@ -34,7 +34,7 @@ export default class SignInScreen extends React.Component {
   }
 
 signIn = async() =>{
-  url = 'http://142.93.147.148:4000/google?socketId=${socket.id}';
+  url = 'http://142.93.147.148:4000/google?socketId='+socket.id;
   redirectUrl = Linking.makeUrl();
   WebBrowser.openAuthSessionAsync(url, redirectUrl);
 }

@@ -36,4 +36,3 @@ exports.GITHUB_CONFIG = {
   clientSecret: process.env.GITHUB_SECRET,
   callbackURL: githubURL
 }
-
