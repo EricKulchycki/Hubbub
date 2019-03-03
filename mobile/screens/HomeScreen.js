@@ -57,7 +57,7 @@ export default class HomeScreen extends React.Component {
   componentDidMount(){
     this.setState({loading: true});
 
-    fetch(url + '/api/v1/posts/all')
+    fetch(url + '/api/v1/posts/allFriends/1')
     .then((res) => res.json())
     .then((resJson) => {
       this.setState({
@@ -114,7 +114,7 @@ export default class HomeScreen extends React.Component {
   renderSeparator = () => (
     <View
       style={{
-        backgroundColor: 'red',
+        backgroundColor: '#5e5f60',
         height: 0.5,
       }}
     />
@@ -141,12 +141,39 @@ export default class HomeScreen extends React.Component {
         <Header backgroundColor = "#a93226"
           leftComponent={
               <Icon
-                iconStyle={{alignSelf: 'flex-start', paddingRight: 10}}
+                iconStyle = {{left: 0}}
                 name='alpha-h'
                 type='material-community'
                 size={50}
                 color='#ccd1d1'
               />
+          }
+          centerComponent = {
+            <SearchableDropdown
+              onItemSelect={friendsList => alert(JSON.stringify(friendsList))}
+              containerStyle={{padding: 10, width: 300, alignSelf: 'center'}}
+              textInputStyle={{
+                padding: 5,
+                paddingHorizontal: 10,
+                borderWidth: 1,
+                borderColor: '#ccd1d1',
+                borderRadius: 5,
+                color: '#ccd1d1',
+              }}
+              itemStyle={{
+                padding: 10,
+                marginTop: 2,
+                backgroundColor: '#ccd1d1',
+                borderColor: '#a93226',
+                borderWidth: 1,
+                borderRadius: 5,
+              }}
+              itemTextStyle={{color: '#000'}}
+              itemsContainerStyle={{maxHeight: 130}}
+              items={friendsList}
+              placeholder="Search"
+              underlineColorAndroid="transparent"
+            />
           }
           rightComponent={
             <TouchableHighlight
@@ -159,10 +186,8 @@ export default class HomeScreen extends React.Component {
                 type='material'
                 size={35}
                 color='#ccd1d1'
-                //underlayColor=
                 />
             </TouchableHighlight>
-          }
         />
         <FlatList
           data = {this.state.data}
@@ -177,32 +202,7 @@ export default class HomeScreen extends React.Component {
           ItemSeparatorComponent = {this.renderSeparator}
           keyExtractor={item => item.id.toString()}
         />
-        <SearchableDropdown
-          onTextChange={text => alert(text)}
-          onItemSelect={friendsList => alert(JSON.stringify(friendsList))}
-          containerStyle={{padding: 10, width: 300, position: 'absolute', alignSelf: 'center', top: 22}}
-          textInputStyle={{
-            padding: 5,
-            paddingHorizontal: 10,
-            borderWidth: 1,
-            borderColor: '#ccd1d1',
-            borderRadius: 5,
-            color: '#ccd1d1',
-          }}
-          itemStyle={{
-            padding: 10,
-            marginTop: 2,
-            backgroundColor: '#ccd1d1',
-            borderColor: '#a93226',
-            borderWidth: 1,
-            borderRadius: 5,
-          }}
-          itemTextStyle={{color: '#000'}}
-          itemsContainerStyle={{maxHeight: 130}}
-          items={friendsList}
-          placeholder="Search"
-          underlineColorAndroid="transparent"
-        />
+
         <CreatePostModal
           ref = {createPost => {this.createPost = createPost}}
           refreshFeed = {() => { this.refreshHubFeed()}}
