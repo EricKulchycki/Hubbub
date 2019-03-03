@@ -2,6 +2,13 @@
   text-align: center;
 }
 
+.login {
+  background-color: #FF0000;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 40vmin;
@@ -39,11 +46,9 @@
 }
 
 .container {
-  display: flex;
   justify-content: center;
   align-items: center;
   justify-content: space-around;
-  height: 87vh;
   width: 90vw;  
 }
 
@@ -96,22 +101,22 @@ button {
   background: none;
   color: inherit;
   border: none;
-  padding: 0;
   font: inherit;
   cursor: pointer;
   outline: inherit;
   margin-bottom: 20px;
+  margin-right: 18%;
+  float: right;
 }
 
 /* Shared button styles */
 .button-wrapper {
-  height: 300px;
+  height: 150px;
 }
 
 button {
-  border-radius: 50%;
-  width: 215px;
-  height: 215px;
+  width: 100px;
+  height: 50px;
   box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.25);
   transition-timing-function: ease-in;
   transition: 0.3s;
@@ -150,7 +155,7 @@ button:hover span {
 /* Google */
 button.google {
   border: 3px solid #ffffff;
-  background: #0057e7;
+  background: #999;
 }
 
 button.google:hover {

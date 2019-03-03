@@ -3,7 +3,7 @@ import io from 'socket.io-client'
 import OAuth from '../authentication/OAuth'
 import { API_URL } from '../authentication/config'
 import axios from 'axios';
-import logo from '../logo.svg';
+import logo from './images/alpha-h-box.png';
 import '../css/Home.css';
 const socket = io(API_URL)
 //const providers = ['twitter', 'google', 'facebook', 'github']
@@ -25,25 +25,38 @@ class HomePage extends Component {
   
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>Server is saying:</p>
-          <p>
-            {this.state.data}
-          </p>
+      <div className="login">
+        <div >
+          <p style={pStyle}>Login</p>
+          <img src={logo} style={imgStyle} alt="logo" />
 		  {providers.map(provider => 
 			<OAuth 
 				provider={provider}
 				key={provider}
 				socket={socket}
 			/>
-		   )}
-          
-        </header>
+       )}
+          <p style={pStyle}>Your friends share your taste. Keep up with the real critics.</p>
+        </div>
       </div>
     );
   }
 }
+
+const pStyle = {
+  textAlign: 'right',
+  marginRight: '20%',
+  color: 'white'
+}
+
+const imgStyle = {
+  marginLeft: '10%',
+  marginTop: '10%',
+  width: '25%',
+  height: '25%',
+  float: 'left'
+}
+
+
 
 export default HomePage;

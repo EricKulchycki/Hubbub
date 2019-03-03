@@ -1,14 +1,19 @@
+// Libraries
 var bodyParser = require("body-parser"); 
 var createError = require('http-errors');
 var express = require('express'); 
 var path = require('path');
 var cookieParser = require('cookie-parser');
+const url = require('url');  
+const querystring = require('querystring'); 
 const morgan = require('morgan');
 const passport = require('passport')
 const session = require('express-session')
 const cors = require('cors')
 const http = require('http')
 const socketio = require('socket.io')
+// Import local files
+process.env.NODE_ENV = 'development'; // Options are 'development' or 'production'
 const authRouter = require('./lib/auth.router')
 const passportInit = require('./lib/passport.init')
 const { SESSION_SECRET, CLIENT_ORIGIN } = require('./config/socialmedia')
