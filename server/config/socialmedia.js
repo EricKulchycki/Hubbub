@@ -2,8 +2,8 @@ const providers = ['twitter', 'google', 'facebook', 'github']
 
 const callbacks = providers.map(provider => {
   return process.env.NODE_ENV === 'production'
-    ? `http://localhost:4000/${provider}/callback`
-    : `http://localhost:4000/${provider}/callback`
+    ? `http://hubbub.gersh.in:4000/${provider}/callback`
+    : `http://hubbub.gersh.in:4000/${provider}/callback`
 })
 
 const [twitterURL, googleURL, facebookURL, githubURL] = callbacks
