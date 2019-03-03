@@ -45,9 +45,47 @@ Body: JSON: {
 
 ### Get list of all users
 
-GET:
+POST:
 
 /api/v1/user/list
+
+Body: JSON: {
+    firstName:
+}
+
+### Get all friends for given user
+
+GET:
+
+/api/v1/friend/:id
+
+### Create a friendship (one user follows another)
+
+POST:
+
+/api/v1/friend/create
+
+Body: JSON: {
+    userId:
+    friendId:
+}
+
+### Delete a friendship
+
+POST:
+
+/api/v1/friend/delete
+
+Body: JSON: {
+    userId:
+    friendId:
+}
+
+### Get all posts from a given category
+
+GET:
+
+/api/v1/posts/categories/:cat
 
 ### Get post by id
 
@@ -69,25 +107,10 @@ Body: JSON: {
     rating:
 }
 
-### Get all friends for given user
+### get all of a users friends posts
 
 GET:
 
-/api/v1/friend/:id
+/api/v1/posts/allFriends/:userId
 
-### Create a friendship (one user follows another)
-
-POST:
-
-/api/v1/friend/create
-
-Body: JSON: {
-    userId:
-    friendId:
-}
-
-### Get all posts from a given category
-
-GET:
-
-/api/v1/post/:cat
+userId is the ID of the currently logged in user, the posts from all the currently logged in users friends will be sent back in json format.
