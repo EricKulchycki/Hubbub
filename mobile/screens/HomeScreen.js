@@ -16,6 +16,7 @@ import CreatePostModal from '../screens/CreatePostModal';
 import { WebBrowser } from 'expo';
 
 var friendsList;
+const url = 'http://142.93.147.148:4000';
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -34,9 +35,26 @@ export default class HomeScreen extends React.Component {
 
   arrayholder = [];
 
+  makeRequest = (method, resource) => { //finish this once authentication works
+    fetch(url + resource), {
+      method: method
+    }
+    .then((res) => res.json())
+    .then((resJson) => {
+      this.setState({
+        data: resJson,
+      });
+      console.log(resJson[0].title);
+      this.arrayholder = resJson
+    })
+    .catch(error => {
+      console.log("cannot get " + resource);
+      this.setState({ error, loading:false });
+    })
+  }
+
 /*React calls this after all the elements of the page is rendered correctly*/
   componentDidMount(){
-    const url = 'http://142.93.147.148:4000';
     this.setState({loading: true});
 
     fetch(url + '/api/v1/posts/all')
@@ -74,7 +92,6 @@ export default class HomeScreen extends React.Component {
 
 /*sends another get request for posts to update the feed*/
   refreshHubFeed = () => {
-    const url = 'http://142.93.147.148:4000';
     this.setState({loading: true});
 
     fetch(url + '/api/v1/posts/all')
@@ -130,6 +147,21 @@ export default class HomeScreen extends React.Component {
                 size={50}
                 color='#ccd1d1'
               />
+          }
+          rightComponent={
+            <TouchableHighlight
+              onPress={() =>
+                this.props.navigation.navigate('Profile', {user: this.state.user, creating: false})
+              }>
+              <Icon
+                iconStyle={{alignSelf: 'flex-start'}}
+                name='perm-identity'
+                type='material'
+                size={35}
+                color='#ccd1d1'
+                //underlayColor=
+                />
+            </TouchableHighlight>
           }
         />
         <FlatList
