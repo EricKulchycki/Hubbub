@@ -2,8 +2,9 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import FontAwesome from 'react-fontawesome'
 import { API_URL } from './config'
+import {withRouter} from 'react-router';
 
-export default class OAuth extends Component {
+class OAuth extends Component {
   
   state = {
     user: {},
@@ -16,7 +17,8 @@ export default class OAuth extends Component {
     socket.on(provider, user => {
 		if(this.popup) {
 			this.popup.close()
-			this.setState({user})
+      this.setState({user})
+      this.props.history.push("/main");
 		}
     })
   }
@@ -80,9 +82,7 @@ export default class OAuth extends Component {
                 onClick={this.startAuth} 
                 className={`${provider} ${disabled} button`}
               >
-                <FontAwesome
-                  name={provider}
-                />
+                Google Sign-in
               </button>
             </div>
         }
@@ -95,3 +95,5 @@ OAuth.propTypes = {
   provider: PropTypes.string.isRequired,
   socket: PropTypes.object.isRequired
 }
+
+export default withRouter(OAuth);

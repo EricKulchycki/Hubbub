@@ -1,7 +1,9 @@
 module.exports = (app, db) => {
 
   const Op = db.sequelize.Op;
+  const friendModule = require("../modules/friends/friend");
   
+  //Get a post given an id
   app.get("/api/v1/post/:id", (req, res) => {
   	console.log("Requested post " + req.params.id);
   	db.post.findOne({
@@ -12,9 +14,10 @@ module.exports = (app, db) => {
   	}).then( (result) => res.json(result) );
   });
   
+  //Create a new post
   app.post("/api/v1/post/create", (req, res) => {
     console.log("Requested new post creation");
-	  console.log(req.body);
+	console.log(req.body);
     db.post.create({
       title: req.body.title,
       category: req.body.category,
@@ -26,22 +29,27 @@ module.exports = (app, db) => {
     }).then( (result) => res.json(result) );
   });
 
-  // TEMPORARY ROUTE FOR TESTING - SHOULD DELETE OR MODIFY FOR FRIENDS
-  app.get("/api/v1/posts/all", (req, res) => {
-  	console.log("Requested all posts");
-    db.post.findAll({
-  		where: {
-  			id: {
-				  [Op.gt]: 0
-		  	}
-  		},
-		  include: [db.user]
-	}).then( (result) => res.json(result) );
-  });
+	//Get all posts of friends given a userId
+	app.get("/api/v1/posts/allFriends/:userId", (req, res) => {
+		let userId = req.params.userId;
+		console.log("Requested all posts from " + userId + "'s friends");
+		// Get the users friends, store the ids in a list, and then get a list of posts using those ids
+		friendModule.getFriends(app, db, userId).then( (friends) => {
+			var friendIds = friends.map(function(friend) {return friend.user.id;});
+			db.post.findAll({
+				where: {
+					userId: {
+						[Op.or]: friendIds
+					}
+				},
+				include: [db.user]
+			}).then( (result) => res.json(result) );
+		});
+   });
 
   //Get all posts of a given category
-  app.get("/api/v1/post/:cat", (req, res) => {
-  	console.log("Requested post " + req.params.cat);
+  app.get("/api/v1/posts/categories/:cat", (req, res) => {
+    console.log("Requested posts " + req.params.cat);
   	db.post.findAll({
   		where: {
   			category: req.params.cat
