@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Header from './Header'
 import Post from '../components/Post';
-import PostForm from './PostForm';
 import '../css/Postform.css';
 import '../css/Application.css';
 import '../css/MainPage.css';
@@ -62,7 +61,6 @@ class MainPage extends Component {
     .then((response) => {
 
       if(response.data === null){
-        ///console.log("apple")
         return this.setState({ friends : []});
       }
       //console.log(response.data)
@@ -118,15 +116,7 @@ class MainPage extends Component {
         checkFriend={this.checkFriend} addFriend={this.addFriend} deleteFriend={this.deleteFriend}/>
 			</div>
 			
-      <div>Friends List
-        <ul>
-        {this.state.friends.map(friend => (
-          <li key={friend.user.id}>
-            {friend.user.firstName} {friend.user.lastName} &nbsp;
-          </li>
-        ))}
-        </ul>
-      </div>
+
 
 			<div className="application-background-primary">
 				<div className="application-background-secondary post-list-layout">
@@ -138,9 +128,7 @@ class MainPage extends Component {
 							</li>
 						))}
 					</div>
-					<div>
-						<PostForm updateFeed={this.updateFeed}/>
-					</div>
+
 				</div>
 			</div>
 		</div>
@@ -148,5 +136,22 @@ class MainPage extends Component {
   }
 }
 
+
+/*
+					<div>
+						<PostForm updateFeed={this.updateFeed}/>
+          </div>
+          
+                <div>Friends List
+        <ul>
+        {this.state.friends.map(friend => (
+          <li key={friend.user.id}>
+            {friend.user.firstName} {friend.user.lastName} &nbsp;
+          </li>
+        ))}
+        </ul>
+      </div>
+          
+          */
 
 export default MainPage;

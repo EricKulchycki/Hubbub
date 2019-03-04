@@ -7,8 +7,10 @@
 }
 
 .logo-style {
-	max-height: 45%;
-	max-width: 3%;
+	max-height: 70%;
+	max-width: 20%;
+	min-width: 10%;
+	min-height: 35%;
 	border-radius: 4px;
 	position: absolute;
 	top: 15px;

@@ -74,17 +74,15 @@ class PostForm extends Component {
 					open={this.state.isOpen}
 					onOpen={this.handleOpen}
 					style={{ width: '100%', height: '45%', position:'relative'}}
-					trigger={<button className="button" style={{height:'150px', width:'150px'}} > Post </button>} 
+					trigger={<Button > Post </Button>} 
 					modal
 				>
 				{close => (
-					<div >
+					
 					<Container style={{
 						position:'relative',
 						textAlign: 'left',
 						padding: '1em',
-						border: '2px solid #d3d3d3',
-						borderRadius: '.5em',
 						verticalAlign: 'middle',
 						marginLeft: 'auto',
 						marginRight: 'auto',
@@ -133,10 +131,10 @@ class PostForm extends Component {
 								</textarea>
 							</FormGroup>
 							</Col>
-							<Button style={{height:'100px'}} onClick={this.handleFormSubmit}>Submit</Button>
+							<Button color="secondary" onClick={this.handleFormSubmit}>Submit</Button>
 						</Form>
 						</Container>
-						</div>
+						
 				)}
 			</Popup>;
      
