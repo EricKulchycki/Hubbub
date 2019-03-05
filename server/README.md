@@ -43,6 +43,19 @@ Body: JSON: {
     email:
 }
 
+### Update a user
+
+POST:
+
+/api/v1/user/update
+
+Body: JSON: {
+    userId: (Required)
+    username: (Optional)
+    age: (Optional)
+    picture: (Optional)
+}
+
 ### Get list of all users
 
 POST:
@@ -107,7 +120,7 @@ Body: JSON: {
     rating:
 }
 
-### get all of a users friends posts
+### Get all of a users friends posts
 
 GET:
 
