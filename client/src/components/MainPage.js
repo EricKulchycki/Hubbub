@@ -20,7 +20,6 @@ class MainPage extends Component {
       people: [],
       friends: [],
     };
-    console.log(this.state.user)
   }
   
   componentDidMount() {
@@ -78,7 +77,6 @@ class MainPage extends Component {
       userId: this.state.user.id, friendId: newFriend.id
     }).then(() => {this.getFriends(); this.getPosts()} );
     })
-    this.getPosts()
     //console.log(this.state.friends)
     /*let tempList = this.state.friends
     tempList.push(newFriend)

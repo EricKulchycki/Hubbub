@@ -73,7 +73,7 @@ class Profile extends Component {
         
 
         this.getFriends()
-        console.log(this.state.user);
+        //console.log(this.state.user);
     }
 
 
