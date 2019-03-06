@@ -36,7 +36,7 @@ module.exports = (app, db) => {
 		// Get the users friends, store the ids in a list, and then get a list of posts using those ids
 		friendModule.getFriends(app, db, userId).then( (friends) => {
 			if (!friends || !friends.length) {
-				res.send("User " + userId + " has no friends!");
+				res.json([]);
 				return;
 			}
 			var friendIds = friends.map(function(friend) {return friend.user.id;});
