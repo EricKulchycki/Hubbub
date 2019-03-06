@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import Header from './Header'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import profpic from './images/Userprofilepic.png';
+//import profpic from './images/Userprofilepic.png';
 import axios from 'axios';
 
 import '../css/Postform.css';
@@ -22,13 +22,13 @@ class Profile extends Component {
  
     constructor(props){
         super(props)
-        const { data } = this.props.location
+        //const { data } = this.props.location
         this.componentDidMount = this.componentDidMount.bind(this)
         this.toggle = this.toggle.bind(this);
 
         this.state = {
 
-            user: data,
+            user: JSON.parse(window.sessionStorage.getItem("user")),
             activeTab: '1',
             friends: [],
 
@@ -73,7 +73,7 @@ class Profile extends Component {
         
 
         this.getFriends()
-        console.log(this.state.user);
+        //console.log(this.state.user);
     }
 
 

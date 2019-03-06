@@ -35,6 +35,10 @@ module.exports = (app, db) => {
 		console.log("Requested all posts from " + userId + "'s friends");
 		// Get the users friends, store the ids in a list, and then get a list of posts using those ids
 		friendModule.getFriends(app, db, userId).then( (friends) => {
+			if (!friends || !friends.length) {
+				res.json([]);
+				return;
+			}
 			var friendIds = friends.map(function(friend) {return friend.user.id;});
 			db.post.findAll({
 				where: {

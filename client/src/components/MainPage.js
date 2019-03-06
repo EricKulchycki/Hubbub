@@ -10,37 +10,27 @@ import axios from 'axios';
 class MainPage extends Component {
   constructor(props) {
     super(props)
-    const { data } = this.props.location
+    //const { data } = this.props.location
     this.componentDidMount = this.componentDidMount.bind(this)
     this.updateFeed = this.updateFeed.bind(this)
 
     this.state = {
-      user: data,
+      user: JSON.parse(window.sessionStorage.getItem("user")),
       posts: [],
       people: [],
       friends: [],
     };
-     }
+  }
   
   componentDidMount() {
-    let reqURI = "http://localhost:4000/api/v1/posts/allFriends/1"; //+1
-    axios.get(reqURI)
-    .then((response) => {
-      
-    if(response.data != null){
-      this.setState({ posts : response.data});
-      }
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+    this.getPosts();
 
     this.getFriends();
 }
   
   updateFeed(newArray){
-  newArray = Array.from(newArray); 
-  this.setState({posts: newArray})
+    newArray = Array.from(newArray); 
+    this.setState({posts: newArray})
 }
   
   // query database for user suggestions by using user input
@@ -85,8 +75,8 @@ class MainPage extends Component {
     //console.log(newFriend.firstName)
     new Promise (() => {axios.post("http://localhost:4000/api/v1/friend/create", {
       userId: this.state.user.id, friendId: newFriend.id
-    }).then(() => this.getFriends() );
-  })
+    }).then(() => {this.getFriends(); this.getPosts()} );
+    })
     //console.log(this.state.friends)
     /*let tempList = this.state.friends
     tempList.push(newFriend)
@@ -97,14 +87,29 @@ class MainPage extends Component {
   deleteFriend = (byeFriend) => {
     new Promise (() => {axios.post("http://localhost:4000/api/v1/friend/delete", {
       userId: this.state.user.id, friendId: byeFriend.id
-    }).then(() => this.getFriends() );
-  })
+    }).then(() => {this.getFriends(); this.getPosts()} );
+    })
+    
     //console.log(this.state.friends)
     /*let tempList = this.state.friends
     let newList = tempList.filter(data => {
       return data.id !== byeFriend.id
     })
     this.setState({ friends: newList})*/
+  }
+
+  getPosts() {
+    let reqURI = "http://localhost:4000/api/v1/posts/allFriends/" + this.state.user.id; //+1
+    axios.get(reqURI)
+    .then((response) => {
+      
+    if(response.data != null){
+      this.setState({ posts : response.data});
+      }
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
   }
 
   render() {
@@ -116,7 +121,15 @@ class MainPage extends Component {
         checkFriend={this.checkFriend} addFriend={this.addFriend} deleteFriend={this.deleteFriend}/>
 			</div>
 			
-
+      <div>Friends List
+        <ul>
+        {this.state.friends.map(friend => (
+          <li key={friend.user.id}>
+            {friend.user.firstName} {friend.user.lastName} &nbsp;
+          </li>
+        ))}
+        </ul>
+      </div>
 
 			<div className="application-background-primary">
 				<div className="application-background-secondary post-list-layout">
@@ -137,21 +150,13 @@ class MainPage extends Component {
 }
 
 
-/*
-					<div>
+
+					/*<div>
 						<PostForm updateFeed={this.updateFeed}/>
           </div>
-          
-                <div>Friends List
-        <ul>
-        {this.state.friends.map(friend => (
-          <li key={friend.user.id}>
-            {friend.user.firstName} {friend.user.lastName} &nbsp;
-          </li>
-        ))}
-        </ul>
-      </div>
-          
           */
+
+          
+          
 
 export default MainPage;

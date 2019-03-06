@@ -18,12 +18,18 @@ class OAuth extends Component {
 		if(this.popup) {
 			this.popup.close()
       //this.setState({user})
+      window.sessionStorage.setItem("user", JSON.stringify(user))
       this.props.history.push({
         pathname: '/main',
-        data: user
       });
 		}
     })
+  }
+
+  componentWillUnmount() {
+    this.setState = (state,callback)=>{
+      return;
+    };
   }
 
   checkPopup() {

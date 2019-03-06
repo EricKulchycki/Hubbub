@@ -58,7 +58,7 @@ class PostForm extends Component {
       title: this.state.title,
       category: this.state.category,
       body: this.state.body,
-      userId: 9,					///change to get the user id
+      userId: this.props.user.id,					///change to get the user id
       rating: null
   }).then(function (response) {
 	 
@@ -99,19 +99,26 @@ class PostForm extends Component {
 								value={this.state.title}
 								onChange={this.handleInputChange}
 								name="title"
-								placeholder="Title of the Movie"
+								placeholder="Title"
 								/>
 							</FormGroup>
 							</Col>
 							<Col>
 							<FormGroup>
-								<Label >Movie Category</Label>
+								<Label >Category</Label>
 							<Input
+								type="select"
 								value={this.state.category}
 								onChange={this.handleInputChange}
 								name="category"
-								placeholder="Movie Category"
-								/>
+								placeholder="Category"
+							>
+								<option value="MOVIE">Movie</option>
+								<option value="COMIC">Comic</option>
+								<option value="VIDEO GAME">Video Game</option>
+								<option value="TV-SHOW">Tv-Show</option>
+								<option value="ANIME">Anime</option>
+							</Input>
 							</FormGroup>
 							</Col> 
 								<Col> <Label>Rating:</Label><Rating initialRating={0} emptySymbol="fa fa-star-o fa-2x" fullSymbol="fa fa-star fa-2x"/>

@@ -29,14 +29,15 @@ export class Header extends Component {
 
   this.props.history.push({
     pathname: '/profile',
-    data: this.props.user
   });
  }
  
  
  
  
- 
+ reloadPage() {
+  window.location.reload();
+ }
  
  
  
@@ -45,7 +46,7 @@ export class Header extends Component {
       <header className="background-primary header-layout">
         <Row>
           <Col >    
-            <Link to='/main'>
+            <Link to="/main" onClick={this.reloadPage}>
               <img src={logo} className="logo-style" alt="logo"/>
             </Link>
           </Col>
@@ -57,7 +58,7 @@ export class Header extends Component {
             <Button onClick={this.switchToProfile} color="secondary">Profile</Button>{' '}
           </Col>
           <Col>
-            <PostForm />
+            <PostForm user={this.props.user}/>
           </Col>
         </Row>
       </header>
