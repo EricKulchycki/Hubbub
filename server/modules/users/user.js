@@ -18,6 +18,9 @@ var self = module.exports = {
       username: user.emails[0].value,
       password: "",
       email: user.emails[0].value,
+      firstName: user.name.givenName,
+	  lastName: user.name.familyName,
+	  picture: user.photos[0].value,
       createdAt: currentTimeStamp.toISOString(),
       updatedAt: currentTimeStamp.toISOString()
   	}).then(createdUser => {
