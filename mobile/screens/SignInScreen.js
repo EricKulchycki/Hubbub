@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet, Text, View, Image, Button, Platform } from "react-native"
 import * as Constants from 'expo-constants';
-import {WebBrowser, Linking} from 'expo';
+import {AuthSession} from 'expo';
 import GoogleSignInButton from "../components/GoogleSignInButton";
 import io from 'socket.io-client';
 
@@ -12,7 +12,7 @@ export default class SignInScreen extends React.Component {
     this.state = {
       user: {},
     }
-    socket = io('http://142.93.147.148:4000');
+    socket = io('http://hubbub.gersh.in:4000');
   }
 
 
@@ -23,20 +23,24 @@ export default class SignInScreen extends React.Component {
   componentDidMount() {
     socket.on('google', response => {
       console.log("user object retrieved form server.");
-        if(logInVisible){
+      console.log(response);
           this.setState({
             user: response,
           });
-          WebBrowser.dismissBrowser();
+          AuthSession.dismiss();
           this.props.navigation.navigate('App', {user: this.state.user});
-        }
     });
   }
 
 signIn = async() =>{
-  url = 'http://142.93.147.148:4000/google?socketId='+socket.id;
-  redirectUrl = Linking.makeUrl();
-  WebBrowser.openAuthSessionAsync(url, redirectUrl);
+
+  redirectUrl = AuthSession.getRedirectUrl();
+  url = 'http://hubbub.gersh.in:4000/google?socketId='+socket.id;
+
+  let result = await AuthSession.startAsync({
+    authUrl: url
+  });
+
 }
 
  render() {
