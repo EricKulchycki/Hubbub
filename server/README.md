@@ -132,6 +132,6 @@ userId is the ID of the currently logged in user, the posts from all the current
 
 GET:
 
-/api/v1/post/user/:id
+/api/v1/posts/user/:id
 
 id is the id of the user that you want to get all posts for.
