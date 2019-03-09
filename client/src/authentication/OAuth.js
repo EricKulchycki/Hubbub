@@ -80,7 +80,7 @@ class OAuth extends Component {
                 src={googleIcon}
                 type="image"
                 value="Sign-in"
-                >
+                alt ='../components/images/200px-Google__G__Logo.svg.png' >
                
                 
               </input>

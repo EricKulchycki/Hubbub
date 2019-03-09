@@ -1,9 +1,10 @@
 
 
 import React, { Component } from 'react';
-import Header from './Header'
+//import Header from './Header'
 import 'bootstrap/dist/css/bootstrap.min.css';
 //import profpic from './images/Userprofilepic.png';
+import '../css/Post.css';
 import axios from 'axios';
 
 import '../css/Postform.css';
@@ -63,7 +64,7 @@ class Profile extends Component {
         });
       }
 
-       
+ 
     
       componentDidMount() {
       
@@ -73,26 +74,27 @@ class Profile extends Component {
         
 
         this.getFriends()
-        //console.log(this.state.user);
+        console.log(this.state.user);
     }
 
 
     render() {
         return (
-            <div className="application-background-primary">
+            
+            <div className="application-background-primary" style={{height: '100%'}}>
             <Container >
                 <Row >
-                    <Col >
-                        <Row><img src={this.state.user.photo} alt="logo"/></Row>
-                        <Row>
-                            <div>
-                            <h1>{this.state.userName}</h1>
+                    <Col md="3" style={{maxWidth: '300px'}} >
+                        <Row><img style={{width: '50%', height: '50%'}} src={this.state.user.photo} alt="logo"/></Row>
+                        <Row >
+                            <div >
+                            <p>{this.state.userName}</p>
                             <p>Hello, this is my profile</p>
                             </div>
                         </Row>
                     </Col>
-                    <Col>      
-                        <div>
+                    <Col style={{padding:'0px'}} >      
+                        <div className="application-background-secondary" style={{height:'100%', minWidth:'300px'}}>
                             <Nav tabs>
                                 <NavItem>
                                     <NavLink className={classnames({ active: this.state.activeTab === '1' })} onClick={() => { this.toggle('1'); }}>
@@ -105,15 +107,15 @@ class Profile extends Component {
                                     </NavLink>
                                 </NavItem>
                             </Nav>
-                            <TabContent activeTab={this.state.activeTab}>
+                            <TabContent  activeTab={this.state.activeTab}>
                                 <TabPane tabId="1">
                                     <Row>
-                                    <Col sm="12">
+                                    <Col sm="12" >
                                     <ul>
-                                        {this.state.friends.map(friend => (
-                                        <li key={friend.user.id}>
+                                    {this.state.friends.map(friend => (
+                                        <p key={friend.user.id}>
                                             {friend.user.firstName} {friend.user.lastName} &nbsp;
-                                        </li>
+                                        </p>
                                         ))}
                                     </ul>
                                     </Col>
