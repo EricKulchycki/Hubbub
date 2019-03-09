@@ -43,6 +43,19 @@ Body: JSON: {
     email:
 }
 
+### Update a user
+
+POST:
+
+/api/v1/user/update
+
+Body: JSON: {
+    userId: (Required)
+    username: (Optional)
+    age: (Optional)
+    picture: (Optional)
+}
+
 ### Get list of all users
 
 POST:
@@ -107,10 +120,18 @@ Body: JSON: {
     rating:
 }
 
-### get all of a users friends posts
+### Get all of a users friends posts
 
 GET:
 
 /api/v1/posts/allFriends/:userId
 
 userId is the ID of the currently logged in user, the posts from all the currently logged in users friends will be sent back in json format.
+
+### Get all posts for a specified user
+
+GET:
+
+/api/v1/posts/user/:id
+
+id is the id of the user that you want to get all posts for.
