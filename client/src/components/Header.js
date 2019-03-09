@@ -7,39 +7,26 @@ import Search from './Search';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import PostForm from './PostForm';
 import {withRouter} from 'react-router';
-
 import {Col, Row, Button,} from 'reactstrap';
 
-
-
-// contains components inside the header bar including logo button and searh bar
 export class Header extends Component {
  
   constructor(props) {
     super(props)
-
-
-  this.switchToProfile = this.switchToProfile.bind(this)
- 
+    this.switchToProfile = this.switchToProfile.bind(this)
   }
 
-
-  
- switchToProfile(){
-
-  this.props.history.push({
-    pathname: '/profile',
-  });
- }
+  // move to the profile page
+  switchToProfile() {
+    this.props.history.push({
+      pathname: '/profile',
+    });
+  }
  
- 
- 
- 
- reloadPage() {
-  window.location.reload();
- }
- 
- 
+  // reloads a page
+  reloadPage() {
+    window.location.reload();
+  }
  
   render() {
     return (
@@ -65,5 +52,5 @@ export class Header extends Component {
     );
   }
 }
-//<div className="greet-style">Wassup {this.props.user.firstName} !</div> 
+
 export default withRouter(Header)

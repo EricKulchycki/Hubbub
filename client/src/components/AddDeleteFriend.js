@@ -7,18 +7,19 @@ export class AddDeleteFriend extends Component {
     super(props)
     this.addDeleteFriend = this.addDeleteFriend.bind(this)
   }
+
+  // add or delete a friend
   addDeleteFriend() {
-      //console.log(this.props.friend)
-      if (this.props.friend.id === this.props.user.id) {
+      if (this.props.friend.id === this.props.user.id) { // if id is equal to the user' id, do nothing
         return null
       }
 
-      else if (!this.props.checkFriend(this.props.friend) ) { // id does not exist in the user's friend's list
+      else if (!this.props.checkFriend(this.props.friend) ) { // if id does not exist in the user's friends list, return add button
         return <FontAwesome name="plus-square" size="lg" className="btn-style"  
         onClick={() => this.props.addFriend(this.props.friend)}/>
       }
 
-      else {
+      else { // if id exists in the user's friends list, return delete button
         return <FontAwesome name="minus-square" size="lg" className="btn-style"
         onClick={() => this.props.deleteFriend(this.props.friend)}/>
       }
@@ -26,7 +27,6 @@ export class AddDeleteFriend extends Component {
   }
   render() {
     return this.addDeleteFriend()
-      
   }
 }
 
