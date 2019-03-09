@@ -40,9 +40,9 @@ describe('API Endpoints', function() {
       .get('/api/v1/user/1')
       .end(function(err, res){
         res.should.have.status(200);
-        res = res.body
+        res = res.body;
 
-        validUser(res)
+        validUser(res);
 
         done();
       });
@@ -57,7 +57,7 @@ describe('API Endpoints', function() {
   		.send({'firstName': ''})
   		.end(function(err,res){
   			res.should.have.status(200);
-  			res = res.body
+  			res = res.body;
   			res.should.be.a('array');
   			done();
   		});
@@ -68,7 +68,7 @@ describe('API Endpoints', function() {
   		.get('/api/v1/friend/1')
   		.end(function(err,res){
   			res.should.have.status(200);
-  			res = res.body
+  			res = res.body;
 
   			res.should.be.a('array');
   			done();
@@ -81,16 +81,33 @@ describe('API Endpoints', function() {
 
   //Get all posts from a category
 
+  it('Get all posts of a category and only posts of that category', function(done){
+    chai.request(server)
+    .get('/api/v1/posts/categories/movie')
+    .end(function(err,res){
+      res.should.have.status(200);
+      res = res.body;
+      res.should.be.a('array');
+
+      //Iterate over posts in this category and check they're what we're looking for
+      for(i=0;i<res.length;i++){
+        validPost(res[i]);
+        chai.assert.equal(res[i].category.toLowerCase(),'movie', "category should be movie");
+      }
+
+      done();
+
+    });
+  });
+
   it('Get a particular post with an id', function(done){
   	chai.request(server)
   		.get('/api/v1/post/1')
   		.end(function(err,res){
   			res.should.have.status(200);
-  			res = res.body
+  			res = res.body;
 
-  			//printObj(res)
-
-  			validPost(res)
+  			validPost(res);
   			done();
   		});
   });
