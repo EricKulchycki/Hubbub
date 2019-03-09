@@ -100,6 +100,12 @@ GET:
 
 /api/v1/posts/categories/:cat
 
+Where :cat is one of
+- 'movie'
+- 'tv-show'
+- 'video game'
+- 'comic'
+
 ### Get post by id
 
 GET:
