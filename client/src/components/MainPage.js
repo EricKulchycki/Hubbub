@@ -105,17 +105,6 @@ class MainPage extends Component {
       <Header header={this.state.people} user={this.state.user} searchUsers={this.searchUsers} 
         checkFriend={this.checkFriend} addFriend={this.addFriend} deleteFriend={this.deleteFriend}/>
 			</div>
-			
-      <div>Friends List
-        <ul>
-        {this.state.friends.map(friend => (
-          <li key={friend.user.id}>
-            {friend.user.firstName} {friend.user.lastName} &nbsp;
-          </li>
-        ))}
-        </ul>
-      </div>
-
 			<div className="application-background-primary">
 				<div className="application-background-secondary post-list-layout">
 					<h1 className="text-center">Activity Feed</h1>
