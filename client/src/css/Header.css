@@ -3,7 +3,8 @@
 }
 
 .header-layout {
-	color: '#FFFFFF',
+	padding: 9px 20px;
+	position: relative;
 }
 
 .logo-style {
