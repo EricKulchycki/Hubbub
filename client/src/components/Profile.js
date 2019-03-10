@@ -1,31 +1,17 @@
 import React, { Component } from 'react';
-//import Header from './Header'
 import 'bootstrap/dist/css/bootstrap.min.css';
-//import profpic from './images/Userprofilepic.png';
 import '../css/Post.css';
 import axios from 'axios';
-
 import '../css/Postform.css';
 import '../css/Application.css';
 import '../css/MainPage.css';
 import classnames from 'classnames';
 import Post from '../components/Post';
-
-
-
-
 import {Container, Col, Row, Nav, NavItem, NavLink, TabContent, TabPane, Form, FormGroup, Label, Input, Button} from 'reactstrap';
 
- 
-
-
-
-
 class Profile extends Component {
- 
     constructor(props){
         super(props)
-        //const { data } = this.props.location
         this.handleInputChange = this.handleInputChange.bind(this)
         this.handleProfileEdit = this.handleProfileEdit.bind(this)
         this.componentDidMount = this.componentDidMount.bind(this)
@@ -45,10 +31,10 @@ class Profile extends Component {
             tmpAge:'',
             tmpBio:'',
             tmpUserName:''
-
         };
     }
 
+    // shows the currently selected tab
     toggle(tab) {
         if (this.state.activeTab !== tab) {
           this.setState({
@@ -57,6 +43,7 @@ class Profile extends Component {
         }
       }
 
+      // manages changes in the profile form
       handleInputChange(event) {
         const target = event.target;
         const value = target.value;
@@ -68,46 +55,37 @@ class Profile extends Component {
         });
       }
 
-
-
+      // retrieve a list of user's friends
       getFriends() {
         let friendUri = "http://localhost:4000/api/v1/friend/" + this.state.user.id
-        //console.log(friendUri)
         axios.get(friendUri)
         .then((response) => {
     
           if(response.data === null){
             return this.setState({ friends : []});
           }
-          //console.log(response.data)
-          this.setState({ friends : response.data});
-          
+          this.setState({ friends : response.data});   
         })
         .catch(function (error) {
           console.log(error);
         });
       }
 
-        // retrieve posts made by the user
-        getUsersPosts() {
-            let reqURI = "http://localhost:4000/api/v1/posts/user/1" // + this.state.user.id;
-            axios.get(reqURI)
-            .then((response) => {
+      // retrieve posts made by the user
+      getUsersPosts() {
+        let reqURI = "http://localhost:4000/api/v1/posts/user/" + this.state.user.id;
+        axios.get(reqURI)
+        .then((response) => {
             
-            if(response.data != null){
+          if(response.data != null){
             this.setState({ posts : response.data});
-            }
-            })
-            .catch(function (error) {
+          }})
+          .catch(function (error) {
             console.log(error);
-            });
-        }
+          });
+      }
     
       componentDidMount() {
-      
- 
-
-
         if(this.state.user.username != null){
             this.setState({ userName: this.state.user.username });
         }
@@ -115,18 +93,12 @@ class Profile extends Component {
         if(this.state.user.age != null){
             this.setState({ age: this.state.user.age });
         }
-        
-        //if(this.state.user.username != null){
-        //    this.setState({ bio: this.state.user.bio });
-        //}
-
 
         this.getFriends()
         this.getUsersPosts()
-
-        console.log(this.state.user);
     }
 
+    // submits the profile changes to the server 
     handleProfileEdit() {
         var newAge = this.state.tmpAge
         var newName = this.state.tmpUserName
@@ -136,7 +108,6 @@ class Profile extends Component {
 
         if(this.state.tmpUserName === '')
             newName = this.state.userName
-
   
         axios.post('http://localhost:4000/api/v1/user/update',{ 
           userId: this.state.user.id,
@@ -149,14 +120,10 @@ class Profile extends Component {
         .catch(function (error) {
           console.log(error);
         });
-      
-        
-
-
     }
 
+    // refreshes the page to get the updated profle info
     profileReload(){
-
         let userUri = "http://localhost:4000/api/v1/user/" + this.state.user.id
         axios.get(userUri).then((response) => {
         window.sessionStorage.setItem("user", JSON.stringify(response.data))
@@ -164,15 +131,10 @@ class Profile extends Component {
         
         window.location.reload();
         })
-
-
     }
-
-    //condition ? true : false
 
     render() {
         return (
-            
             <div className="application-background-primary" style={{height: '100%'}}>
             <Container >
                 <Row >

@@ -3,15 +3,11 @@ import Popup from "reactjs-popup";
 import axios from 'axios';
 import Rating from 'react-rating';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
 import {
     Container, Col, Form,
     FormGroup, Label, Input,
     Button,
   } from 'reactstrap';
-
-
-
 
 class PostForm extends Component {
   constructor(props) {
@@ -27,16 +23,18 @@ class PostForm extends Component {
 		isOpen: false
     }
   };
-  
+	
+	// opens the popup
   handleOpen = () => {
     this.setState({ isOpen: true });
   }
 
+	// closes the popup
   handleClose = () => {
     this.setState({ isOpen: false });
   }
  
- 
+	// manages changes in the post form
   handleInputChange(event) {
     const target = event.target;
     const value = target.value;
@@ -44,28 +42,23 @@ class PostForm extends Component {
 
     this.setState({
       [name]: value
-    
     });
   }
 
+	// submits the user post to the server
   handleFormSubmit() {
-
-    //console.log(this.state.title)
-    //console.log(this.state.category)
-    //console.log(this.state.body)
-
     axios.post('http://localhost:4000/api/v1/post/create',{ 
       title: this.state.title,
       category: this.state.category,
       body: this.state.body,
-      userId: this.props.user.id,					///change to get the user id
+      userId: this.props.user.id,	
       rating: null
   }).then(function (response) {
-	 
     })
     .catch(function (error) {
       console.log(error);
-    });
+		});
+		
 	this.handleClose();
   }
 
@@ -77,8 +70,7 @@ class PostForm extends Component {
 					trigger={<Button > Post </Button>} 
 					modal
 				>
-				{close => (
-					
+				{close => (					
 					<Container style={{
 						position:'relative',
 						textAlign: 'left',
@@ -123,7 +115,6 @@ class PostForm extends Component {
 							</Col> 
 								<Col> <Label>Rating:</Label><Rating initialRating={0} emptySymbol="fa fa-star-o fa-2x" fullSymbol="fa fa-star fa-2x"/>
 								</Col>
-				
 							<Col>
 							<FormGroup>
 								<Label style= {{    
@@ -140,16 +131,11 @@ class PostForm extends Component {
 							</Col>
 							<Button color="secondary" onClick={this.handleFormSubmit}>Submit</Button>
 						</Form>
-						</Container>
-						
+						</Container>						
 				)}
 			</Popup>;
      
-      }
-    
+      } 
 }
 
-
-
 export default PostForm;
-

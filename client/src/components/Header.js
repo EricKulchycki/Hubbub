@@ -10,7 +10,6 @@ import {withRouter} from 'react-router';
 import {Col, Row, Button,} from 'reactstrap';
 
 export class Header extends Component {
- 
   constructor(props) {
     super(props)
     this.switchToProfile = this.switchToProfile.bind(this)

@@ -11,10 +11,12 @@ class MainPage extends Component {
     super(props)
     this.componentDidMount = this.componentDidMount.bind(this)
     this.updateFeed = this.updateFeed.bind(this)
+
     this.state = {
       user: JSON.parse(window.sessionStorage.getItem("user")),
       posts: [],
-      people: []
+      people: [],
+      friends: [],
     };
   }
   
@@ -34,7 +36,7 @@ class MainPage extends Component {
 			this.setState({ people: []});
 			return;
 		}
-		axios.post(`http://localhost:4000/api/v1/user/list`, {
+		axios.post("http://localhost:4000/api/v1/user/list", {
 			firstName: firstName
 		}).then(res => { this.setState({ people: res.data}); });
     }
@@ -96,12 +98,12 @@ class MainPage extends Component {
   }
 
   render() {
-    
     return (
 		// load a list of posts. In the posts themselves, define how they should look. Then have the container just display that
 		<div>
 			<div className="MainPage">
-				<Header header={this.state.people} />
+      <Header header={this.state.people} user={this.state.user} searchUsers={this.searchUsers} 
+        checkFriend={this.checkFriend} addFriend={this.addFriend} deleteFriend={this.deleteFriend}/>
 			</div>
 			<div className="application-background-primary">
 				<div className="application-background-secondary post-list-layout">
