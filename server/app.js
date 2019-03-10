@@ -13,7 +13,6 @@ const cors = require('cors')
 const http = require('http')
 const socketio = require('socket.io')
 // Import local files
-process.env.NODE_ENV = 'development'; // Options are 'development' or 'production'
 const authRouter = require('./lib/auth.router')
 const passportInit = require('./lib/passport.init')
 const { SESSION_SECRET, CLIENT_ORIGIN } = require('./config/socialmedia')

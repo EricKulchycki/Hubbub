@@ -1,5 +1,5 @@
 process.env['NODE_ENV'] = 'test';
-
+process.env.NODE_ENV = 'test';
 
 var chai = require('chai');
 var chaiHttp = require('chai-http');
@@ -33,6 +33,15 @@ function printObj( obj ){
 	}
 	alert(ret);
 }
+
+describe('Testing environment',function(){
+  it('should only be running in a test environment',function(){
+    if(process.env.NODE_ENV !== 'test'){
+    console.log("not running test in testing environment! Killing test to safeguard DB \n NODE_ENV="+process.env.NODE_ENV);
+    chai.assert.fail();
+    }
+  });
+});
 
 describe('API Endpoints', function() {
   it('should return user with specified id GET', function(done) {
