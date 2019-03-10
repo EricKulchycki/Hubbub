@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import Popup from "reactjs-popup";
-import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import Rating from 'react-rating';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import {
     Container, Col, Form,
