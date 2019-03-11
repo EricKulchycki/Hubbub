@@ -105,7 +105,7 @@ export default class CreatePostModal extends React.Component{
                 onFinishRating={this.ratingCompleted}
               />
               <CheckBox
-                title='Disable Rating'
+                title='Label as spoiler'
                 checked={this.state.checked}
                 onPress={() => this.setState({checked: !this.state.checked})}
               />
