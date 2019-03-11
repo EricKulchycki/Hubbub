@@ -48,9 +48,9 @@ signIn = async() =>{
      <View style = {styles.container}>
         <Image
           style = {styles.icon}
-          source = {require('../assets/images/alpha-h-box/drawable-hdpi/ic_alpha_h_box_grey600_48dp.png')}
+          source = {require('../assets/images/logo_t_512.png')}
         />
-      <GoogleSignInButton  onPress ={this.signIn}>
+        <GoogleSignInButton  onPress ={() => this.props.navigation.navigate('App', {user: this.state.user})}>
             Sign In With Google!
         </GoogleSignInButton>
      </View>
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#a93226'
   },
   icon: {
-    height: 200,
-    width: 200
+    height: 256,
+    width: 256
   }
 });

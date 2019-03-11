@@ -7,7 +7,8 @@ import {
   FlatList,
   TouchableHighlight,
   ActivityIndicator,
-  ListView
+  ListView,
+  Image
 } from 'react-native';
 import {Header, Icon} from 'react-native-elements';
 import HubFeedItem from '../components/HubFeedItem';
@@ -27,41 +28,48 @@ export default class HomeScreen extends React.Component {
     this.state = {
       friendData: [],
       loading: true,
-      data: [],
+      postData: [],
       error:null,
       user:props.user,
     };
   }
 
-  arrayholder = [];
 
-  makeRequest = (method, resource) => { //finish this once authentication works
-    fetch(url + resource), {
-      method: method
-    }
-    .then((res) => res.json())
-    .then((resJson) => {
-      this.setState({
-        data: resJson,
-      });
-      console.log(resJson[0].title);
-      this.arrayholder = resJson
-    })
-    .catch(error => {
-      console.log("cannot get " + resource);
-      this.setState({ error, loading:false });
-    })
+  makeRequest(type, resource){
+      console.log(type);
+      console.log(resource);
+      this.setState({loading: true});
+
+      return fetch(url + resource, {
+        method: type
+      })
+      .then((res) => res.json())
+      .then((resJson) => {
+        return resJson;
+      })
+      .catch(error => {
+        console.log("cannot get " + resource);
+      })
   }
 
 /*React calls this after all the elements of the page is rendered correctly*/
   componentDidMount(){
-    this.setState({loading: true});
+    this.makeRequest('GET', '/api/v1/posts/allFriends/1').then(response => {
+      this.setState({postData: response});
+    });
+
+    this.makeRequest('GET', '/api/v1/friend/1').then(response => {
+      this.setState({friendData: response});
+    });
+
+    this.setState({loading: false});
+    /*this.setState({loading: true});
 
     fetch(url + '/api/v1/posts/allFriends/1')
     .then((res) => res.json())
     .then((resJson) => {
       this.setState({
-        data: resJson,
+        postData: resJson,
         loading: false,
       });
       console.log(resJson[0].title);
@@ -87,18 +95,23 @@ export default class HomeScreen extends React.Component {
     })
     .catch((error) => {
       console.error(error);
-    });
+    });*/
   }
 
 /*sends another get request for posts to update the feed*/
   refreshHubFeed = () => {
-    this.setState({loading: true});
+    this.makeRequest('GET', '/api/v1/posts/allFriends/1').then(response => {
+      this.setState({postData: response});
+    });
+    this.setState({loading: false});
+    /*this.setState({loading: true});
 
     fetch(url + '/api/v1/posts/all')
     .then((res) => res.json())
     .then((resJson) => {
       this.setState({
-        data: resJson,
+        postData: resJson,
+        loading: false
       });
       console.log(resJson[0].title);
       this.arrayholder = resJson
@@ -106,8 +119,7 @@ export default class HomeScreen extends React.Component {
     .catch(error => {
       console.log("cannot get posts");
       this.setState({ error, loading:false });
-    })
-    this.setState({loading: false});
+    })*/
   }
 
 /*render lines FlatList*/
@@ -134,19 +146,16 @@ export default class HomeScreen extends React.Component {
         name: item.user.firstName + " " + item.user.lastName
       };
     });
-    console.log(this.state.data);
+    console.log(this.state.postData);
 
     return (
       <View style={styles.container}>
         <Header backgroundColor = "#a93226"
           leftComponent={
-              <Icon
-                iconStyle = {{left: 0}}
-                name='alpha-h'
-                type='material-community'
-                size={50}
-                color='#ccd1d1'
-              />
+            <Image
+              style = {styles.icon}
+              source = {require('../assets/images/logo_t_512.png')}
+            />
           }
           centerComponent = {
             <SearchableDropdown
@@ -192,7 +201,7 @@ export default class HomeScreen extends React.Component {
         />
 
         <FlatList
-          data = {this.state.data}
+          data = {this.state.postData}
           renderItem={({item}) => (
             <HubFeedItem
               name = {item.user.username}
@@ -231,5 +240,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+  },
+  icon: {
+    height: 32,
+    width: 32
   }
 });
