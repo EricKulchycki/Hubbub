@@ -3,7 +3,7 @@
 }
 
 .header-layout {
-	color: '#FFFFFF',
+	color: '#FFFFFF';
 }
 
 .logo-style {
@@ -21,4 +21,8 @@
 	position: absolute;
 	top: 15px;
 	right: 200px;
+}
+
+.btn-style {
+	margin-top: 8px;
 }

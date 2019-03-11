@@ -5,6 +5,7 @@ import axios from 'axios';
 import '../css/Postform.css';
 import '../css/Application.css';
 import '../css/MainPage.css';
+import Header from './Header'
 import classnames from 'classnames';
 import Post from '../components/Post';
 import {Container, Col, Row, Nav, NavItem, NavLink, TabContent, TabPane, Form, FormGroup, Label, Input, Button} from 'reactstrap';
@@ -43,20 +44,20 @@ class Profile extends Component {
         }
       }
 
-      // manages changes in the profile form
-      handleInputChange(event) {
+    // manages changes in the profile form
+    handleInputChange(event) {
         const target = event.target;
         const value = target.value;
         const name = target.name;
-    
+
         this.setState({
-          [name]: value
-        
+            [name]: value
+
         });
-      }
+        }
 
       // retrieve a list of user's friends
-      getFriends() {
+    getFriends() {
         let friendUri = "http://localhost:4000/api/v1/friend/" + this.state.user.id
         axios.get(friendUri)
         .then((response) => {
@@ -69,10 +70,10 @@ class Profile extends Component {
         .catch(function (error) {
           console.log(error);
         });
-      }
+    }
 
       // retrieve posts made by the user
-      getUsersPosts() {
+    getUsersPosts() {
         let reqURI = "http://localhost:4000/api/v1/posts/user/" + this.state.user.id;
         axios.get(reqURI)
         .then((response) => {
@@ -83,9 +84,9 @@ class Profile extends Component {
           .catch(function (error) {
             console.log(error);
           });
-      }
+    }
     
-      componentDidMount() {
+    componentDidMount() {
         if(this.state.user.username != null){
             this.setState({ userName: this.state.user.username });
         }
@@ -134,128 +135,133 @@ class Profile extends Component {
     }
 
     render() {
-        return (
-            <div className="application-background-primary" style={{height: '100%'}}>
-            <Container >
-                <Row >
-                    <Col className="application-background-secondary" md="2" style={{maxWidth: '300px', borderRight: '1px solid'}} >
-                        <Row style={{ borderBottom: '1px solid'}}><img style={{width: '100%', height: '100%'}} src={this.state.user.picture === null ? this.state.user.photo : this.state.user.picture} alt="logo"/></Row>
-                        <Row >
-                            <div >
-                            <p>{this.state.userName}, {this.state.age}</p>
-                            <p>{this.state.bio}</p>
-                            </div>
-                        </Row>
-                    </Col>
-                    <Col style={{padding:'0px'}} >      
-                        <div className="application-background-secondary" style={{height:'100%', minWidth:'300px'}}>
-                            <Nav tabs style={{border:'0px'}}>
-                                <NavItem>
-                                    <NavLink className={classnames({ active: this.state.activeTab === '1' })} onClick={() => { this.toggle('1'); }}>
-                                        Friends
-                                    </NavLink>
-                                </NavItem>
-                                <NavItem>
-                                    <NavLink className={classnames({ active: this.state.activeTab === '2' })} onClick={() => { this.toggle('2'); }}>
-                                        Posts
-                                    </NavLink>
-                                </NavItem>
-                                <NavItem>
-                                    <NavLink className={classnames({ active: this.state.activeTab === '3' })} onClick={() => { this.toggle('3'); }}>
-                                        Edit Profile
-                                    </NavLink>
-                                </NavItem>
-                            </Nav>
-                            <TabContent  activeTab={this.state.activeTab}>
-                                <TabPane tabId="1">
-                                    <Row>
-                                    <Col sm="12" >
-                                    <ul>
-                                    {this.state.friends.map(friend => (
-                                        <p key={friend.user.id}>
-                                            {friend.user.firstName} {friend.user.lastName} &nbsp;
-                                        </p>
-                                        ))}
-                                    </ul>
-                                    </Col>
-                                    </Row>
-                                </TabPane>
-                                <TabPane tabId="2">
-                                    <Row>
-                                        <Col>
-                                        <div>						
-                                            {this.state.posts.map(post => (
-							                 <div key={post.id}>
-							           	    <Post post={post} />
-                                            
-                                               </div>
-                                             ))}
-                                        </div>
+        return (			
+            <div>
+                <div>
+                    <Header />
+                </div>
+                <div className="application-background-primary" style={{height: '100%'}}>
+                <Container >
+                    <Row >
+                        <Col className="application-background-secondary" md="2" style={{maxWidth: '300px', borderRight: '1px solid'}} >
+                            <Row style={{ borderBottom: '1px solid'}}><img style={{width: '100%', height: '100%'}} src={this.state.user.picture === null ? this.state.user.photo : this.state.user.picture} alt="logo"/></Row>
+                            <Row >
+                                <div >
+                                <p>{this.state.userName}, {this.state.age}</p>
+                                <p>{this.state.bio}</p>
+                                </div>
+                            </Row>
+                        </Col>
+                        <Col style={{padding:'0px'}} >      
+                            <div className="application-background-secondary" style={{height:'100%', minWidth:'300px'}}>
+                                <Nav tabs style={{border:'0px'}}>
+                                    <NavItem>
+                                        <NavLink className={classnames({ active: this.state.activeTab === '1' })} onClick={() => { this.toggle('1'); }}>
+                                            Friends
+                                        </NavLink>
+                                    </NavItem>
+                                    <NavItem>
+                                        <NavLink className={classnames({ active: this.state.activeTab === '2' })} onClick={() => { this.toggle('2'); }}>
+                                            Posts
+                                        </NavLink>
+                                    </NavItem>
+                                    <NavItem>
+                                        <NavLink className={classnames({ active: this.state.activeTab === '3' })} onClick={() => { this.toggle('3'); }}>
+                                            Edit Profile
+                                        </NavLink>
+                                    </NavItem>
+                                </Nav>
+                                <TabContent  activeTab={this.state.activeTab}>
+                                    <TabPane tabId="1">
+                                        <Row>
+                                        <Col sm="12" >
+                                        <ul>
+                                        {this.state.friends.map(friend => (
+                                            <p key={friend.user.id}>
+                                                {friend.user.firstName} {friend.user.lastName} &nbsp;
+                                            </p>
+                                            ))}
+                                        </ul>
                                         </Col>
-                                    </Row>
-                                </TabPane>
-                                <TabPane tabId="3">
-                                    <Row>
-                                        <Col>
-                                            <Container style={{
-                                                position:'relative',
-                                                textAlign: 'left',
-                                                padding: '1em',
-                                                verticalAlign: 'middle',
-                                                marginLeft: 'auto',
-                                                marginRight: 'auto',
-                                                width: '100%',
-                                                height:'100%'
-                                            }} >
-                                            <Form style={{padding: '1em'}} className="form">
-                                                <Col>
-                                                <FormGroup>
-                                                    <Label >Username</Label>
+                                        </Row>
+                                    </TabPane>
+                                    <TabPane tabId="2">
+                                        <Row>
+                                            <Col>
+                                            <div>						
+                                                {this.state.posts.map(post => (
+                                                <div key={post.id}>
+                                                <Post post={post} />
+                                                
+                                                </div>
+                                                ))}
+                                            </div>
+                                            </Col>
+                                        </Row>
+                                    </TabPane>
+                                    <TabPane tabId="3">
+                                        <Row>
+                                            <Col>
+                                                <Container style={{
+                                                    position:'relative',
+                                                    textAlign: 'left',
+                                                    padding: '1em',
+                                                    verticalAlign: 'middle',
+                                                    marginLeft: 'auto',
+                                                    marginRight: 'auto',
+                                                    width: '100%',
+                                                    height:'100%'
+                                                }} >
+                                                <Form style={{padding: '1em'}} className="form">
+                                                    <Col>
+                                                    <FormGroup>
+                                                        <Label >Username</Label>
+                                                        <Input
+                                                        value={this.state.tmpUserName}
+                                                        onChange={this.handleInputChange}
+                                                        name="tmpUserName"
+                                                        placeholder={this.state.userName}
+                                                        />
+                                                    </FormGroup>
+                                                    </Col>
+                                                    <Col>
+                                                    <FormGroup>
+                                                        <Label >Age</Label>
                                                     <Input
-                                                    value={this.state.tmpUserName}
-                                                    onChange={this.handleInputChange}
-                                                    name="tmpUserName"
-                                                    placeholder={this.state.userName}
-                                                    />
-                                                </FormGroup>
-                                                </Col>
-                                                <Col>
-                                                <FormGroup>
-                                                    <Label >Age</Label>
-                                                <Input
-                                                    value={this.state.tmpAge}
-                                                    onChange={this.handleInputChange}
-                                                    name="tmpAge"
-                                                    placeholder={this.state.age}
-                                                >
-                                                </Input>
-                                                </FormGroup>
-                                                </Col> 
-                                                <Col>
-                                                <FormGroup>
-                                                    <Label>Bio</Label>
-                                                    <textarea  
-                                                    style ={{width: '100%'}} className= 'Body'
-                                                    name="tmpBio"
-                                                    value={this.state.tmpBio}
-                                                    placeholder={this.state.bio}
-                                                    onChange={this.handleInputChange}
+                                                        value={this.state.tmpAge}
+                                                        onChange={this.handleInputChange}
+                                                        name="tmpAge"
+                                                        placeholder={this.state.age}
                                                     >
-                                                    </textarea>
-                                                </FormGroup>
-                                                </Col>
-                                                <Button color="secondary" onClick={this.handleProfileEdit}>Save</Button>
-                                            </Form>
-                                            </Container>
-                                        </Col>
-                                    </Row>
-                                </TabPane>
-                            </TabContent>
-                        </div>    
-                    </Col>
-                </Row>
-            </Container>
-            </div>
+                                                    </Input>
+                                                    </FormGroup>
+                                                    </Col> 
+                                                    <Col>
+                                                    <FormGroup>
+                                                        <Label>Bio</Label>
+                                                        <textarea  
+                                                        style ={{width: '100%'}} className= 'Body'
+                                                        name="tmpBio"
+                                                        value={this.state.tmpBio}
+                                                        placeholder={this.state.bio}
+                                                        onChange={this.handleInputChange}
+                                                        >
+                                                        </textarea>
+                                                    </FormGroup>
+                                                    </Col>
+                                                    <Button color="secondary" onClick={this.handleProfileEdit}>Save</Button>
+                                                </Form>
+                                                </Container>
+                                            </Col>
+                                        </Row>
+                                    </TabPane>
+                                </TabContent>
+                            </div>    
+                        </Col>
+                    </Row>
+                </Container>
+                </div>
+        </div>
         );
     
     }

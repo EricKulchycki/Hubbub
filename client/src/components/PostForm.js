@@ -67,7 +67,7 @@ class PostForm extends Component {
 					open={this.state.isOpen}
 					onOpen={this.handleOpen}
 					style={{ width: '100%', height: '45%', position:'relative'}}
-					trigger={<Button > Post </Button>} 
+					trigger={<Button style={{ marginTop: '8px'}}> Post </Button>} 
 					modal
 				>
 				{close => (					
