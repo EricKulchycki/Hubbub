@@ -71,15 +71,7 @@ if(abort == false){
     });
 
     it('should return user with specified id', function(done) {
-      chai.request(server)
-      .post('/api/v1/user/create')
-      .send({'username': 'user4',
-              'password': 'password4',
-              'email': 'email4@gmail.com'
-            })
-      .end(function(err,res){
-        res.should.have.status(200);
-      });
+
       chai.request(server)
         .get('/api/v1/user/1')
         .end(function(err, res){
@@ -119,6 +111,9 @@ if(abort == false){
     //"Create a friendship" - (User follows another)
 
     it('should make some posts for our users', function(done){
+
+      //REPLACE WITH ITERATIVE POST GENERATOR
+
       chai.request(server)
       .post('/api/v1/post/create')
       .send({ 'title': 'title1',
