@@ -34,98 +34,141 @@ function printObj( obj ){
 	alert(ret);
 }
 
+var abort = false;
+
 describe('Testing environment',function(){
   it('should only be running in a test environment',function(){
     if(process.env.NODE_ENV !== 'test'){
     console.log("not running test in testing environment! Killing test to safeguard DB \n NODE_ENV="+process.env.NODE_ENV);
     chai.assert.fail();
+    abort = true;
     }
   });
 });
 
-describe('API Endpoints', function() {
-  it('should return user with specified id GET', function(done) {
-    chai.request(server)
-      .get('/api/v1/user/1')
-      .end(function(err, res){
+
+if(abort == false){
+  describe('API Endpoints', function() {
+
+    it('should create a 5 users', function(done){
+
+      for(i=0;i<5;i++){
+        var user = {
+          'username': 'user'+i,
+          'password': 'password'+i,
+          'email': 'email'+i+'@gmail.com'
+        }
+
+      chai.request(server)
+      .post('/api/v1/user/create')
+      .send(user)
+      .end(function(err,res){
+        res.should.have.status(200);
+      });
+
+      }
+      done();            
+    });
+
+    it('should return user with specified id', function(done) {
+      chai.request(server)
+      .post('/api/v1/user/create')
+      .send({'username': 'user4',
+              'password': 'password4',
+              'email': 'email4@gmail.com'
+            })
+      .end(function(err,res){
+        res.should.have.status(200);
+      });
+      chai.request(server)
+        .get('/api/v1/user/1')
+        .end(function(err, res){
+          res.should.have.status(200);
+          res = res.body;
+
+          validUser(res);
+
+          done();
+        });
+    });
+
+    it('should return list of all users', function(done){
+    	chai.request(server)
+    		.post('/api/v1/user/list')
+    		.send({'firstName': ''})
+    		.end(function(err,res){
+    			res.should.have.status(200);
+    			res = res.body;
+    			res.should.be.a('array');
+    			done();
+    		});
+    });
+
+    it('should get all friends of user', function(done){
+    	chai.request(server)
+    		.get('/api/v1/friend/1')
+    		.end(function(err,res){
+    			res.should.have.status(200);
+    			res = res.body;
+
+    			res.should.be.a('array');
+    			done();
+    		});
+    });  
+
+    //"Create a friendship" - (User follows another)
+
+    it('should make some posts for our users', function(done){
+      chai.request(server)
+      .post('/api/v1/post/create')
+      .send({ 'title': 'title1',
+              'category': 'movie',
+              'body': 'body1',
+              'userId': 1,
+              'rating': 5})
+      .end(function(err,res){
+        res.should.have.status(200);
+      });
+      done();
+    });
+
+    it('should get all posts of a category and only posts of that category', function(done){
+      chai.request(server)
+      .get('/api/v1/posts/categories/movie')
+      .end(function(err,res){
         res.should.have.status(200);
         res = res.body;
+        res.should.be.a('array');
 
-        validUser(res);
+        //Iterate over posts in this category and check they're what we're looking for
+        for(i=0;i<res.length;i++){
+          validPost(res[i]);
+          chai.assert.equal(res[i].category.toLowerCase(),'movie', "category should be movie");
+        }
 
         done();
+
       });
-  });
-
-  //Create user unit test
-  //after alt database is ready
-
-  it('should return list of all users', function(done){
-  	chai.request(server)
-  		.post('/api/v1/user/list')
-  		.send({'firstName': ''})
-  		.end(function(err,res){
-  			res.should.have.status(200);
-  			res = res.body;
-  			res.should.be.a('array');
-  			done();
-  		});
-  });
-
-  it('should get all friends of user', function(done){
-  	chai.request(server)
-  		.get('/api/v1/friend/1')
-  		.end(function(err,res){
-  			res.should.have.status(200);
-  			res = res.body;
-
-  			res.should.be.a('array');
-  			done();
-  		});
-  });  
-
-  //"Create a friendship" - (User follows another)
-
-  //Delete a friendship
-
-  //Get all posts from a category
-
-  it('Get all posts of a category and only posts of that category', function(done){
-    chai.request(server)
-    .get('/api/v1/posts/categories/movie')
-    .end(function(err,res){
-      res.should.have.status(200);
-      res = res.body;
-      res.should.be.a('array');
-
-      //Iterate over posts in this category and check they're what we're looking for
-      for(i=0;i<res.length;i++){
-        validPost(res[i]);
-        chai.assert.equal(res[i].category.toLowerCase(),'movie', "category should be movie");
-      }
-
-      done();
-
     });
+
+    it('should get a particular post with an id', function(done){
+    	chai.request(server)
+    		.get('/api/v1/post/1')
+    		.end(function(err,res){
+    			res.should.have.status(200);
+    			res = res.body;
+
+    			validPost(res);
+    			done();
+    		});
+    });
+
+    //Delete a friendship
+
+    //Delete a post
+
+    //Get all posts from a friend
+
   });
 
-  it('Get a particular post with an id', function(done){
-  	chai.request(server)
-  		.get('/api/v1/post/1')
-  		.end(function(err,res){
-  			res.should.have.status(200);
-  			res = res.body;
-
-  			validPost(res);
-  			done();
-  		});
-  });
-
-  //Create a post
-
-  //Delete a post
-
-  //Get all posts from a friend
-
-});
-
+}
