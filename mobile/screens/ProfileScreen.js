@@ -7,23 +7,100 @@ import {
   ScrollView,
 } from 'react-native';
 import {Header, Icon} from 'react-native-elements';
-
+import * as Colors from '../constants/Colors';
+import * as Paths from '../constants/Paths';
 
 
 export default class ProfileScreen extends React.Component{
   constructor(props){
     super(props);
     this.state = {
-      user: null,
+      user: props.user,
+      username: '',
+      age: -1,
+      picture: '',
+      loading: false,
+      postData: [],
     };
-
   }
+
   static navigationOptions = () => ({
     header: null,
   });
 
+  makeRequest(type, resource){
+      const url = Paths.url;
+      console.log(type);
+      console.log(resource);
+      this.setState({loading: true});
+
+      return fetch(url + resource, {
+        method: type
+      })
+      .then((res) => res.json())
+      .then((resJson) => {
+        return resJson;
+      })
+      .catch(error => {
+        console.log("cannot get " + resource);
+      })
+  }
+
+  makePost(type, resource){
+    this.setState({loading: true});
+    const jsonBody = {
+      userId: this.user.id,
+    }
+    if(this.state.username != ''){
+      jsonBody: {
+        ...jsonBody,
+        [username]: this.state.username
+      }
+    }
+    if(age != -1){
+      jsonBody: {
+        ...jsonBody,
+        [age]: this.state.age
+      }
+    }
+    if(picture != ''){
+      jsonBody: {
+        ...jsonBody,
+        [picture]: this.state.picture
+      }
+    }
+
+    const url = Paths.url;
+    fetch(url + resource, {
+      method: type,
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        jsonBody
+      }),
+    });
+    this.setState({loading: false});
+  }
+
+
+  componentDidMount(){
+    this.makeRequest('GET', Paths.getFriendsPosts + this.state.user.id).then(response => {
+      this.setState({postData: response});
+    });
+    this.setState({loading: false});
+  }
 
   render() {
+    if(this.state.loading){
+      return(
+        <View style={{flex: 1, justifyContent: 'center', flexDirection: 'row'}}>
+          <ActivityIndicator size='large' color="#d98880"/>
+        </View>
+      );
+    }
+
     const {navigation} = this.props;
     var message = "";
     var creating = navigation.getParam('creating');
@@ -33,6 +110,8 @@ export default class ProfileScreen extends React.Component{
     else{
       message = "Edit Profile";
     }
+
+
 
     return (
       <View style = {styles.container}>
@@ -50,6 +129,19 @@ export default class ProfileScreen extends React.Component{
           </View>
         </ScrollView>
 
+        <FlatList
+          data = {this.state.postData}
+          renderItem={({item}) => (
+            <HubFeedItem
+              name = {item.user.username}
+              title = {item.title}
+              rating = {item.rating}
+              body = {item.body}
+            />
+          )}
+          ItemSeparatorComponent = {this.renderSeparator}
+          keyExtractor={item => item.id.toString()}
+        />
 
         <TouchableHighlight
           style={{position: 'absolute', alignSelf: 'flex-start', bottom: 0}}
@@ -66,7 +158,7 @@ export default class ProfileScreen extends React.Component{
         <TouchableHighlight
           style={{position: 'absolute', alignSelf: 'flex-end', bottom: 0}}
           onPress={() => {
-            alert("Save Profile");
+            alert("Save Profile");//this.makePost('POST', Paths.updateUser)
           }}>
           <Icon
             reverse
