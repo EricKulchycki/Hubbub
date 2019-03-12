@@ -5,6 +5,7 @@ import axios from 'axios';
 import '../css/Postform.css';
 import '../css/Application.css';
 import '../css/MainPage.css';
+import '../css/Profile.css';
 import Header from './Header'
 import classnames from 'classnames';
 import Post from '../components/Post';
@@ -140,11 +141,11 @@ class Profile extends Component {
                 <div>
                     <Header />
                 </div>
-                <div className="application-background-primary" style={{height: '100%'}}>
+                <div className="application-background-primary main-container-style">
                 <Container >
                     <Row >
-                        <Col className="application-background-secondary" md="2" style={{maxWidth: '300px', borderRight: '1px solid'}} >
-                            <Row style={{ borderBottom: '1px solid'}}><img style={{width: '100%', height: '100%'}} src={this.state.user.picture === null ? this.state.user.photo : this.state.user.picture} alt="logo"/></Row>
+                        <Col className="application-background-secondary container-left-column-style" md="2"  >
+                            <Row className="container-left-column-first-row"><img className="avatar-style" src={this.state.user.picture === null ? this.state.user.photo : this.state.user.picture} alt="logo"/></Row>
                             <Row >
                                 <div >
                                 <p>{this.state.userName}, {this.state.age}</p>
@@ -152,9 +153,9 @@ class Profile extends Component {
                                 </div>
                             </Row>
                         </Col>
-                        <Col style={{padding:'0px'}} >      
-                            <div className="application-background-secondary" style={{height:'100%', minWidth:'300px'}}>
-                                <Nav tabs style={{border:'0px'}}>
+                        <Col className="container-right-column-style">      
+                            <div className="application-background-secondary container-nav-style" >
+                                <Nav tabs className="container-nav-tab-style">
                                     <NavItem>
                                         <NavLink className={classnames({ active: this.state.activeTab === '1' })} onClick={() => { this.toggle('1'); }}>
                                             Friends
@@ -202,17 +203,8 @@ class Profile extends Component {
                                     <TabPane tabId="3">
                                         <Row>
                                             <Col>
-                                                <Container style={{
-                                                    position:'relative',
-                                                    textAlign: 'left',
-                                                    padding: '1em',
-                                                    verticalAlign: 'middle',
-                                                    marginLeft: 'auto',
-                                                    marginRight: 'auto',
-                                                    width: '100%',
-                                                    height:'100%'
-                                                }} >
-                                                <Form style={{padding: '1em'}} className="form">
+                                                <Container className="containter-right-column-edit-container-style" >
+                                                <Form className="form containter-right-column-edit-container-form-style">
                                                     <Col>
                                                     <FormGroup>
                                                         <Label >Username</Label>
@@ -240,7 +232,7 @@ class Profile extends Component {
                                                     <FormGroup>
                                                         <Label>Bio</Label>
                                                         <textarea  
-                                                        style ={{width: '100%'}} className= 'Body'
+                                                        className= 'Body containter-right-column-edit-container-form-bio-style'
                                                         name="tmpBio"
                                                         value={this.state.tmpBio}
                                                         placeholder={this.state.bio}
