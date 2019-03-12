@@ -18,7 +18,7 @@ import * as Colors from '../constants/Colors';
 import * as Paths from '../constants/Paths';
 
 var friendsList;
-const url = 'http://142.93.147.148:4000';
+const url = Paths.SERVER;
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -34,7 +34,7 @@ export default class HomeScreen extends React.Component {
       user:props.user,
     };
   }
-
+  const userID = this.state.user.id;
 
   makeRequest(type, resource){
       console.log(type);
@@ -55,11 +55,11 @@ export default class HomeScreen extends React.Component {
 
 /*React calls this after all the elements of the page is rendered correctly*/
   componentDidMount(){
-    this.makeRequest('GET', '/api/v1/posts/allFriends/1').then(response => {
+    this.makeRequest('GET', Paths.getFriendsPosts + userID).then(response => {
       this.setState({postData: response});
     });
 
-    this.makeRequest('GET', '/api/v1/friend/1').then(response => {
+    this.makeRequest('GET', Paths.getFriends + userID).then(response => {
       this.setState({friendData: response});
     });
 
@@ -101,7 +101,7 @@ export default class HomeScreen extends React.Component {
 
 /*sends another get request for posts to update the feed*/
   refreshHubFeed = () => {
-    this.makeRequest('GET', '/api/v1/posts/allFriends/1').then(response => {
+    this.makeRequest('GET', Paths.getFriendsPosts + userID).then(response => {
       this.setState({postData: response});
     });
     this.setState({loading: false});
