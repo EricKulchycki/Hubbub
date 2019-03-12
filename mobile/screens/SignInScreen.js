@@ -1,9 +1,12 @@
 import React from 'react'
-import { StyleSheet, Text, View, Image, Button, Platform } from "react-native"
+import { StyleSheet, AsyncStorage, Text, View, Image, Button, Platform } from "react-native"
+import {Icon} from 'react-native-elements';
 import * as Constants from 'expo-constants';
 import {AuthSession} from 'expo';
 import GoogleSignInButton from "../components/GoogleSignInButton";
 import io from 'socket.io-client';
+import * as Paths from '../constants/Paths';
+import * as Colors from '../constants/Colors';
 
 
 export default class SignInScreen extends React.Component {
@@ -12,31 +15,38 @@ export default class SignInScreen extends React.Component {
     this.state = {
       user: {},
     }
-    socket = io('http://hubbub.gersh.in:4000');
+    socket = io(Paths.SERVER);
   }
 
+
+  _storeData = async (data) => {
+    try{
+      await AsyncStorage.setItem('USER', data);
+    } catch(error){
+      console.log(error);
+    }
+  }
 
   static navigationOptions = () => ({
     header: null,
   });
-
   componentDidMount() {
     socket.on('google', response => {
       console.log("user object retrieved form server.");
       console.log(response);
+      //Turn Response into a JSON Object!
           this.setState({
-            user: response,
+            user: JSON.parse(response),
           });
+          _storeData(this.state.user);
           AuthSession.dismiss();
           this.props.navigation.navigate('App', {user: this.state.user});
     });
   }
 
 signIn = async() =>{
-
-  redirectUrl = AuthSession.getRedirectUrl();
-  url = 'http://hubbub.gersh.in:4000/google?socketId='+socket.id;
-
+  let url = (Paths.SERVER + Paths.AUTH + socket.id);
+  console.log(Paths.SERVER);
   let result = await AuthSession.startAsync({
     authUrl: url
   });
@@ -46,10 +56,12 @@ signIn = async() =>{
  render() {
    return (
      <View style = {styles.container}>
-        <Image
-          style = {styles.icon}
-          source = {require('../assets/images/alpha-h-box/drawable-hdpi/ic_alpha_h_box_grey600_48dp.png')}
-        />
+       <Icon
+         name='alpha-h'
+         type='material-community'
+         size={300}
+         color='#ccd1d1'
+       />
       <GoogleSignInButton  onPress ={this.signIn}>
             Sign In With Google!
         </GoogleSignInButton>
@@ -63,7 +75,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     flex: 1,
-    backgroundColor: '#a93226'
+    backgroundColor: Colors.MAIN_RED
   },
   icon: {
     height: 200,

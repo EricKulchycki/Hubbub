@@ -2,7 +2,6 @@ import React from 'react';
 import {
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
   FlatList,
   TouchableHighlight,
@@ -14,6 +13,8 @@ import HubFeedItem from '../components/HubFeedItem';
 import SearchableDropdown from 'react-native-searchable-dropdown';
 import CreatePostModal from '../screens/CreatePostModal';
 import { WebBrowser } from 'expo';
+import * as Colors from '../constants/Colors';
+import * as Paths from '../constants/Paths';
 
 var friendsList;
 
@@ -36,10 +37,11 @@ export default class HomeScreen extends React.Component {
 
 /*React calls this after all the elements of the page is rendered correctly*/
   componentDidMount(){
-    const url = 'http://142.93.147.148:4000';
+    const url = Paths.SERVER;
+    const userID = this.state.user.id;
     this.setState({loading: true});
 
-    fetch(url + '/api/v1/posts/allFriends/1')
+    fetch(url + Paths.getFriendsPosts + userID)
     .then((res) => res.json())
     .then((resJson) => {
       this.setState({
@@ -54,7 +56,7 @@ export default class HomeScreen extends React.Component {
       this.setState({ error, loading:false });
     })
 
-    fetch(url + '/api/v1/friend/1', {
+    fetch(url + Paths.getFriends + userID, {
       method: 'GET'
     })
     .then((response) => response.json())
@@ -74,10 +76,11 @@ export default class HomeScreen extends React.Component {
 
 /*sends another get request for posts to update the feed*/
   refreshHubFeed = () => {
-    const url = 'http://142.93.147.148:4000';
+    const url = Paths.SERVER;
+    const userID = this.state.user.id;
     this.setState({loading: true});
 
-    fetch(url + '/api/v1/posts/all')
+    fetch(url + Paths.getFriendsPosts + userID )
     .then((res) => res.json())
     .then((resJson) => {
       this.setState({
@@ -121,7 +124,7 @@ export default class HomeScreen extends React.Component {
 
     return (
       <View style={styles.container}>
-        <Header backgroundColor = "#a93226"
+        <Header backgroundColor = {Colors.MAIN_RED}
           leftComponent={
               <Icon
                 iconStyle = {{left: 0}}
@@ -147,7 +150,7 @@ export default class HomeScreen extends React.Component {
                 padding: 10,
                 marginTop: 2,
                 backgroundColor: '#ccd1d1',
-                borderColor: '#a93226',
+                borderColor: Colors.MAIN_RED,
                 borderWidth: 1,
                 borderRadius: 5,
               }}
@@ -187,7 +190,7 @@ export default class HomeScreen extends React.Component {
             name='add-circle'
             type='material'
             size={24}
-            color='#a93226'/>
+            color= {Colors.MAIN_RED} />
         </TouchableHighlight>
       </View>
     );

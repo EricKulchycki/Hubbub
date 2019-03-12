@@ -1,11 +1,11 @@
 // Libraries
-var bodyParser = require("body-parser"); 
+var bodyParser = require("body-parser");
 var createError = require('http-errors');
-var express = require('express'); 
+var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
-const url = require('url');  
-const querystring = require('querystring'); 
+const url = require('url');
+const querystring = require('querystring');
 const morgan = require('morgan');
 const passport = require('passport')
 const session = require('express-session')
@@ -13,7 +13,7 @@ const cors = require('cors')
 const http = require('http')
 const socketio = require('socket.io')
 // Import local files
-process.env.NODE_ENV = 'development'; // Options are 'development' or 'production'
+process.env.NODE_ENV = 'production'; // Options are 'development' or 'production'
 const authRouter = require('./lib/auth.router')
 const passportInit = require('./lib/passport.init')
 const { SESSION_SECRET, CLIENT_ORIGIN } = require('./config/socialmedia')
@@ -38,17 +38,17 @@ passportInit();
 // Accept requests from our client
 app.use(cors({
   origin: CLIENT_ORIGIN
-})) 
+}))
 
 // saveUninitialized: true allows us to attach the socket id to the session
 // before we have athenticated the user
-app.use(session({ 
-  secret: "super-secret-session-key-here", 
-  resave: true, 
+app.use(session({
+  secret: "super-secret-session-key-here",
+  resave: true,
   saveUninitialized: true
 }))
 
-// Connecting sockets to the server and adding them to the request 
+// Connecting sockets to the server and adding them to the request
 // so that we can access them later in the controller
 const io = socketio(server)
 app.set('io', io)
