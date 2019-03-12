@@ -13,7 +13,7 @@ export class Header extends Component {
   constructor(props) {
     super(props)
     this.switchToProfile = this.switchToProfile.bind(this)
-    this.reloadPage = this.reloadPage.bind(this)
+    this.returnToMain = this.returnToMain.bind(this)
 
     this.state = {
       user: JSON.parse(window.sessionStorage.getItem("user")),
@@ -101,7 +101,7 @@ export class Header extends Component {
   }
  
   // returns to the main page
-  reloadPage() {
+  returnToMain() {
     this.props.history.push({
       pathname: '/main',
     });
@@ -112,7 +112,7 @@ export class Header extends Component {
       <header className="background-primary header-layout">
         <Row>
           <Col >    
-            <input type="image" onClick={this.reloadPage} className="logo-style" alt="logo" src={logo}>
+            <input type="image" onClick={this.returnToMain} className="logo-style" alt="logo" src={logo}>
             </input>
           </Col>
           <Col>
