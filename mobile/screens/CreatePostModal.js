@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Modal, Picker, Text, TextInput, ScrollView, TouchableHighlight} from 'react-native';
-import {Icon, Rating, CheckBox} from 'react-native-elements';
+import {Icon, Rating, CheckBox, Header} from 'react-native-elements';
 
 export default class CreatePostModal extends React.Component{
     constructor(props){
@@ -62,15 +62,19 @@ export default class CreatePostModal extends React.Component{
           transparent={false}
           visible={this.state.modalVisible}
           onRequestClose={() => {
-            alert('Modal has been closed.');
+            alert('Modal has been closed.');//android back button
             this.setModalVisible(false);
           }}>
-          <ScrollView>
-            <View style={{paddingHorizontal: 5, marginTop: 22}}>
-              <Text style = {{fontWeight: 'bold', fontSize: 34}}>
+          <Header backgroundColor = "#a93226"
+            containerStyle = {{marginTop: -25}}
+            centerComponent={
+              <Text style = {{fontWeight: 'bold', fontSize: 34, color: "#ccd1d1"}}>
               New Post
               </Text>
-
+            }
+          />
+          <ScrollView>
+            <View style={{paddingHorizontal: 5}}>
               <Text style = {{paddingTop: 10, fontSize: 22}}>
               Category
               </Text>
@@ -101,7 +105,7 @@ export default class CreatePostModal extends React.Component{
                 onFinishRating={this.ratingCompleted}
               />
               <CheckBox
-                title='Disable Rating'
+                title='Label as spoiler'
                 checked={this.state.checked}
                 onPress={() => this.setState({checked: !this.state.checked})}
               />

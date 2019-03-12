@@ -3,9 +3,10 @@ import HomeScreen from '../screens/HomeScreen'
 import SignInScreen from '../screens/SignInScreen'
 import CreatePostModal from '../screens/CreatePostModal'
 import AuthLoadingScreen from '../screens/AuthLoadingScreen'
+import ProfileScreen from '../screens/ProfileScreen'
 import { createAppContainer, createStackNavigator, createSwitchNavigator } from 'react-navigation';
 
-const AppStack = createStackNavigator({Home: HomeScreen});
+const AppStack = createStackNavigator({Home: HomeScreen, Profile: ProfileScreen});
 const AuthStack = createStackNavigator({SignIn: SignInScreen}, {headerMode: 'screen'});
 export default createAppContainer(createSwitchNavigator({
   // You could add another route here for authentication.
