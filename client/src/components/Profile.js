@@ -228,19 +228,6 @@ class Profile extends Component {
                                                     </Input>
                                                     </FormGroup>
                                                     </Col> 
-                                                    <Col>
-                                                    <FormGroup>
-                                                        <Label>Bio</Label>
-                                                        <textarea  
-                                                        className= 'Body containter-right-column-edit-container-form-bio-style'
-                                                        name="tmpBio"
-                                                        value={this.state.tmpBio}
-                                                        placeholder={this.state.bio}
-                                                        onChange={this.handleInputChange}
-                                                        >
-                                                        </textarea>
-                                                    </FormGroup>
-                                                    </Col>
                                                     <Button color="secondary" onClick={this.handleProfileEdit}>Save</Button>
                                                 </Form>
                                                 </Container>

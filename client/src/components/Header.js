@@ -13,6 +13,7 @@ export class Header extends Component {
   constructor(props) {
     super(props)
     this.switchToProfile = this.switchToProfile.bind(this)
+    this.reloadPage = this.reloadPage.bind(this)
 
     this.state = {
       user: JSON.parse(window.sessionStorage.getItem("user")),
@@ -99,9 +100,11 @@ export class Header extends Component {
     });
   }
  
-  // reloads a page
+  // returns to the main page
   reloadPage() {
-    window.location.reload();
+    this.props.history.push({
+      pathname: '/main',
+    });
   }
  
   render() {
