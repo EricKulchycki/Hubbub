@@ -3,13 +3,26 @@
 }
 
 .header-layout {
-	padding: 9px 20px;
-	position: relative;
+	color: '#FFFFFF';
 }
 
 .logo-style {
-	max-width: 2%;
-	max-height: 4%;
-	overflow: hidden;
-	border: 4px;
+	max-height: 70%;
+	max-width: 20%;
+	min-width: 10%;
+	min-height: 35%;
+	border-radius: 4px;
+	position: absolute;
+	top: 15px;
+	left: 16px;
+}
+
+.greet-style {
+	position: absolute;
+	top: 15px;
+	right: 200px;
+}
+
+.btn-style {
+	margin-top: 8px;
 }
