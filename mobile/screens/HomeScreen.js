@@ -29,12 +29,12 @@ export default class HomeScreen extends React.Component {
     this.state = {
       friendData: [],
       loading: true,
+      gotPosts: false,
       postData: [],
       error:null,
-      user:props.user,
+      user:{}
     };
-  }
-  const userID = this.state.user.id;
+  };
 
   makeRequest(type, resource){
       console.log(type);
@@ -54,7 +54,12 @@ export default class HomeScreen extends React.Component {
   }
 
 /*React calls this after all the elements of the page is rendered correctly*/
-  componentDidMount(){
+  componentDidMount = () => {
+    this.setState({
+      user: this.props.navigation.getParam('user', {}),
+    });
+    userID = this.state.user.id;
+
     this.makeRequest('GET', Paths.getFriendsPosts + userID).then(response => {
       this.setState({postData: response});
     });
@@ -64,63 +69,15 @@ export default class HomeScreen extends React.Component {
     });
 
     this.setState({loading: false});
-    /*this.setState({loading: true});
-
-    fetch(url + Paths.getFriendsPosts + userID)
-    .then((res) => res.json())
-    .then((resJson) => {
-      this.setState({
-        postData: resJson,
-        loading: false,
-      });
-      console.log(resJson[0].title);
-      this.arrayholder = resJson
-    })
-    .catch(error => {
-      console.log("cannot get posts");
-      this.setState({ error, loading:false });
-    })
-
-    fetch(url + Paths.getFriends + userID, {
-      method: 'GET'
-    })
-    .then((response) => response.json())
-    .then((responseJson) => {
-      console.log(responseJson);
-      this.setState({
-        loading: false,
-        friendData: responseJson,
-      }, function(){
-
-      });
-    })
-    .catch((error) => {
-      console.error(error);
-    });*/
   }
 
 /*sends another get request for posts to update the feed*/
   refreshHubFeed = () => {
+    userID = this.state.user.id;
     this.makeRequest('GET', Paths.getFriendsPosts + userID).then(response => {
       this.setState({postData: response});
     });
     this.setState({loading: false});
-    /*this.setState({loading: true});
-
-    fetch(url + Paths.getFriendsPosts + userID )
-    .then((res) => res.json())
-    .then((resJson) => {
-      this.setState({
-        postData: resJson,
-        loading: false
-      });
-      console.log(resJson[0].title);
-      this.arrayholder = resJson
-    })
-    .catch(error => {
-      console.log("cannot get posts");
-      this.setState({ error, loading:false });
-    })*/
   }
 
 /*render lines FlatList*/
@@ -134,6 +91,7 @@ export default class HomeScreen extends React.Component {
   );
 
   render() {
+    let timeline;
     if(this.state.loading){
       return(
         <View style={{flex: 1, justifyContent: 'center', flexDirection: 'row'}}>
@@ -141,13 +99,34 @@ export default class HomeScreen extends React.Component {
         </View>
       );
     }
+
     friendsList = this.state.friendData.map(function(item){
       return {
         id: item.user.id,
         name: item.user.firstName + " " + item.user.lastName
       };
     });
-    console.log(this.state.postData);
+
+    if(friendsList.length != 0){
+      console.log("Got posts from friends");
+      timeline = <FlatList
+        data = {this.state.postData}
+        renderItem={({item}) => (
+          <HubFeedItem
+            name = {item.user.username}
+            title = {item.title}
+            rating = {item.rating}
+            body = {item.body}
+          />
+        )}
+        ItemSeparatorComponent = {this.renderSeparator}
+        keyExtractor={item => item.id.toString()}
+      />;
+    }
+    else{
+      console.log("User doesn't have any friends");
+      timeline = <Text style = {styles.noFriendsText}>Try Searching for Friends to see what is all the Hubbub!</Text>;
+    }
 
     return (
       <View style={styles.container}>
@@ -200,21 +179,7 @@ export default class HomeScreen extends React.Component {
             </TouchableHighlight>
           }
         />
-
-        <FlatList
-          data = {this.state.postData}
-          renderItem={({item}) => (
-            <HubFeedItem
-              name = {item.user.username}
-              title = {item.title}
-              rating = {item.rating}
-              body = {item.body}
-            />
-          )}
-          ItemSeparatorComponent = {this.renderSeparator}
-          keyExtractor={item => item.id.toString()}
-        />
-
+        {timeline}
         <CreatePostModal
           ref = {createPost => {this.createPost = createPost}}
           refreshFeed = {() => { this.refreshHubFeed()}}
@@ -245,5 +210,8 @@ const styles = StyleSheet.create({
   icon: {
     height: 32,
     width: 32
+  },
+  noFriendsText: {
+    textAlign: 'center'
   }
 });

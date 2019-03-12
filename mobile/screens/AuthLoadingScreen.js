@@ -11,6 +11,7 @@ export default class AuthLoadingScreen extends React.Component{
     try{
       const value = await AsyncStorage.getItem('USER');
       if (value != null){
+        console.log('User found in storage');
         this.setState({user: JSON.parse(value)});
         this.props.navigation.navigate('App', {user: this.state.user});
       }

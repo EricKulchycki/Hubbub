@@ -30,16 +30,16 @@ export default class SignInScreen extends React.Component {
   static navigationOptions = () => ({
     header: null,
   });
-  componentDidMount() {
+  componentDidMount = () => {
     socket.on('google', response => {
       console.log("user object retrieved form server.");
-      console.log(response);
       //Turn Response into a JSON Object!
           this.setState({
-            user: JSON.parse(response),
+            user: response,
           });
-          _storeData(this.state.user);
           AuthSession.dismiss();
+          this._storeData(JSON.stringify(this.state.user));
+
           this.props.navigation.navigate('App', {user: this.state.user});
     });
   }

@@ -1,7 +1,7 @@
 {
-  "dev": true,
-  "minify": false,
   "hostType": "localhost",
   "lanType": "ip",
-  "urlRandomness": "76-4ua"
+  "dev": true,
+  "minify": false,
+  "urlRandomness": "4d-28t"
 }
