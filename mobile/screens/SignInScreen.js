@@ -56,19 +56,26 @@ signIn = async() =>{
  render() {
    return (
      <View style = {styles.container}>
-       <Icon
-         name='alpha-h'
-         type='material-community'
-         size={300}
-         color='#ccd1d1'
+       <Image
+         style = {styles.icon}
+         source = {require('../assets/images/logo_t_512.png')}
        />
-      <GoogleSignInButton  onPress ={this.signIn}>
+
+       <GoogleSignInButton  onPress ={this.signIn}>
             Sign In With Google!
-        </GoogleSignInButton>
+       </GoogleSignInButton>
      </View>
    )
  }
 }
+
+/*<GoogleSignInButton  onPress ={this.signIn}>
+     Sign In With Google!
+</GoogleSignInButton>*/
+
+/*<GoogleSignInButton  onPress ={() => this.props.navigation.navigate('App', {user: this.state.user})}>
+    Sign In With Google!
+</GoogleSignInButton>*/
 
 const styles = StyleSheet.create({
   container: {
@@ -78,7 +85,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.MAIN_RED
   },
   icon: {
-    height: 200,
-    width: 200
+    height: 256,
+    width: 256
   }
 });

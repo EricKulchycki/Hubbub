@@ -5,3 +5,4 @@
   export const createPost = '/api/v1/post/create';
   export const getPostByID = '/api/v1/post/';
   export const getFriends = '/api/v1/friend/';
+  export const updateUser = '/api/v1/user/update';

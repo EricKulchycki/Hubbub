@@ -19,6 +19,8 @@ import * as Paths from '../constants/Paths';
 
 var friendsList;
 const url = Paths.SERVER;
+var userID;
+
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -34,9 +36,10 @@ export default class HomeScreen extends React.Component {
       error:null,
       user:{}
     };
-  };
+  }
 
   makeRequest(type, resource){
+      const url = Paths.url;
       console.log(type);
       console.log(resource);
       this.setState({loading: true});
@@ -95,7 +98,7 @@ export default class HomeScreen extends React.Component {
     if(this.state.loading){
       return(
         <View style={{flex: 1, justifyContent: 'center', flexDirection: 'row'}}>
-          <ActivityIndicator size='small' color="#d98880"/>
+          <ActivityIndicator size='large' color="#d98880"/>
         </View>
       );
     }
