@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "start": "NODE_ENV='development' node app.js"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
@@ -16,6 +17,8 @@
     "http-errors": "~1.6.2",
     "https": "^1.0.0",
     "jade": "~1.11.0",
+    "loadash": "^1.0.0",
+    "lodash": "^4.17.11",
     "mocha": "^2.5.3",
     "morgan": "~1.9.0",
     "mysql2": "^1.6.4",
@@ -33,9 +36,5 @@
   "devDependencies": {
     "chai": "^3.2.0",
     "chai-http": "^1.0.0"
-  },
-  "scripts": {
-    "test": "mocha",
-    "start": "NODE_ENV='development' node app.js"
   }
 }

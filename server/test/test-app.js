@@ -1,10 +1,13 @@
 process.env['NODE_ENV'] = 'test';
 process.env.NODE_ENV = 'test';
 
+var truncate = require('../test/truncate');
+
 var chai = require('chai');
 var chaiHttp = require('chai-http');
 var server = require('../app');
 var should = chai.should();
+
 
 chai.use(chaiHttp);
 
@@ -37,6 +40,8 @@ function printObj( obj ){
 var abort = false;
 
 describe('Testing environment',function(){
+
+
   it('should only be running in a test environment',function(){
     if(process.env.NODE_ENV !== 'test'){
     console.log("not running test in testing environment! Killing test to safeguard DB \n NODE_ENV="+process.env.NODE_ENV);
@@ -44,6 +49,12 @@ describe('Testing environment',function(){
     abort = true;
     }
   });
+});
+
+
+beforeEach(async () => {
+  await truncate();
+  //user = await userFactory();
 });
 
 
