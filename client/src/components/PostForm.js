@@ -1,17 +1,13 @@
 import React, { Component } from "react";
 import Popup from "reactjs-popup";
-import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
-
-
+import Rating from 'react-rating';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import {
     Container, Col, Form,
     FormGroup, Label, Input,
     Button,
   } from 'reactstrap';
-
-
-
 
 class PostForm extends Component {
   constructor(props) {
@@ -27,16 +23,18 @@ class PostForm extends Component {
 		isOpen: false
     }
   };
-  
+	
+	// opens the popup
   handleOpen = () => {
     this.setState({ isOpen: true });
   }
 
+	// closes the popup
   handleClose = () => {
     this.setState({ isOpen: false });
   }
  
- 
+	// manages changes in the post form
   handleInputChange(event) {
     const target = event.target;
     const value = target.value;
@@ -47,19 +45,20 @@ class PostForm extends Component {
     });
   }
 
+	// submits the user post to the server
   handleFormSubmit() {
     axios.post('http://localhost:4000/api/v1/post/create',{ 
       title: this.state.title,
       category: this.state.category,
       body: this.state.body,
-      userId: 9,
+      userId: this.props.user.id,	
       rating: null
   }).then(function (response) {
-	 
     })
     .catch(function (error) {
       console.log(error);
-    });
+		});
+		
 	this.handleClose();
   }
 
@@ -68,17 +67,14 @@ class PostForm extends Component {
 					open={this.state.isOpen}
 					onOpen={this.handleOpen}
 					style={{ width: '100%', height: '45%', position:'relative'}}
-					trigger={<button className="button" style={{height:'150px', width:'150px'}} > Post </button>} 
+					trigger={<Button style={{ marginTop: '8px'}}> Post </Button>} 
 					modal
 				>
-				{close => (
-					<div >
+				{close => (					
 					<Container style={{
 						position:'relative',
 						textAlign: 'left',
 						padding: '1em',
-						border: '2px solid #d3d3d3',
-						borderRadius: '.5em',
 						verticalAlign: 'middle',
 						marginLeft: 'auto',
 						marginRight: 'auto',
@@ -95,21 +91,30 @@ class PostForm extends Component {
 								value={this.state.title}
 								onChange={this.handleInputChange}
 								name="title"
-								placeholder="Title of the Movie"
+								placeholder="Title"
 								/>
 							</FormGroup>
 							</Col>
 							<Col>
 							<FormGroup>
-								<Label >Movie Category</Label>
+								<Label >Category</Label>
 							<Input
+								type="select"
 								value={this.state.category}
 								onChange={this.handleInputChange}
 								name="category"
-								placeholder="Movie Category"
-								/>
+								placeholder="Category"
+							>
+								<option value="MOVIE">Movie</option>
+								<option value="COMIC">Comic</option>
+								<option value="VIDEO GAME">Video Game</option>
+								<option value="TV-SHOW">Tv-Show</option>
+								<option value="ANIME">Anime</option>
+							</Input>
 							</FormGroup>
-							</Col>
+							</Col> 
+								<Col> <Label>Rating:</Label><Rating initialRating={0} emptySymbol="fa fa-star-o fa-2x" fullSymbol="fa fa-star fa-2x"/>
+								</Col>
 							<Col>
 							<FormGroup>
 								<Label style= {{    
@@ -124,18 +129,13 @@ class PostForm extends Component {
 								</textarea>
 							</FormGroup>
 							</Col>
-							<Button style={{height:'100px'}} onClick={this.handleFormSubmit}>Submit</Button>
+							<Button color="secondary" onClick={this.handleFormSubmit}>Submit</Button>
 						</Form>
-						</Container>
-						</div>
+						</Container>						
 				)}
 			</Popup>;
      
-      }
-    
+      } 
 }
 
-
-
 export default PostForm;
-
