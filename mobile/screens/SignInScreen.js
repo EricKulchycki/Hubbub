@@ -39,7 +39,6 @@ export default class SignInScreen extends React.Component {
           });
           AuthSession.dismiss();
           this._storeData(JSON.stringify(this.state.user));
-
           this.props.navigation.navigate('App', {user: this.state.user});
     });
   }

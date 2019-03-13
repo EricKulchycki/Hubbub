@@ -11,12 +11,13 @@ import {Header, Icon} from 'react-native-elements';
 import * as Colors from '../constants/Colors';
 import * as Paths from '../constants/Paths';
 
+const url = Paths.SERVER;
 
 export default class ProfileScreen extends React.Component{
   constructor(props){
     super(props);
     this.state = {
-      user: null,
+      user: this.props.navigation.getParam('user', {}),
       username: '',
       age: -1,
       picture: '',
@@ -30,7 +31,6 @@ export default class ProfileScreen extends React.Component{
   });
 
   makeRequest(type, resource){
-      const url = Paths.url;
       console.log(type);
       console.log(resource);
       this.setState({loading: true});
@@ -68,7 +68,6 @@ export default class ProfileScreen extends React.Component{
       })
     }
 
-    const url = Paths.url;
     fetch(url + resource, {
       method: type,
       headers: {
@@ -84,11 +83,7 @@ export default class ProfileScreen extends React.Component{
 
 
   componentDidMount = () => {
-    const temp = this.props.navigation.getParam('user', {});
-    console.log(this.props.navigation);
-    this.setState({
-      user: temp,
-    });
+    console.log("kekeke");
     console.log(this.state.user);
     this.makeRequest('GET', Paths.getFriendsPosts + this.state.user.id).then(response => {
       this.setState({postData: response});
@@ -150,7 +145,7 @@ export default class ProfileScreen extends React.Component{
         <TouchableHighlight
           style={{position: 'absolute', alignSelf: 'flex-start', bottom: 0}}
           onPress={() => {
-            this.props.navigation.navigate('Home', {user: this.state.user})
+            this.props.navigation.goBack();
           }}>
           <Icon
             reverse
