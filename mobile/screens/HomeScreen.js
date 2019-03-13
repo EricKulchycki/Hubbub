@@ -40,8 +40,6 @@ export default class HomeScreen extends React.Component {
 
   makeRequest(type, resource){
       const url = Paths.url;
-      console.log(type);
-      console.log(resource);
       this.setState({loading: true});
 
       return fetch(url + resource, {
@@ -62,6 +60,9 @@ export default class HomeScreen extends React.Component {
       user: this.props.navigation.getParam('user', {}),
     });
     userID = this.state.user.id;
+    console.log("asdsafas");
+    console.log(this.state.user);
+    console.log(userID);
 
     this.makeRequest('GET', Paths.getFriendsPosts + userID).then(response => {
       this.setState({postData: response});
@@ -102,13 +103,14 @@ export default class HomeScreen extends React.Component {
         </View>
       );
     }
-
-    friendsList = this.state.friendData.map(function(item){
-      return {
-        id: item.user.id,
-        name: item.user.firstName + " " + item.user.lastName
-      };
-    });
+    if(this.state.friendData !== undefined){
+      friendsList = this.state.friendData.map(function(item){
+        return {
+          id: item.user.id,
+          name: item.user.firstName + " " + item.user.lastName
+        };
+      });
+    }
 
     if(friendsList.length != 0){
       console.log("Got posts from friends");
@@ -130,6 +132,8 @@ export default class HomeScreen extends React.Component {
       console.log("User doesn't have any friends");
       timeline = <Text style = {styles.noFriendsText}>Try Searching for Friends to see what is all the Hubbub!</Text>;
     }
+
+
 
     return (
       <View style={styles.container}>

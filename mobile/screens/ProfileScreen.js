@@ -5,6 +5,7 @@ import {
   View,
   TouchableHighlight,
   ScrollView,
+  FlatList,
 } from 'react-native';
 import {Header, Icon} from 'react-native-elements';
 import * as Colors from '../constants/Colors';
@@ -15,7 +16,7 @@ export default class ProfileScreen extends React.Component{
   constructor(props){
     super(props);
     this.state = {
-      user: props.user,
+      user: null,
       username: '',
       age: -1,
       picture: '',
@@ -49,25 +50,22 @@ export default class ProfileScreen extends React.Component{
   makePost(type, resource){
     this.setState({loading: true});
     const jsonBody = {
-      userId: this.user.id,
+      userId: this.state.user.id,
     }
     if(this.state.username != ''){
-      jsonBody: {
-        ...jsonBody,
-        [username]: this.state.username
-      }
+      jsonBody.push({
+        username: this.state.username
+      })
     }
     if(age != -1){
-      jsonBody: {
-        ...jsonBody,
-        [age]: this.state.age
-      }
+      jsonBody.push({
+        age: this.state.age
+      })
     }
     if(picture != ''){
-      jsonBody: {
-        ...jsonBody,
-        [picture]: this.state.picture
-      }
+      jsonBody.push({
+        picture: this.state.picture
+      })
     }
 
     const url = Paths.url;
@@ -85,7 +83,13 @@ export default class ProfileScreen extends React.Component{
   }
 
 
-  componentDidMount(){
+  componentDidMount = () => {
+    const temp = this.props.navigation.getParam('user', {});
+    console.log(this.props.navigation);
+    this.setState({
+      user: temp,
+    });
+    console.log(this.state.user);
     this.makeRequest('GET', Paths.getFriendsPosts + this.state.user.id).then(response => {
       this.setState({postData: response});
     });
