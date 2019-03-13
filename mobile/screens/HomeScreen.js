@@ -34,12 +34,11 @@ export default class HomeScreen extends React.Component {
       gotPosts: false,
       postData: [],
       error:null,
-      user:{}
+      user: this.props.navigation.getParam('user', {})
     };
   }
 
   makeRequest(type, resource){
-      const url = Paths.url;
       this.setState({loading: true});
 
       return fetch(url + resource, {
@@ -56,14 +55,7 @@ export default class HomeScreen extends React.Component {
 
 /*React calls this after all the elements of the page is rendered correctly*/
   componentDidMount = () => {
-    this.setState({
-      user: this.props.navigation.getParam('user', {}),
-    });
     userID = this.state.user.id;
-    console.log("asdsafas");
-    console.log(this.state.user);
-    console.log(userID);
-
     this.makeRequest('GET', Paths.getFriendsPosts + userID).then(response => {
       this.setState({postData: response});
     });
@@ -77,7 +69,6 @@ export default class HomeScreen extends React.Component {
 
 /*sends another get request for posts to update the feed*/
   refreshHubFeed = () => {
-    userID = this.state.user.id;
     this.makeRequest('GET', Paths.getFriendsPosts + userID).then(response => {
       this.setState({postData: response});
     });

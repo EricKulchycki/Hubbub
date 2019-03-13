@@ -13,7 +13,7 @@ export default class AuthLoadingScreen extends React.Component{
       if (value != null){
         console.log('User found in storage');
         this.setState({user: JSON.parse(value)});
-        this.props.navigation.navigate('App', {user: this.state.user});
+        this.props.navigation.navigate('Home', {user: this.state.user});
       }
       else {
         console.log('No User Stored, going to log in screen.');

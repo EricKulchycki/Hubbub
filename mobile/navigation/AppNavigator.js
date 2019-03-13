@@ -7,13 +7,13 @@ import ProfileScreen from '../screens/ProfileScreen'
 import { createAppContainer, createStackNavigator, createSwitchNavigator } from 'react-navigation';
 
 const AppStack = createStackNavigator({Home: HomeScreen, Profile: ProfileScreen});
-const AuthStack = createStackNavigator({SignIn: SignInScreen}, {headerMode: 'screen'});
 export default createAppContainer(createSwitchNavigator({
   // You could add another route here for authentication.
   // Read more at https://reactnavigation.org/docs/en/auth-flow.html
   AuthLoading: AuthLoadingScreen,
+  Auth: SignInScreen,
   App: AppStack,
-  Auth: AuthStack
+
 },
 {
   initialRouteName: 'AuthLoading',
