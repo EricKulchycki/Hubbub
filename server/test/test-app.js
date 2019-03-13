@@ -54,7 +54,6 @@ describe('Testing environment',function(){
 
 beforeEach(async () => {
   await truncate();
-  //user = await userFactory();
 });
 
 
