@@ -68,6 +68,8 @@ export default class ProfileScreen extends React.Component{
       })
     }
 
+    console.log("json body");
+    console.log(jsonBody);
     fetch(url + resource, {
       method: type,
       headers: {
@@ -92,6 +94,27 @@ export default class ProfileScreen extends React.Component{
   }
 
   render() {
+    if(this.state.postData.length != 0){
+      console.log("Got posts from myself");
+      timeline = <FlatList
+        data = {this.state.postData}
+        renderItem={({item}) => (
+          <HubFeedItem
+            name = {item.user.username}
+            title = {item.title}
+            rating = {item.rating}
+            body = {item.body}
+          />
+        )}
+        ItemSeparatorComponent = {this.renderSeparator}
+        keyExtractor={item => item.id.toString()}
+      />;
+    }
+    else{
+      console.log("I have no posts");
+      timeline = <Text style = {styles.noPostsText}>It seems you have no posts!</Text>;
+    }
+
     if(this.state.loading){
       return(
         <View style={{flex: 1, justifyContent: 'center', flexDirection: 'row'}}>
@@ -122,11 +145,7 @@ export default class ProfileScreen extends React.Component{
           }
         />
 
-        <ScrollView>
-          <View style={{paddingHorizontal: 5, marginTop: 22}}>
-
-          </View>
-        </ScrollView>
+        {timeline}
 
         <FlatList
           data = {this.state.postData}
@@ -177,5 +196,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+  },
+  noPostsText: {
+    textAlign: 'center'
   }
 });

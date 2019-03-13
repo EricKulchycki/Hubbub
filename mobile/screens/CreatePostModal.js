@@ -1,6 +1,9 @@
 import React from 'react';
 import {View, Modal, Picker, Text, TextInput, ScrollView, TouchableHighlight} from 'react-native';
 import {Icon, Rating, CheckBox, Header} from 'react-native-elements';
+import * as Paths from '../constants/Paths';
+
+const url = Paths.SERVER;
 
 export default class CreatePostModal extends React.Component{
     constructor(props){
@@ -26,7 +29,6 @@ export default class CreatePostModal extends React.Component{
       }
     /*sends a post request then refreshes the feed*/
     createNewPost = () => {
-        const url = 'http://142.93.147.148:4000';
         console.log(this.state.nameOfMedia);
         console.log(this.state.pickerSelection);
         console.log(this.state.details);

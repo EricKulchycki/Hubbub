@@ -59,10 +59,14 @@ export default class HomeScreen extends React.Component {
     this.makeRequest('GET', Paths.getFriendsPosts + userID).then(response => {
       this.setState({postData: response});
     });
+    console.log("post data")
+    console.log(this.state.postData);
 
     this.makeRequest('GET', Paths.getFriends + userID).then(response => {
       this.setState({friendData: response});
     });
+    console.log("friend data")
+    console.log(this.state.friendData);
 
     this.setState({loading: false});
   }
