@@ -2,6 +2,9 @@ process.env['NODE_ENV'] = 'test';
 process.env.NODE_ENV = 'test';
 
 var truncate = require('../test/truncate');
+var createUser = require('../test/factories/userfactory');
+var createPost = require('../test/factories/postfactory');
+
 
 var chai = require('chai');
 var chaiHttp = require('chai-http');
@@ -11,13 +14,14 @@ var should = chai.should();
 
 chai.use(chaiHttp);
 
-function validUser( res ){
-	res.should.have.property('id');
+function validUser( res, number ){
+    res.should.have.property('id');
     res.should.have.property('username');
     res.should.have.property('password');
     res.should.have.property('email');
     res.should.have.property('firstName');
     res.should.have.property('lastName');
+    //res.id.should.equal(1);
 }
 
 function validPost( res ){
@@ -42,42 +46,32 @@ var abort = false;
 describe('Testing environment',function(){
 
 
-  it('should only be running in a test environment',function(){
+  it('should only be running in a test environment',function(done){
     if(process.env.NODE_ENV !== 'test'){
     console.log("not running test in testing environment! Killing test to safeguard DB \n NODE_ENV="+process.env.NODE_ENV);
     chai.assert.fail();
     abort = true;
     }
+    done();
   });
 });
 
 
-beforeEach(async () => {
-  await truncate();
-});
+
 
 
 if(abort == false){
   describe('API Endpoints', function() {
 
-    it('should create a 5 users', function(done){
+    let user, post;
 
-      for(i=0;i<5;i++){
-        var user = {
-          'username': 'user'+i,
-          'password': 'password'+i,
-          'email': 'email'+i+'@gmail.com'
-        }
-
-      chai.request(server)
-      .post('/api/v1/user/create')
-      .send(user)
-      .end(function(err,res){
-        res.should.have.status(200);
-      });
-
+    beforeEach(async (done) => {
+      await truncate();
+      for(let x = 0; x < 5; x++) {
+        user = await createUser();
+        post = await createPost();
       }
-      done();            
+      done();
     });
 
     it('should return user with specified id', function(done) {
@@ -88,7 +82,7 @@ if(abort == false){
           res.should.have.status(200);
           res = res.body;
 
-          validUser(res);
+          validUser(res, 1);
 
           done();
         });
