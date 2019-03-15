@@ -9,7 +9,7 @@ const socket = io(API_URL)
 //const providers = ['twitter', 'google', 'facebook', 'github']
 const providers = ['google']
 
-class HomePage extends Component {
+export class HomePage extends Component {
   state = {
     data: ''
   }

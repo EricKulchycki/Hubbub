@@ -17,3 +17,9 @@
 .post-body {
 	font-size: 12px;
 }
+
+.post-profile-pic-style {
+	height: 25px;
+	width: 25px;
+	margin-bottom: 1px;
+}

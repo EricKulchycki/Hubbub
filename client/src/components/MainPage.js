@@ -6,7 +6,7 @@ import '../css/Application.css';
 import '../css/MainPage.css';
 import axios from 'axios';
 
-class MainPage extends Component {
+export class MainPage extends Component {
   constructor(props) {
     super(props)
     this.componentDidMount = this.componentDidMount.bind(this)

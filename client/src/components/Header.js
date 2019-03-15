@@ -120,7 +120,7 @@ export class Header extends Component {
         checkFriend={this.checkFriend} addFriend={this.addFriend} deleteFriend={this.deleteFriend}/>
           </Col>
           <Col>
-            <Button className="btn-style" onClick={this.switchToProfile} color="secondary">Profile</Button>{' '}
+            <Button className="prof-style" onClick={this.switchToProfile} color="secondary">Profile</Button>{' '}
           </Col>
           <Col>
             <PostForm user={this.props.user}/>

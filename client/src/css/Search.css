@@ -27,3 +27,9 @@
     cursor: pointer;
     z-index: 10000;
 }
+
+.display-pic-style {
+    height: 23px;
+    width: 23px;
+    margin-bottom: 1px;
+}
