@@ -7,6 +7,7 @@ import {
   ScrollView,
   FlatList,
   Image,
+  TextInput,
 } from 'react-native';
 import {Header, Icon} from 'react-native-elements';
 import * as Colors from '../constants/Colors';
@@ -15,13 +16,17 @@ import HubFeedItem from '../components/HubFeedItem';
 
 const url = Paths.domain;
 
-export default class ProfileScreen extends React.Component{
+export default class EditScreen extends React.Component{
   constructor(props){
     super(props);
     this.state = {
       user: this.props.navigation.getParam('user', {}),
+      username: '',
+      firstname: '',
+      lastname: '',
+      age: null,
+      picture: '',
       loading: false,
-      postData: [],
     };
   }
 
@@ -46,37 +51,44 @@ export default class ProfileScreen extends React.Component{
       })
   }
 
-  componentDidMount = () => {
-    this.makeRequest('GET', Paths.getPostByUserID + this.state.user.id).then(response => {
-      this.setState({postData: response});
+  makePost(type, resource){
+    this.setState({loading: true});
+    const jsonBody = {
+      userId: this.state.user.id,
+    }
+    if(this.state.username != this.state.user.username){
+      jsonBody.push({
+        username: this.state.username
+      })
+    }
+    if(this.state.age != this.state.user.age){
+      jsonBody.push({
+        age: this.state.age
+      })
+    }
+    if(picture != ''){
+      jsonBody.push({
+        picture: this.state.picture
+      })
+    }
+
+    console.log("json body");
+    console.log(jsonBody);
+    fetch(url + resource, {
+      method: type,
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        jsonBody
+      }),
     });
-    console.log("kekeke");
-    console.log(this.state.postData);
     this.setState({loading: false});
   }
 
-  render() {
-    if(this.state.postData.length != 0){
-      console.log("Got posts from myself");
-      timeline = <FlatList
-        data = {this.state.postData}
-        renderItem={({item}) => (
-          <HubFeedItem
-            name = {item.user.username}
-            title = {item.title}
-            rating = {item.rating}
-            body = {item.body}
-          />
-        )}
-        ItemSeparatorComponent = {this.renderSeparator}
-        keyExtractor={item => item.id.toString()}
-      />;
-    }
-    else{
-      console.log("I have no posts");
-      timeline = <Text style = {styles.noPostsText}>It seems you have no posts!</Text>;
-    }
 
+  render() {
     if(this.state.loading){
       return(
         <View style={{flex: 1, justifyContent: 'center', flexDirection: 'row'}}>
@@ -90,7 +102,7 @@ export default class ProfileScreen extends React.Component{
         <Header backgroundColor = "#a93226"
           centerComponent={
             <Text style = {{fontWeight: 'bold', fontSize: 34, color: "#ccd1d1"}}>
-            Profile
+            Edit Profile
             </Text>
           }
         />
@@ -103,29 +115,32 @@ export default class ProfileScreen extends React.Component{
 
         <View style={{paddingHorizontal: 5}}>
           <Text style = {{paddingTop: 10, fontSize: 22}}>
-            Username:
+            First name:
           </Text>
-          <Text>
-            {this.state.user.username}
-          </Text>
+          <TextInput
+            style = {{paddingHorizontal: 5, borderColor: '#ccd1d1', borderWidth: 1}}
+            onChangeText={(firstname) => this.setState({firstname})}
+            value={this.state.firstname}
+          />
 
           <Text style = {{paddingTop: 10, fontSize: 22}}>
-            Name:
+            Last name:
           </Text>
-          <Text>
-            {this.state.user.firstName + this.state.user.lastName}
-          </Text>
+          <TextInput
+            style = {{paddingHorizontal: 5, borderColor: '#ccd1d1', borderWidth: 1}}
+            onChangeText={(lastname) => this.setState({lastname})}
+            value={this.state.lastname}
+          />
 
           <Text style = {{paddingTop: 10, fontSize: 22}}>
             Age:
           </Text>
-          <Text>
-            {this.state.user.age}
-          </Text>
-
+          <TextInput
+            style = {{paddingHorizontal: 5, borderColor: '#ccd1d1', borderWidth: 1}}
+            onChangeText={(age) => this.setState({age})}
+            value={this.state.age}
+          />
         </View>
-
-        {timeline}
 
         <TouchableHighlight
           style={{position: 'absolute', alignSelf: 'flex-start', bottom: 0}}
@@ -142,11 +157,11 @@ export default class ProfileScreen extends React.Component{
         <TouchableHighlight
           style={{position: 'absolute', alignSelf: 'flex-end', bottom: 0}}
           onPress={() => {
-            this.props.navigation.navigate('Edit', {user: this.state.user});
+            alert("Save Profile");//this.makePost('POST', Paths.updateUser)
           }}>
           <Icon
             reverse
-            name='edit'
+            name='save'
             type='material'
             size={24}
             color='#a93226'/>
@@ -164,7 +179,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   noPostsText: {
-    fontSize: 22,
     textAlign: 'center'
   }
 });

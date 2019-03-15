@@ -18,7 +18,7 @@ import * as Colors from '../constants/Colors';
 import * as Paths from '../constants/Paths';
 
 var friendsList;
-const url = Paths.SERVER;
+const url = Paths.domain;
 var userID;
 
 
@@ -176,7 +176,7 @@ export default class HomeScreen extends React.Component {
                 name='perm-identity'
                 type='material'
                 size={35}
-                color='#ccd1d1'
+                color='#FFF'
                 />
             </TouchableHighlight>
           }
@@ -214,6 +214,7 @@ const styles = StyleSheet.create({
     width: 32
   },
   noFriendsText: {
+    fontSize: 22,
     textAlign: 'center'
   }
 });
