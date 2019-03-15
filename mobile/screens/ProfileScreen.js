@@ -11,13 +11,12 @@ import {Header, Icon} from 'react-native-elements';
 import * as Colors from '../constants/Colors';
 import * as Paths from '../constants/Paths';
 
-const url = Paths.SERVER;
 
 export default class ProfileScreen extends React.Component{
   constructor(props){
     super(props);
     this.state = {
-      user: this.props.navigation.getParam('user', {}),
+      user: null,
       username: '',
       age: -1,
       picture: '',
@@ -31,6 +30,7 @@ export default class ProfileScreen extends React.Component{
   });
 
   makeRequest(type, resource){
+      const url = Paths.url;
       console.log(type);
       console.log(resource);
       this.setState({loading: true});
@@ -68,8 +68,7 @@ export default class ProfileScreen extends React.Component{
       })
     }
 
-    console.log("json body");
-    console.log(jsonBody);
+    const url = Paths.url;
     fetch(url + resource, {
       method: type,
       headers: {
@@ -85,7 +84,11 @@ export default class ProfileScreen extends React.Component{
 
 
   componentDidMount = () => {
-    console.log("kekeke");
+    const temp = this.props.navigation.getParam('user', {});
+    console.log(this.props.navigation);
+    this.setState({
+      user: temp,
+    });
     console.log(this.state.user);
     this.makeRequest('GET', Paths.getFriendsPosts + this.state.user.id).then(response => {
       this.setState({postData: response});
@@ -94,27 +97,6 @@ export default class ProfileScreen extends React.Component{
   }
 
   render() {
-    if(this.state.postData.length != 0){
-      console.log("Got posts from myself");
-      timeline = <FlatList
-        data = {this.state.postData}
-        renderItem={({item}) => (
-          <HubFeedItem
-            name = {item.user.username}
-            title = {item.title}
-            rating = {item.rating}
-            body = {item.body}
-          />
-        )}
-        ItemSeparatorComponent = {this.renderSeparator}
-        keyExtractor={item => item.id.toString()}
-      />;
-    }
-    else{
-      console.log("I have no posts");
-      timeline = <Text style = {styles.noPostsText}>It seems you have no posts!</Text>;
-    }
-
     if(this.state.loading){
       return(
         <View style={{flex: 1, justifyContent: 'center', flexDirection: 'row'}}>
@@ -145,7 +127,11 @@ export default class ProfileScreen extends React.Component{
           }
         />
 
-        {timeline}
+        <ScrollView>
+          <View style={{paddingHorizontal: 5, marginTop: 22}}>
+
+          </View>
+        </ScrollView>
 
         <FlatList
           data = {this.state.postData}
@@ -164,7 +150,7 @@ export default class ProfileScreen extends React.Component{
         <TouchableHighlight
           style={{position: 'absolute', alignSelf: 'flex-start', bottom: 0}}
           onPress={() => {
-            this.props.navigation.goBack();
+            this.props.navigation.navigate('Home', {user: this.state.user})
           }}>
           <Icon
             reverse
@@ -196,8 +182,5 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-  },
-  noPostsText: {
-    textAlign: 'center'
   }
 });

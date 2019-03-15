@@ -13,7 +13,7 @@ import {Header, Icon} from 'react-native-elements';
 import HubFeedItem from '../components/HubFeedItem';
 import SearchableDropdown from 'react-native-searchable-dropdown';
 import CreatePostModal from '../screens/CreatePostModal';
-import { WebBrowser } from 'expo';
+import {makeRequest} from '../components/Utils'
 import * as Colors from '../constants/Colors';
 import * as Paths from '../constants/Paths';
 
@@ -38,35 +38,16 @@ export default class HomeScreen extends React.Component {
     };
   }
 
-  makeRequest(type, resource){
-      this.setState({loading: true});
-
-      return fetch(url + resource, {
-        method: type
-      })
-      .then((res) => res.json())
-      .then((resJson) => {
-        return resJson;
-      })
-      .catch(error => {
-        console.log("cannot get " + resource);
-      })
-  }
-
 /*React calls this after all the elements of the page is rendered correctly*/
   componentDidMount = () => {
     userID = this.state.user.id;
-    this.makeRequest('GET', Paths.getFriendsPosts + userID).then(response => {
+    makeRequest('GET', Paths.getFriendsPosts + userID).then(response => {
       this.setState({postData: response});
     });
-    console.log("post data")
-    console.log(this.state.postData);
 
-    this.makeRequest('GET', Paths.getFriends + userID).then(response => {
+    makeRequest('GET', Paths.getFriends + userID).then(response => {
       this.setState({friendData: response});
     });
-    console.log("friend data")
-    console.log(this.state.friendData);
 
     this.setState({loading: false});
   }
@@ -140,30 +121,8 @@ export default class HomeScreen extends React.Component {
             />
           }
           centerComponent = {
-            <SearchableDropdown
-              onItemSelect={friendsList => alert(JSON.stringify(friendsList))}
-              containerStyle={{padding: 10, width: 300, alignSelf: 'center'}}
-              textInputStyle={{
-                padding: 5,
-                paddingHorizontal: 10,
-                borderWidth: 1,
-                borderColor: '#ccd1d1',
-                borderRadius: 5,
-                color: '#ccd1d1',
-              }}
-              itemStyle={{
-                padding: 10,
-                marginTop: 2,
-                backgroundColor: '#ccd1d1',
-                borderColor: Colors.MAIN_RED,
-                borderWidth: 1,
-                borderRadius: 5,
-              }}
-              itemTextStyle={{color: '#000'}}
-              itemsContainerStyle={{maxHeight: 130}}
-              items={friendsList}
-              placeholder="Search"
-              underlineColorAndroid="transparent"
+            <HubSearchBar
+              friendData = {this.state.friendData}
             />
           }
           rightComponent={

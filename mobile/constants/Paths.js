@@ -7,3 +7,4 @@
   export const getFriends = '/api/v1/friend/';
   export const updateUser = '/api/v1/user/update';
   export const addFriend = '/api/v1/friend/create';
+  export const getAllUsers = '/api/v1/user/list';
