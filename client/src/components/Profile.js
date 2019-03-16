@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../css/Post.css';
 import axios from 'axios';
-import '../css/Postform.css';
 import '../css/Application.css';
-import '../css/MainPage.css';
 import '../css/Profile.css';
 import Header from './Header'
 import classnames from 'classnames';
@@ -29,14 +26,18 @@ export class Profile extends Component {
             friends: [],
             posts:[],
 
-            userName: 'John Smith',
+            //userName: 'John Smith',
+            firstName: 'John',
+            lastName: 'Smith',
             age: 'Not listed',
             //bio: 'Hello, this is my profile',
             picture: '',
 
             tmpAge:'',
             tmpBio:'',
-            tmpUserName:'',
+            //tmpUserName:'',
+            tmpFirstName:'',
+            tmpLastName:'',
             tmpPicture:''
         };
     }
@@ -93,9 +94,17 @@ export class Profile extends Component {
     }
     
     componentDidMount() {
-        if(this.state.user.username != null){
-            this.setState({ userName: this.state.user.username });
+        if(this.state.user.firstName != null){
+            this.setState({ firstName: this.state.user.firstName });
         }
+
+        if(this.state.user.lastName != null){
+            this.setState({ lastName: this.state.user.lastName });
+        }
+
+        /*if(this.state.user.username != null){
+            this.setState({ userName: this.state.user.username });
+        }*/
         
         if(this.state.user.age != null){
             this.setState({ age: this.state.user.age });
@@ -110,21 +119,31 @@ export class Profile extends Component {
     // submits the profile changes to the server 
     handleProfileEdit() {
         var newAge = this.state.tmpAge
-        var newName = this.state.tmpUserName
+        var newFirstName = this.state.tmpFirstName
+        var newLastName = this.state.tmpLastName
+        //var newName = this.state.tmpUserName
         var newPicture = this.state.tmpPicture
 
         if(this.state.tmpAge === '')
             newAge = this.state.age
 
-        if(this.state.tmpUserName === '')
-            newName = this.state.userName
+        if(this.state.tmpFirstName === '')
+            newFirstName = this.state.firstName
+
+        if(this.state.tmpLastName === '')
+            newLastName = this.state.lastName
+
+        /*if(this.state.tmpUserName === '')
+            newName = this.state.userName*/
         
         if(this.state.tmpPicture === '')
             newPicture = this.state.picture
   
         axios.post('http://localhost:4000/api/v1/user/update',{ 
           userId: this.state.user.id,
-          username: newName,
+          firstName: newFirstName,
+          lastName: newLastName,
+          //username: newName,
           age: newAge,
           picture: newPicture
         }).then(((response) => {
@@ -162,17 +181,17 @@ export class Profile extends Component {
     render() {
         return (			
             <div>
-                <div>
+                <div className="header-layout">
                     <Header />
                 </div>
                 <div className="application-background-primary main-container-style">
                 <Container >
                     <Row >
                         <Col className="application-background-secondary container-left-column-style" md="2"  >
-                            <Row className="container-left-column-first-row"><img  onError={this.backToDefault} className="avatar-style" src={this.state.user.picture === null ? this.state.user.photo : this.state.user.picture} alt="logo"/></Row>
+                            <Row className="container-left-column-first-row"><img onError={this.backToDefault} className="avatar-style" src={this.state.user.picture === null ? this.state.user.photo : this.state.user.picture} alt="logo"/></Row>
                             <Row >
                                 <div >
-                                <p>{this.state.userName}, {this.state.age}</p>
+                                <p>{this.state.firstName} {this.state.lastName}, {this.state.age}</p>
                                 {/* <p>{this.state.bio}</p> */}
                                 </div>
                             </Row>
@@ -228,7 +247,7 @@ export class Profile extends Component {
                                             <Col>
                                                 <Container className="containter-right-column-edit-container-style" >
                                                 <Form className="form containter-right-column-edit-container-form-style">
-                                                    <Col>
+                                                    {/*<Col>
                                                     <FormGroup>
                                                         <Label >Username</Label>
                                                         <Input
@@ -238,6 +257,30 @@ export class Profile extends Component {
                                                             placeholder={this.state.tmpUserName}
                                                         />
                                                         <FormText>e.g. John Smith</FormText>
+                                                    </FormGroup>
+                                                    </Col>*/}
+                                                    <Col>
+                                                    <FormGroup>
+                                                        <Label>Firstname</Label>
+                                                        <Input
+                                                            value={this.state.tmpFirstName}
+                                                            onChange={this.handleInputChange}
+                                                            name="tmpFirstName"
+                                                            placeholder={this.state.tmpFirstName}
+                                                        />
+                                                        <FormText>e.g. John</FormText>
+                                                    </FormGroup>
+                                                    </Col>
+                                                    <Col>
+                                                    <FormGroup>
+                                                        <Label>Lastname</Label>
+                                                        <Input
+                                                            value={this.state.tmpLastName}
+                                                            onChange={this.handleInputChange}
+                                                            name="tmpLastName"
+                                                            placeholder={this.state.tmpLastName}
+                                                        />
+                                                        <FormText>e.g. Smith</FormText>
                                                     </FormGroup>
                                                     </Col>
                                                     <Col>
