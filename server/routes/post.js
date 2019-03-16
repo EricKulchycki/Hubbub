@@ -60,5 +60,16 @@ module.exports = (app, db) => {
   		},
 	  	include: [db.user]
   	}).then( (result) => res.json(result));
+	});
+	
+  //Get all posts for a specified user
+  app.get("/api/v1/posts/user/:id", (req, res) => {
+  	console.log("Requested posts for user ID " + req.params.id);
+  	db.post.findAll({
+  		where: {
+  			userId: req.params.id
+  		},
+	  	include: [db.user]
+  	}).then( (result) => res.json(result) );
   });
 }

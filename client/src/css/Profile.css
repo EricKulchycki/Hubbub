@@ -1,0 +1,49 @@
+.main-container-style {
+    height: 100%;
+}
+
+.container-left-column-style {
+    max-width: 300px;
+    border-right: 1px solid;
+}
+
+.container-left-column-first-row {
+    border-bottom: 1px solid;
+}
+
+.avatar-style {
+    width: 100%;
+    height: 100%;
+}
+
+.container-right-column-style {
+    padding: 0px;
+}
+
+.container-nav-style {
+    height: 100%;
+    min-width: 300px;
+}
+
+.container-nav-tab-style {
+    border: 0px
+} 
+
+.containter-right-column-edit-container-style {
+    position: relative;
+    text-align: left;
+    padding: 1em;
+    vertical-align: middle;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    height: 100%;
+}
+
+.containter-right-column-edit-container-form-style {
+    padding: 1em;
+}
+
+.containter-right-column-edit-container-form-bio-style {
+    width: 100%
+}

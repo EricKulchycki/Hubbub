@@ -100,6 +100,12 @@ GET:
 
 /api/v1/posts/categories/:cat
 
+Where :cat is one of
+- 'movie'
+- 'tv-show'
+- 'video game'
+- 'comic'
+
 ### Get post by id
 
 GET:
@@ -127,3 +133,11 @@ GET:
 /api/v1/posts/allFriends/:userId
 
 userId is the ID of the currently logged in user, the posts from all the currently logged in users friends will be sent back in json format.
+
+### Get all posts for a specified user
+
+GET:
+
+/api/v1/posts/user/:id
+
+id is the id of the user that you want to get all posts for.
