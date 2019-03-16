@@ -5,10 +5,12 @@ const user = async (props = {}) => {
     const defaultProps = {
         //id: faker.random.uuid(),
         username: faker.internet.userName(),
+        password: faker.internet.password(),
         email: faker.internet.email(),
-        first_name: faker.name.firstName(),
-        last_name: faker.name.lastName(),
+        firstName: faker.name.firstName(),
+        lastName: faker.name.lastName(),
         age: faker.random.number(),
+        picture: faker.image.image(),
     };
     return Object.assign({}, defaultProps, props);
   };

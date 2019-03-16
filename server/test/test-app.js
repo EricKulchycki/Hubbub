@@ -14,15 +14,6 @@ var should = chai.should();
 
 chai.use(chaiHttp);
 
-function validUser( res, number ){
-    res.should.have.property('id');
-    res.should.have.property('username');
-    res.should.have.property('password');
-    res.should.have.property('email');
-    res.should.have.property('firstName');
-    res.should.have.property('lastName');
-    //res.id.should.equal(1);
-}
 
 function validPost( res ){
 	res.should.have.property('id');
@@ -63,14 +54,21 @@ describe('Testing environment',function(){
 if(abort == false){
   describe('API Endpoints', function() {
 
+    this.timeout(20000);
+
     let user, post;
 
     beforeEach(async (done) => {
-      await truncate();
+      //await truncate();
       for(let x = 0; x < 5; x++) {
         user = await createUser();
         post = await createPost();
       }
+      done();
+    });
+
+    afterEach(async (done) => {
+      await truncate();
       done();
     });
 
@@ -80,15 +78,31 @@ if(abort == false){
         .get('/api/v1/user/1')
         .end(function(err, res){
           res.should.have.status(200);
+          res.should.be.json;
           res = res.body;
 
-          validUser(res, 1);
+          res.should.have.property('id');
+          res.should.have.property('username');
+          res.should.have.property('password');
+          res.should.have.property('email');
+          res.should.have.property('firstName');
+          res.should.have.property('lastName');
+          res.should.have.property('picture');
 
+          res.id.should.equal(1);
+
+          res.username.should.be.a('string');
+
+          res.email.should.be.a('string');
+
+          res.firstName.should.be.a('string');
+
+          res.lastName.should.be.a('string');
           done();
         });
     });
 
-    it('should return list of all users', function(done){
+    it('should return list of all users with specified firstname', function(done){
     	chai.request(server)
     		.post('/api/v1/user/list')
     		.send({'firstName': ''})
@@ -100,7 +114,7 @@ if(abort == false){
     		});
     });
 
-    it('should get all friends of user', function(done){
+    it('should get all friends of specified user', function(done){
     	chai.request(server)
     		.get('/api/v1/friend/1')
     		.end(function(err,res){
@@ -114,10 +128,7 @@ if(abort == false){
 
     //"Create a friendship" - (User follows another)
 
-    it('should make some posts for our users', function(done){
-
-      //REPLACE WITH ITERATIVE POST GENERATOR
-
+    it('should make a post for user 1', function(done){
       chai.request(server)
       .post('/api/v1/post/create')
       .send({ 'title': 'title1',
@@ -127,8 +138,37 @@ if(abort == false){
               'rating': 5})
       .end(function(err,res){
         res.should.have.status(200);
+        res = res.body;
+
+        res.should.have.property('title');
+        res.should.have.property("category");
+        res.should.have.property("body");
+        res.should.have.property("userId");
+        res.should.have.property("rating");
+
+        res.title.should.equal('title1');
+        res.category.should.equal('movie');
+        res.body.should.equal('body1');
+        res.userId.should.equal(1);
+        res.rating.should.equal(5);
+
+        done();
       });
-      done();
+    });
+
+    it('should fail to make a post for user 1', function(done){
+      chai.request(server)
+      .post('/api/v1/post/create')
+      .send({ 'title': 'title1',
+              'category': 'movie',
+              'body': 10,
+              'userId': 1,
+              'rating': 5})
+      .end(function(err,res){
+        res.should.have.status(400);
+
+        done();
+      });
     });
 
     it('should get all posts of a category and only posts of that category', function(done){
