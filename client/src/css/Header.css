@@ -1,5 +1,6 @@
 .background-primary {
 	background-color: #A93226;
+	border-bottom: 1px solid black;
 }
 
 .header-layout {
@@ -13,8 +14,8 @@
 	min-height: 35%;
 	border-radius: 4px;
 	position: absolute;
-	top: 15px;
-	left: 16px;
+	top: 9px;
+	left: 10px;
 }
 
 .greet-style {

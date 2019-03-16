@@ -1,9 +1,10 @@
 .main-container-style {
     height: 100%;
+    
 }
 
 .container-left-column-style {
-    max-width: 300px;
+    max-width: 150px;
     border-right: 1px solid;
 }
 
@@ -14,6 +15,7 @@
 .avatar-style {
     width: 100%;
     height: 100%;
+
 }
 
 .container-right-column-style {

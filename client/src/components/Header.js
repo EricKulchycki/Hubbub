@@ -111,8 +111,8 @@ export class Header extends Component {
     return (
       <header className="background-primary header-layout">
         <Row>
-          <Col >    
-            <input type="image" onClick={this.returnToMain} className="logo-style" alt="logo" src={logo}>
+          <Col className="logo-style" >    
+            <input type="image" onClick={this.returnToMain}  alt="logo" src={logo}>
             </input>
           </Col>
           <Col>
