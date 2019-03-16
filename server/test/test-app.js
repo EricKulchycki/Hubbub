@@ -124,9 +124,7 @@ if(abort == false){
     			res.should.be.a('array');
     			done();
     		});
-    });  
-
-    //"Create a friendship" - (User follows another)
+    });
 
     it('should make a post for user 1', function(done){
       chai.request(server)
@@ -161,7 +159,7 @@ if(abort == false){
       .post('/api/v1/post/create')
       .send({ 'title': 'title1',
               'category': 'movie',
-              'body': 10,
+              'description': 10,
               'userId': 1,
               'rating': 5})
       .end(function(err,res){
