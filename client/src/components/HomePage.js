@@ -3,13 +3,13 @@ import io from 'socket.io-client'
 import OAuth from '../authentication/OAuth'
 import { API_URL } from '../authentication/config'
 import axios from 'axios';
-import logo from './images/alpha-h-box.png';
+import logo from './images/hubbub_logo.png';
 import '../css/Home.css';
 const socket = io(API_URL)
 //const providers = ['twitter', 'google', 'facebook', 'github']
 const providers = ['google']
 
-class HomePage extends Component {
+export class HomePage extends Component {
   state = {
     data: ''
   }
@@ -36,7 +36,7 @@ class HomePage extends Component {
 				socket={socket}
 			/>
        )}
-          <p className="p-style">Your friends share your taste. Keep up with the real critics.</p>
+          <p className="desc-style">Your friends share your taste. Keep up with the real critics.</p>
         </div>
       </div>
     );

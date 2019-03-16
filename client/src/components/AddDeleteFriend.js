@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
-import FontAwesome from 'react-fontawesome';
 import '../css/AddDeleteFriend.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUserPlus } from '@fortawesome/free-solid-svg-icons'
+import { faUserMinus } from '@fortawesome/free-solid-svg-icons'
 
 export class AddDeleteFriend extends Component {
   constructor(props) {
@@ -15,12 +17,12 @@ export class AddDeleteFriend extends Component {
       }
 
       else if (!this.props.checkFriend(this.props.friend) ) { // if id does not exist in the user's friends list, return add button
-        return <FontAwesome name="plus-square" size="lg" className="btn-style"  
+        return <FontAwesomeIcon icon={faUserPlus} size="lg" className="add-delete-btn-style"  
         onClick={() => this.props.addFriend(this.props.friend)}/>
       }
 
       else { // if id exists in the user's friends list, return delete button
-        return <FontAwesome name="minus-square" size="lg" className="btn-style"
+        return <FontAwesomeIcon icon={faUserMinus} size="lg" className="add-delete-btn-style"
         onClick={() => this.props.deleteFriend(this.props.friend)}/>
       }
           

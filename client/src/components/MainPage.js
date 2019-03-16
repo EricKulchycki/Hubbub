@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import Header from './Header'
 import Post from '../components/Post';
-import '../css/Postform.css';
 import '../css/Application.css';
 import '../css/MainPage.css';
 import axios from 'axios';
 
-class MainPage extends Component {
+export class MainPage extends Component {
   constructor(props) {
     super(props)
     this.componentDidMount = this.componentDidMount.bind(this)
@@ -41,7 +40,7 @@ class MainPage extends Component {
     return (
 		// load a list of posts. In the posts themselves, define how they should look. Then have the container just display that
 		<div>
-			<div>
+			<div className="header-layout">
         <Header />
 			</div>
 			<div className="application-background-primary">

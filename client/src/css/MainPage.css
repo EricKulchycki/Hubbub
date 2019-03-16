@@ -5,3 +5,10 @@
 	border-left: 1px solid black;
 	list-style: none;
 }
+
+.header-layout {
+	position: sticky;
+	top: 0;
+	z-index: 10000;
+	height: 40px
+}

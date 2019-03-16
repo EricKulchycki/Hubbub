@@ -3,13 +3,14 @@ import Popup from "reactjs-popup";
 import axios from 'axios';
 import Rating from 'react-rating';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import '../css/Postform.css';
 import {
     Container, Col, Form,
     FormGroup, Label, Input,
-    Button,
+    Button, FormText
   } from 'reactstrap';
 
-class PostForm extends Component {
+export class PostForm extends Component {
   constructor(props) {
     super(props)
 
@@ -66,38 +67,27 @@ class PostForm extends Component {
         return  <Popup 
 					open={this.state.isOpen}
 					onOpen={this.handleOpen}
-					style={{ width: '100%', height: '45%', position:'relative'}}
-					trigger={<Button style={{ marginTop: '8px'}}> Post </Button>} 
+					className="popup-style"
+					trigger={<Button className="post-button-style"> <div className="post-text-style">Post</div></Button>} 
 					modal
 				>
 				{close => (					
-					<Container style={{
-						position:'relative',
-						textAlign: 'left',
-						padding: '1em',
-						verticalAlign: 'middle',
-						marginLeft: 'auto',
-						marginRight: 'auto',
-						width: '100%',
-						height:'100%'
-						}} >
-						<Form style={{padding: '1em'}} className="form">
+					<Container className="container-form-style" >
+						<Form className="form-style">
 							<Col>
 							<FormGroup>
-								<Label style= {{    
-								display: 'flex',
-								fontWeight: '600'}}>Title</Label>
+								<Label className="form-label-style">Title</Label>
 								<Input
 								value={this.state.title}
 								onChange={this.handleInputChange}
 								name="title"
-								placeholder="Title"
 								/>
+								<FormText>e.g. Avengers: Endgame</FormText>
 							</FormGroup>
 							</Col>
 							<Col>
 							<FormGroup>
-								<Label >Category</Label>
+								<Label className="form-label-style">Category</Label>
 							<Input
 								type="select"
 								value={this.state.category}
@@ -117,23 +107,22 @@ class PostForm extends Component {
 								</Col>
 							<Col>
 							<FormGroup>
-								<Label style= {{    
-								display: 'flex',
-								fontWeight: '600'}}>Body</Label>
+								<Label className="form-label-style">Body</Label>
 								<textarea  
-								style ={{width: '100%'}} className= 'Body'
+								className="form-body-textarea-style"
 								name="body"
 								value={this.state.body}
 								onChange={this.handleInputChange}
 								>
 								</textarea>
+								<FormText>e.g. This movie is something I have never seen before!</FormText>
 							</FormGroup>
 							</Col>
 							<Button color="secondary" onClick={this.handleFormSubmit}>Submit</Button>
 						</Form>
 						</Container>						
 				)}
-			</Popup>;
+			</Popup>
      
       } 
 }

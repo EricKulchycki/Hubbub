@@ -49,3 +49,12 @@
 .containter-right-column-edit-container-form-bio-style {
     width: 100%
 }
+
+.friend-list-style {
+    margin-top: 2px;
+}
+
+.friend-profile-pic-style {
+    width: 25px;
+    height: 25px;
+}
