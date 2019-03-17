@@ -164,9 +164,8 @@ if(abort == false){
               'rating': 5})
       .end(function(err,res){
         res.should.have.status(400);
-
-        done();
       });
+      done();
     });
 
     it('should get all posts of a category and only posts of that category', function(done){
