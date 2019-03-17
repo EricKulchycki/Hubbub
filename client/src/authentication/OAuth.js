@@ -73,17 +73,11 @@ class OAuth extends Component {
     
     return (
       <div>
-          <div className='button-wrapper fadein-fast'>
-              <input 
-                onClick={this.startAuth} 
-                className={`${provider} ${disabled} google-style`}
-                src={googleIcon}
-                type="image"
-                value="Sign-in"
-                alt ='../components/images/200px-Google__G__Logo.svg.png' >
-               
-                
-              </input>
+          <div className='button-wrapper'>
+              <button className={`${provider} ${disabled} google-button-style`} onClick={this.startAuth}>
+                <img className="google-style" src={googleIcon} alt="Google Icon"></img>
+                <div className="google-text-style">Google</div>
+              </button>
           </div>
       </div>
     )
