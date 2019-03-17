@@ -8,6 +8,25 @@ const defaultPic = "http://chittagongit.com//images/default-user-icon/default-us
 
 export class Post extends Component {
 
+  constructor(props) {
+    super(props)
+    this.toggleHidden = this.toggleHidden.bind(this)
+
+    this.state = {
+      isHidden: true
+    };
+  }
+  
+
+
+  toggleHidden () {
+    this.setState({
+      isHidden: false
+    })
+  }
+
+
+
   render() {
     return  (
       <div className="post-style">
@@ -15,7 +34,7 @@ export class Post extends Component {
     <h2 className="post-title text-left margin-none">{this.props.post.title}</h2>
 		<h3 className="post-category text-left margin-none">Category: {this.props.post.category}</h3>
         <Rating readonly initialRating={this.props.post.rating} emptySymbol="fa fa-star-o fa-sm" fullSymbol="fa fa-star fa-sm"/>
-        <p className="post-body">{this.props.post.body}</p>
+        <div className="post-body">{this.state.isHidden === false ? this.props.post.body :<p style={{cursor: 'pointer'}} onClick={this.toggleHidden}>This post contains spoilers, click to show more</p>} </div > 
         <h1 style={{fontSize: '6px', textAlign: 'right'}}> {(this.props.post.createdAt).split("T",1)}</h1>
        </div>
     );

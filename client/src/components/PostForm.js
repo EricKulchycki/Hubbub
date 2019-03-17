@@ -16,11 +16,13 @@ export class PostForm extends Component {
 
     this.handleInputChange = this.handleInputChange.bind(this)
     this.handleFormSubmit = this.handleFormSubmit.bind(this)
-   
+	  this.toggleSpoiler = this.toggleSpoiler.bind(this)
+		
     this.state = {
 		category : '',
 		title : '',
 		body : '',
+		spoiler: false,
 		isOpen: false
     }
   };
@@ -43,8 +45,13 @@ export class PostForm extends Component {
 
     this.setState({
       [name]: value
-    });
-  }
+		});
+	
+	}
+	
+	toggleSpoiler(){
+		this.setState({ spoiler: !this.state.spoiler });
+	}
 
 	// submits the user post to the server
   handleFormSubmit() {
@@ -53,7 +60,7 @@ export class PostForm extends Component {
       category: this.state.category,
       body: this.state.body,
       userId: this.props.user.id,	
-      rating: null
+			rating: null
   }).then(function (response) {
     })
     .catch(function (error) {
@@ -104,6 +111,13 @@ export class PostForm extends Component {
 							</FormGroup>
 							</Col> 
 								<Col> <Label>Rating:</Label><Rating initialRating={0} emptySymbol="fa fa-star-o fa-2x" fullSymbol="fa fa-star fa-2x"/>
+								</Col>
+								<Col>
+								<FormGroup >
+								<Label >
+									<Input onChange={this.toggleSpoiler} type="checkbox" /> Check me out
+								</Label>
+							</FormGroup>
 								</Col>
 							<Col>
 							<FormGroup>
