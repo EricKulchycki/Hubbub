@@ -168,6 +168,17 @@ if(abort == false){
       done();
     });
 
+    it('should fail to make a user without an email', function(done){
+      chai.request(server)
+      .post('/api/v1/user/create')
+      .send({ 'username': 'dude mcguy',
+              'password': 'ISureHopeWeArentStoringPlainTextPasswords'})
+      .end(function(err,res){
+        res.should.have.status(400);
+      });
+      done();
+    });
+
     it('should get all posts of a category and only posts of that category', function(done){
       chai.request(server)
       .get('/api/v1/posts/categories/movie')
