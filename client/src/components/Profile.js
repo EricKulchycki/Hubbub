@@ -114,6 +114,7 @@ export class Profile extends Component {
 
         this.getFriends()
         this.getUsersPosts()
+        console.log(this.state.user);
     }
 
     // submits the profile changes to the server 

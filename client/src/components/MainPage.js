@@ -28,8 +28,9 @@ export class MainPage extends Component {
     .then((response) => {
       
     if(response.data != null){
-      this.setState({ posts : response.data});
-      }
+      this.setState({ posts : response.data.reverse()});
+      //console.log(this.state.posts);  
+    }
     })
     .catch(function (error) {
       console.log(error);
