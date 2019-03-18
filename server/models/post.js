@@ -8,9 +8,10 @@ module.exports = (sequelize, DataTypes) => {
       category: {
         type: DataTypes.ENUM('MOVIE', 'TV-SHOW', 'VIDEO GAME', 'COMIC')
       },
-	    title: DataTypes.STRING,
+	  title: DataTypes.STRING,
       rating: DataTypes.INTEGER,
       body: DataTypes.STRING,
+	  spoiler: DataTypes.BOOLEAN,
     },
     {
       freezeTableName: true,
