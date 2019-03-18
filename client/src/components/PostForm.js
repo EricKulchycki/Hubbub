@@ -40,7 +40,8 @@ export class PostForm extends Component {
   handleClose = () => {
     this.setState({ isOpen: false });
   }
- 
+
+
 	// manages changes in the post form
   handleInputChange(event) {
     const target = event.target;

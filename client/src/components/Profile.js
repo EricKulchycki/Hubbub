@@ -26,16 +26,14 @@ export class Profile extends Component {
             friends: [],
             posts:[],
 
-            //userName: 'John Smith',
+            
             firstName: 'John',
             lastName: 'Smith',
             age: 'Not listed',
-            //bio: 'Hello, this is my profile',
             picture: '',
 
             tmpAge:'',
             tmpBio:'',
-            //tmpUserName:'',
             tmpFirstName:'',
             tmpLastName:'',
             tmpPicture:''
@@ -101,10 +99,6 @@ export class Profile extends Component {
         if(this.state.user.lastName != null){
             this.setState({ lastName: this.state.user.lastName });
         }
-
-        /*if(this.state.user.username != null){
-            this.setState({ userName: this.state.user.username });
-        }*/
         
         if(this.state.user.age != null){
             this.setState({ age: this.state.user.age });
@@ -123,7 +117,6 @@ export class Profile extends Component {
         var newAge = this.state.tmpAge
         var newFirstName = this.state.tmpFirstName
         var newLastName = this.state.tmpLastName
-        //var newName = this.state.tmpUserName
         var newPicture = this.state.tmpPicture
 
         if(this.state.tmpAge === '')
@@ -134,9 +127,6 @@ export class Profile extends Component {
 
         if(this.state.tmpLastName === '')
             newLastName = this.state.lastName
-
-        /*if(this.state.tmpUserName === '')
-            newName = this.state.userName*/
         
         if(this.state.tmpPicture === '')
             newPicture = this.state.picture
@@ -145,7 +135,6 @@ export class Profile extends Component {
           userId: this.state.user.id,
           firstName: newFirstName,
           lastName: newLastName,
-          //username: newName,
           age: newAge,
           picture: newPicture
         }).then(((response) => {
@@ -194,7 +183,6 @@ export class Profile extends Component {
                             <Row >
                                 <div >
                                 <p>{this.state.firstName} {this.state.lastName}, {this.state.age}</p>
-                                {/* <p>{this.state.bio}</p> */}
                                 </div>
                             </Row>
                         </Col>
@@ -249,18 +237,6 @@ export class Profile extends Component {
                                             <Col>
                                                 <Container className="containter-right-column-edit-container-style" >
                                                 <Form className="form containter-right-column-edit-container-form-style">
-                                                    {/*<Col>
-                                                    <FormGroup>
-                                                        <Label >Username</Label>
-                                                        <Input
-                                                            value={this.state.tmpUserName}
-                                                            onChange={this.handleInputChange}
-                                                            name="tmpUserName"
-                                                            placeholder={this.state.tmpUserName}
-                                                        />
-                                                        <FormText>e.g. John Smith</FormText>
-                                                    </FormGroup>
-                                                    </Col>*/}
                                                     <Col>
                                                     <FormGroup>
                                                         <Label>Firstname</Label>

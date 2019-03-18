@@ -112,15 +112,15 @@ export class Header extends Component {
   render() {
     return (
       <header className="header-layout">
-        <Row >
-          <div style={{width: '25%'}}>    
+        <Row className = "header-bar" >
+          <div className ="icon-container">    
             <img onClick={this.returnToMain} className="logo-style" alt="logo" src={logo} />
           </div>
-          <div style={{width: '50%'}}>
+          <div className="search-container">
             <Search ser={this.state.people} user={this.state.user} searchUsers={this.searchUsers} 
         checkFriend={this.checkFriend} addFriend={this.addFriend} deleteFriend={this.deleteFriend}/>
           </div>
-          <div style={{width: '25%'}}>
+          <div className="profile-container">
             <Button className="prof-style" onClick={this.switchToProfile} color="secondary"><div className="prof-text-style">Profile     <FontAwesomeIcon icon={faUser} size="xs"/></div></Button>{' '}
           </div>
         </Row>

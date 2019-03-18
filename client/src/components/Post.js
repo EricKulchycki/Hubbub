@@ -16,7 +16,6 @@ export class Post extends Component {
       isHidden: this.props.post.spoiler
     };
   }
-  
 
 
   toggleHidden () {
@@ -24,7 +23,6 @@ export class Post extends Component {
       isHidden: false
     })
   }
-
 
 
   render() {

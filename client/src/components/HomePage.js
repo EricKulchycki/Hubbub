@@ -6,7 +6,6 @@ import axios from 'axios';
 import logo from './images/hubbub_logo.png';
 import '../css/Home.css';
 const socket = io(API_URL)
-//const providers = ['twitter', 'google', 'facebook', 'github']
 const providers = ['google']
 
 export class HomePage extends Component {

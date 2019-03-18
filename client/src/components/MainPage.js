@@ -59,7 +59,7 @@ export class MainPage extends Component {
             ))}
 					</div>
 				</div>
-        <PostForm user={this.props.user}/>
+        <PostForm />
 			</div>
     </div>
     
