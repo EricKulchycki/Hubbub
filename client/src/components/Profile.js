@@ -8,7 +8,7 @@ import classnames from 'classnames';
 import Post from '../components/Post';
 import {Container, Col, Row, Nav, NavItem, NavLink, TabContent, TabPane, Form, FormGroup, Label, Input, Button, FormText} from 'reactstrap';
 
-const defaultPic = "http://chittagongit.com//images/default-user-icon/default-user-icon-8.jpg"
+const defaultPic = "https://academist-app-production.s3.amazonaws.com/uploads/user/profile_image/8823/default_user_icon.png"
 
 export class Profile extends Component {
     constructor(props){

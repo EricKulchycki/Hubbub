@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import AddDeleteFriend from './AddDeleteFriend';
 import '../css/Search.css';
 
-const defaultPic = "http://chittagongit.com//images/default-user-icon/default-user-icon-8.jpg";
+const defaultPic = "https://academist-app-production.s3.amazonaws.com/uploads/user/profile_image/8823/default_user_icon.png";
 
 export class Search extends Component {
   state = {
