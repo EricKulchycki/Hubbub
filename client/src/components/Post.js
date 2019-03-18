@@ -13,7 +13,7 @@ export class Post extends Component {
     this.toggleHidden = this.toggleHidden.bind(this)
 
     this.state = {
-      isHidden: true
+      isHidden: this.props.post.spoiler
     };
   }
   

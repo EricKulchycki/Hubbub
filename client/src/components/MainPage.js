@@ -33,7 +33,7 @@ export class MainPage extends Component {
       
     if(response.data != null){
       this.setState({ posts : response.data.reverse()});
-      //console.log(this.state.posts);  
+      console.log(this.state.posts);  
     }
     })
     .catch(function (error) {
