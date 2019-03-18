@@ -22,7 +22,8 @@ export class PostForm extends Component {
 	  this.toggleSpoiler = this.toggleSpoiler.bind(this)
 		
     this.state = {
-		category : '',
+		user: JSON.parse(window.sessionStorage.getItem("user")),
+		category : 'MOVIE',
 		title : '',
 		body : '',
 		spoiler: false,
@@ -48,6 +49,7 @@ export class PostForm extends Component {
 
     this.setState({
       [name]: value
+
 		});
 	
 	}
@@ -62,7 +64,7 @@ export class PostForm extends Component {
       title: this.state.title,
       category: this.state.category,
       body: this.state.body,
-			userId: this.props.user.id,
+			userId: this.state.user.id,
 			spoiler: this.state.spoiler,	
 			rating: null
   }).then(function (response) {
