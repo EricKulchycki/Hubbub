@@ -24,6 +24,7 @@ module.exports = (app, db) => {
       body: req.body.body,
       userId: req.body.userId,
       rating: req.body.rating,
+	  spoiler: req.body.spoiler,
       createdAt: new Date(),
       updatedAt: new Date()
     }).then( (result) => res.json(result) );
