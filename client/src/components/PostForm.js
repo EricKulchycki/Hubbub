@@ -8,7 +8,10 @@ import {
     Container, Col, Form,
     FormGroup, Label, Input,
     Button, FormText
-  } from 'reactstrap';
+	} from 'reactstrap';
+	import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+	import { faPen } from '@fortawesome/free-solid-svg-icons';
+
 
 export class PostForm extends Component {
   constructor(props) {
@@ -75,7 +78,7 @@ export class PostForm extends Component {
 					open={this.state.isOpen}
 					onOpen={this.handleOpen}
 					className="popup-style"
-					trigger={<Button className="post-button-style"> <div className="post-text-style">Post</div></Button>} 
+					trigger={<Button className="post-button-style"> <div className="post-text-style">Post     <FontAwesomeIcon icon={faPen} size="xs"/></div></Button>} 
 					modal
 				>
 				{close => (					
@@ -114,8 +117,8 @@ export class PostForm extends Component {
 								</Col>
 								<Col>
 								<FormGroup >
-								<Label >
-									<Input onChange={this.toggleSpoiler} type="checkbox" /> Check me out
+								<Label className="postform-checkbox" >
+									<Input  onChange={this.toggleSpoiler} type="checkbox" /> Contains Spoilers?
 								</Label>
 							</FormGroup>
 								</Col>

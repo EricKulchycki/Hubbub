@@ -1,10 +1,18 @@
 .post-button-style {
     margin-top: 5px;
-    width: 55px;
-    height: 29px;
-}
+    width: 75px;
+    height: 75px;
+    margin: 0px;
+    top: auto;
+    right: 66px;
+    bottom: 20px;
+    left: auto;
+    position: fixed;
 
-.post-text-style {
+
+  }
+
+  .post-text-style {
     margin-top: -4px;
     margin-left: -2px;
 }
@@ -35,4 +43,10 @@
 
 .form-body-textarea-style {
   width: 100%
+}
+
+.postform-checkbox{
+
+margin-left: 20px;
+
 }

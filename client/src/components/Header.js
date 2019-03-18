@@ -4,10 +4,12 @@ import '../css/Header.css';
 import '../css/Application.css';
 import Search from './Search';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import PostForm from './PostForm';
 import {withRouter} from 'react-router';
-import {Col, Row, Button,} from 'reactstrap';
+import { Row, Button,} from 'reactstrap';
 import axios from 'axios';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {faUser} from '@fortawesome/free-solid-svg-icons';
 
 export class Header extends Component {
   constructor(props) {
@@ -110,20 +112,17 @@ export class Header extends Component {
   render() {
     return (
       <header className="header-layout">
-        <Row>
-          <Col>    
+        <Row >
+          <div style={{width: '25%'}}>    
             <img onClick={this.returnToMain} className="logo-style" alt="logo" src={logo} />
-          </Col>
-          <Col>
+          </div>
+          <div style={{width: '50%'}}>
             <Search ser={this.state.people} user={this.state.user} searchUsers={this.searchUsers} 
         checkFriend={this.checkFriend} addFriend={this.addFriend} deleteFriend={this.deleteFriend}/>
-          </Col>
-          <Col>
-            <Button className="prof-style" onClick={this.switchToProfile} color="secondary"><div className="prof-text-style">Profile</div></Button>{' '}
-          </Col>
-          <Col>
-            <PostForm user={this.props.user}/>
-          </Col>
+          </div>
+          <div style={{width: '25%'}}>
+            <Button className="prof-style" onClick={this.switchToProfile} color="secondary"><div className="prof-text-style">Profile     <FontAwesomeIcon icon={faUser} size="xs"/></div></Button>{' '}
+          </div>
         </Row>
       </header>
     );

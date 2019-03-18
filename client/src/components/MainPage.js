@@ -4,6 +4,10 @@ import Post from '../components/Post';
 import '../css/Application.css';
 import '../css/MainPage.css';
 import axios from 'axios';
+import PostForm from './PostForm';
+
+
+
 
 export class MainPage extends Component {
   constructor(props) {
@@ -40,7 +44,7 @@ export class MainPage extends Component {
   render() {
     return (
 		// load a list of posts. In the posts themselves, define how they should look. Then have the container just display that
-		<div>
+		<div> 
 			<div className="header-layout">
         <Header />
 			</div>
@@ -52,11 +56,13 @@ export class MainPage extends Component {
 							<li key={post.id}>
 								<Post post={post} />
 							</li>
-						))}
+            ))}
 					</div>
 				</div>
+        <PostForm user={this.props.user}/>
 			</div>
-		</div>
+    </div>
+    
     );
   }
 }
