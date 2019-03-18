@@ -108,8 +108,6 @@ export class Profile extends Component {
 
         this.getFriends()
         this.getUsersPosts()
-        console.log(this.state.user);
-        console.log(this.state.posts);
     }
 
     // submits the profile changes to the server 
@@ -182,24 +180,24 @@ export class Profile extends Component {
                             <Row className="container-left-column-first-row"><img onError={this.backToDefault} className="avatar-style" src={this.state.user.picture === null ? this.state.user.photo : this.state.user.picture} alt="logo"/></Row>
                             <Row >
                                 <div >
-                                <p>{this.state.firstName} {this.state.lastName}, {this.state.age}</p>
+                                <p style={{margin: '1rem'}}>{this.state.firstName} {this.state.lastName}, {this.state.age}</p>
                                 </div>
                             </Row>
                         </Col>
                         <Col className="container-right-column-style">      
                             <div className="application-background-secondary container-nav-style" >
                                 <Nav tabs className="container-nav-tab-style">
-                                    <NavItem>
+                                    <NavItem className="nav-tab">
                                         <NavLink className={classnames({ active: this.state.activeTab === '1' })} onClick={() => { this.toggle('1'); }}>
                                             Friends
                                         </NavLink>
                                     </NavItem>
-                                    <NavItem>
+                                    <NavItem className="nav-tab">
                                         <NavLink className={classnames({ active: this.state.activeTab === '2' })} onClick={() => { this.toggle('2'); }}>
                                             Posts
                                         </NavLink>
                                     </NavItem>
-                                    <NavItem>
+                                    <NavItem className="nav-tab">
                                         <NavLink className={classnames({ active: this.state.activeTab === '3' })} onClick={() => { this.toggle('3'); }}>
                                             Edit Profile
                                         </NavLink>

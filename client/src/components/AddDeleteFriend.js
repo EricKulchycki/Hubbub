@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import '../css/AddDeleteFriend.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUserPlus } from '@fortawesome/free-solid-svg-icons'
-import { faUserMinus } from '@fortawesome/free-solid-svg-icons'
+import { faUserPlus, faUserMinus } from '@fortawesome/free-solid-svg-icons'
 
 export class AddDeleteFriend extends Component {
   constructor(props) {

@@ -32,8 +32,7 @@ export class MainPage extends Component {
     .then((response) => {
       
     if(response.data != null){
-      this.setState({ posts : response.data.reverse()});
-      console.log(this.state.posts);  
+      this.setState({ posts : response.data.reverse()}); 
     }
     })
     .catch(function (error) {
@@ -44,7 +43,7 @@ export class MainPage extends Component {
   render() {
     return (
 		// load a list of posts. In the posts themselves, define how they should look. Then have the container just display that
-		<div> 
+		<div className="mainpage-background"> 
 			<div className="header-layout">
         <Header />
 			</div>

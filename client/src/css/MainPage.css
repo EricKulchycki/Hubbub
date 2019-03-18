@@ -4,6 +4,7 @@
 	border-right: 1px solid black; 
 	border-left: 1px solid black;
 	list-style: none;
+	margin-top: 20px;
 }
 
 .header-layout {
@@ -13,4 +14,6 @@
 	height: 53px
 }
 
-
+.mainpage-background{
+	background-color: #424949;
+}
