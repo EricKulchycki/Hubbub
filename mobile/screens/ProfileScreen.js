@@ -71,6 +71,7 @@ export default class ProfileScreen extends React.Component{
             title = {item.title}
             rating = {item.rating}
             body = {item.body}
+            spoiler = {item.spoiler}
           />
         )}
         ItemSeparatorComponent = {this.renderSeparator}
@@ -101,7 +102,7 @@ export default class ProfileScreen extends React.Component{
         />
 
         <Image
-          style = {{width: 250, height: 250, alignSelf: 'center',
+          style = {{width: 150, height: 150, alignSelf: 'center',
             borderColor: Colors.MAIN_RED, borderWidth: 5, overflow: 'hidden'}}
           source = {{uri: this.state.user.picture}}
         />
@@ -127,10 +128,14 @@ export default class ProfileScreen extends React.Component{
           <Text>
             {this.state.user.age}
           </Text>
-
         </View>
 
+        <View style = {{borderBottomColor: '#000', borderBottomWidth: 1}}/>
         {timeline}
+
+        <Text style = {{color: '#FFF', fontSize: 50, textAlign: 'center'}}>
+          FOOTER
+        </Text>
 
         <TouchableHighlight
           style={{position: 'absolute', alignSelf: 'flex-start', bottom: 0}}
@@ -156,7 +161,6 @@ export default class ProfileScreen extends React.Component{
             size={24}
             color='#a93226'/>
         </TouchableHighlight>
-
       </View>
     );
   }

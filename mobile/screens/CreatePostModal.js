@@ -15,6 +15,7 @@ export default class CreatePostModal extends React.Component{
           givenRating: 3,
           checked: false,
           details:'',
+          user: this.props.user
       };
     }
 
@@ -25,33 +26,24 @@ export default class CreatePostModal extends React.Component{
     /*updates the state for given rating*/
       ratingCompleted = (rating) => {
         this.setState({givenRating: rating});
-        alert(rating);
       }
     /*sends a post request then refreshes the feed*/
     createNewPost = () => {
-        console.log(this.state.nameOfMedia);
-        console.log(this.state.pickerSelection);
-        console.log(this.state.details);
-        console.log(this.state.givenRating);
-        if(!this.state.checked){
-          fetch(url + '/api/v1/post/create', {
-            method: 'POST',
-            headers: {
-              Accept: 'application/json',
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              title: this.state.nameOfMedia,
-              category: this.state.pickerSelection,
-              body: this.state.details,
-              userId: 1,
-              rating: this.state.givenRating,
-            }),
-          });
-        }
-        else{
-          alert("No post created");
-        }
+        fetch(url + '/api/v1/post/create', {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            title: this.state.nameOfMedia,
+            category: this.state.pickerSelection,
+            body: this.state.details,
+            userId: this.state.user.id,
+            spoiler: this.state.checked,
+            rating: this.state.givenRating,
+          }),
+        });
         this.props.refreshFeed();
         this.setModalVisible(false);
     }
@@ -64,7 +56,6 @@ export default class CreatePostModal extends React.Component{
           transparent={false}
           visible={this.state.modalVisible}
           onRequestClose={() => {
-            alert('Modal has been closed.');//android back button
             this.setModalVisible(false);
           }}>
           <Header backgroundColor = "#a93226"
@@ -127,6 +118,10 @@ export default class CreatePostModal extends React.Component{
 
             </View>
           </ScrollView>
+
+          <Text style = {{color: '#FFF', fontSize: 50, textAlign: 'center'}}>
+            FOOTER
+          </Text>
 
           <TouchableHighlight
             style={{position: 'absolute', alignSelf: 'flex-start', bottom: 0}}

@@ -3,7 +3,24 @@ import {View, Text, StyleSheet} from "react-native"
 import {Rating} from 'react-native-elements'
 
 export default class HubFeedItem extends React.Component{
+
+  constructor(props){
+    super(props);
+    this.state = {pressStatus: false};
+  }
+
   render(){
+    let body;
+    if(this.props.spoiler){
+      body = <Text style = {
+        this.state.pressStatus
+        ? styles.body
+        : styles.bodySpoiler}
+        onPress={() => this.setState({pressStatus: !this.state.pressStatus})}>{this.props.body}</Text>;
+    }
+    else{
+      body = <Text style = {styles.body}>{this.props.body}</Text>;
+    }
     return(
       <View style={{paddingHorizontal: 5}}>
         <Text style = {styles.name}>
@@ -18,9 +35,8 @@ export default class HubFeedItem extends React.Component{
           imageSize = {25}
           style = {styles.rating}
         />
-        <Text style = {styles.body}>
-          {this.props.body}
-        </Text>
+        {body}
+
 
       </View>
     );
@@ -42,6 +58,11 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start'
   },
   body:{
-    fontSize: 15
+    fontSize: 15,
+    backgroundColor: '#FFF'
+  },
+  bodySpoiler:{
+    fontSize: 15,
+    backgroundColor: '#000'
   }
 });

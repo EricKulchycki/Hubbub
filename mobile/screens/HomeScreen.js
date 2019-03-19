@@ -117,6 +117,7 @@ export default class HomeScreen extends React.Component {
             title = {item.title}
             rating = {item.rating}
             body = {item.body}
+            spoiler = {item.spoiler}
           />
         )}
         ItemSeparatorComponent = {this.renderSeparator}
@@ -185,7 +186,9 @@ export default class HomeScreen extends React.Component {
         <CreatePostModal
           ref = {createPost => {this.createPost = createPost}}
           refreshFeed = {() => { this.refreshHubFeed()}}
+          user = {this.state.user}
         />
+
         <TouchableHighlight
           style={{position: 'absolute', alignSelf: 'flex-end', bottom: 0}}
           onPress={() => {

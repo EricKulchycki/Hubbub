@@ -138,7 +138,7 @@ export default class EditScreen extends React.Component{
           behavior = "padding">
           <View style={{flex: 1, paddingHorizontal: 5}}>
             <Image
-              style = {{flexShrink: 150, width: 250, height: 250, alignSelf: 'center',
+              style = {{flexShrink: 50, width: 150, height: 150, alignSelf: 'center',
                 borderColor: Colors.MAIN_RED, borderWidth: 5, overflow: 'hidden'}}
               source = {{uri: this.state.user.picture}}
             />
@@ -171,6 +171,10 @@ export default class EditScreen extends React.Component{
             />
           </View>
         </KeyboardAvoidingView>
+
+        <Text style = {{color: '#FFF', fontSize: 50, textAlign: 'center'}}>
+          FOOTER
+        </Text>
 
         <TouchableHighlight
           style={{position: 'absolute', alignSelf: 'flex-start', bottom: 0}}
