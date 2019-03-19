@@ -4,6 +4,7 @@ import {
   Text,
   View,
   TouchableHighlight,
+  ActivityIndicator,
   ScrollView,
   FlatList,
   Image,
@@ -44,6 +45,10 @@ export default class ProfileScreen extends React.Component{
       .catch(error => {
         console.log("cannot get " + resource);
       })
+  }
+
+  refresh(){
+    alert("REFRESH THE PAGE");
   }
 
   componentDidMount = () => {
@@ -113,7 +118,7 @@ export default class ProfileScreen extends React.Component{
             Name:
           </Text>
           <Text>
-            {this.state.user.firstName + this.state.user.lastName}
+            {this.state.user.firstName + " " +this.state.user.lastName}
           </Text>
 
           <Text style = {{paddingTop: 10, fontSize: 22}}>
@@ -142,7 +147,7 @@ export default class ProfileScreen extends React.Component{
         <TouchableHighlight
           style={{position: 'absolute', alignSelf: 'flex-end', bottom: 0}}
           onPress={() => {
-            this.props.navigation.navigate('Edit', {user: this.state.user});
+            this.props.navigation.navigate('Edit', {user: this.state.user, onGoBack:() => this.refresh()});
           }}>
           <Icon
             reverse
