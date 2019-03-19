@@ -49,7 +49,7 @@ export class MainPage extends Component {
 			</div>
 			<div className="application-background-primary">
 				<div className="application-background-secondary post-list-layout">
-					<h1 className="text-center">Activity Feed</h1>
+					<h1 className="activity-feed">Activity Feed</h1>
 					<div>
 						{this.state.posts.map(post => (
 							<li key={post.id}>

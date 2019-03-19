@@ -43,7 +43,7 @@ export class Post extends Component {
     <h2 className="post-title text-left margin-none">{this.props.post.title}</h2>
 		<h3 className="post-category text-left margin-none">Category: {this.props.post.category}</h3>
         
-        <div className="post-body">{this.state.isHidden === false ? this.props.post.body :<p style={{cursor: 'pointer'}} onClick={this.toggleHidden}>This post contains spoilers, click to show more</p>} </div > 
+        <div className="post-body">{this.state.isHidden === false ? this.props.post.body : <p style={{cursor: 'pointer'}} onClick={this.toggleHidden}>This post contains spoilers, click to show more</p>} </div > 
         <h1 style={{fontSize: '10px', textAlign: 'right'}}> {(this.props.post.createdAt).split("T",1)}</h1>
        </div>
     );
