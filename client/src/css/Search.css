@@ -1,6 +1,6 @@
 .search-style {
     display: block;
-    margin-left: 10px;
+    margin-left: 5px;
     width: 100%;
     height: 25px;
     margin-top: 14px
@@ -13,7 +13,7 @@
 }
 
 .div-style {
-    width: 420px;
+    width: 100%;
     margin: 0 auto;
     position: relative;
 }
@@ -21,7 +21,7 @@
 .ulist-style {
     background-color: white;
     position: absolute;
-    width: 420px;
+    width: 100%;
     padding-left: 0pt;
     list-style-type: none;
     overflow: auto;
