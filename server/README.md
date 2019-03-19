@@ -130,6 +130,16 @@ Body: JSON: {
     rating:
 }
 
+### Delete a post
+
+POST:
+
+/api/v1/post/delete
+
+Body: JSON: {
+    id:
+}
+
 ### Get all of a users friends posts
 
 GET:
