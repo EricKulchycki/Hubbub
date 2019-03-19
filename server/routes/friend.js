@@ -10,6 +10,10 @@ module.exports = (app, db) => {
 	app.post("/api/v1/friend/create", (req, res) => {
 		console.log("Requested new friend creation");
 		console.log(req.body);
+		if (!req.body.userId || !req.body.friendId) {
+			res.send("Missing userId or friendId");
+			return;
+		}
 		db.friend.create({
 			userId: req.body.userId,
 			friendId: req.body.friendId

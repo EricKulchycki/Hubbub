@@ -27,8 +27,8 @@ class HomePage extends Component {
     return (
       <div className="login">
         <div >
-          <p style={pStyle}>Login</p>
-          <img src={logo} style={imgStyle} alt="logo" />
+          <p className="p-style">Login</p>
+          <img src={logo} className="img-style" alt="logo" />
 		  {providers.map(provider => 
 			<OAuth 
 				provider={provider}
@@ -36,27 +36,11 @@ class HomePage extends Component {
 				socket={socket}
 			/>
        )}
-          <p style={pStyle}>Your friends share your taste. Keep up with the real critics.</p>
+          <p className="p-style">Your friends share your taste. Keep up with the real critics.</p>
         </div>
       </div>
     );
   }
 }
-
-const pStyle = {
-  textAlign: 'right',
-  marginRight: '20%',
-  color: 'white'
-}
-
-const imgStyle = {
-  marginLeft: '10%',
-  marginTop: '10%',
-  width: '25%',
-  height: '25%',
-  float: 'left'
-}
-
-
 
 export default HomePage;

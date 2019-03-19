@@ -50,7 +50,9 @@ module.exports = (app, db) => {
 		    user.update({
 				username: req.body.username ? req.body.username : user.username,
 				age: req.body.age ? req.body.age : user.age,
-				picture: req.body.picture ? req.body.picture : user.picture
+				picture: req.body.picture ? req.body.picture : user.picture,
+				firstName: req.body.firstName ? req.body.firstName : user.firstName,
+				lastName: req.body.lastName ? req.body.lastName : user.lastName
 			}).then( (result) => res.json(result) );
 	} );
   });
