@@ -2,6 +2,9 @@ module.exports = (app, db) => {
 
   const Op = db.sequelize.Op;
 
+  var validate = require('express-validation');
+  var validation = require('../validation/user.js');
+
   app.get("/api/v1/user/:id", (req, res) => {
 	console.log("Requested user " + req.params.id);
   	db.user.findOne({
@@ -11,7 +14,7 @@ module.exports = (app, db) => {
   	}).then( (result) => res.json(result) );
   });
 
-  app.post("/api/v1/user/create", (req, res) => {
+  app.post("/api/v1/user/create", validate(validation), (req, res, next) => {
     console.log("Requested new user creation");
     db.user.create({
       username: req.body.username,

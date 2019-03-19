@@ -3,6 +3,9 @@ module.exports = (app, db) => {
   const Op = db.sequelize.Op;
   const friendModule = require("../modules/friends/friend");
   
+  var validate = require('express-validation');
+  var validation = require('../validation/post.js');
+
   //Get a post given an id
   app.get("/api/v1/post/:id", (req, res) => {
   	console.log("Requested post " + req.params.id);
@@ -15,7 +18,7 @@ module.exports = (app, db) => {
   });
   
   //Create a new post
-  app.post("/api/v1/post/create", (req, res) => {
+  app.post("/api/v1/post/create", validate(validation), (req, res, next) => {
     console.log("Requested new post creation");
 	console.log(req.body);
     db.post.create({
