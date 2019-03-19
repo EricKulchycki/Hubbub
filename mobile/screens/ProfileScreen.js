@@ -92,8 +92,6 @@ export default class ProfileScreen extends React.Component{
 
         </View>
 
-        {timeline}
-
         <TouchableHighlight
           style={{position: 'absolute', alignSelf: 'flex-start', bottom: 0}}
           onPress={() => {
