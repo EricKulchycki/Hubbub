@@ -1,7 +1,8 @@
 // Libraries
 var bodyParser = require("body-parser"); 
 var createError = require('http-errors');
-var express = require('express'); 
+var express = require('express');
+var validate = require('express-validation'); 
 var path = require('path');
 var cookieParser = require('cookie-parser');
 const url = require('url');  
@@ -13,7 +14,6 @@ const cors = require('cors')
 const http = require('http')
 const socketio = require('socket.io')
 // Import local files
-process.env.NODE_ENV = 'development'; // Options are 'development' or 'production'
 const authRouter = require('./lib/auth.router')
 const passportInit = require('./lib/passport.init')
 const { SESSION_SECRET, CLIENT_ORIGIN } = require('./config/socialmedia')
@@ -48,6 +48,10 @@ app.use(session({
   saveUninitialized: true
 }))
 
+//Error handler
+app.use(function(err,req,res,next){
+	res.status(400).json(err);
+});
 // Connecting sockets to the server and adding them to the request 
 // so that we can access them later in the controller
 const io = socketio(server)
@@ -69,3 +73,5 @@ db.sequelize.sync().then( () => {
 		console.log('Webserver listening to port', APP_PORT)
 	});
 });
+
+module.exports = app;
