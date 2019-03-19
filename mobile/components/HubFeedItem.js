@@ -36,8 +36,6 @@ export default class HubFeedItem extends React.Component{
           style = {styles.rating}
         />
         {body}
-
-
       </View>
     );
   }

@@ -31,8 +31,6 @@ export default class ProfileScreen extends React.Component{
   });
 
   makeRequest(type, resource){
-      console.log(type);
-      console.log(resource);
       this.setState({loading: true});
 
       return fetch(url + resource, {
@@ -55,14 +53,11 @@ export default class ProfileScreen extends React.Component{
     this.makeRequest('GET', Paths.getPostByUserID + this.state.user.id).then(response => {
       this.setState({postData: response});
     });
-    console.log("kekeke");
-    console.log(this.state.postData);
     this.setState({loading: false});
   }
 
   render() {
     if(this.state.postData.length != 0){
-      console.log("Got posts from myself");
       timeline = <FlatList
         data = {this.state.postData}
         renderItem={({item}) => (
@@ -79,7 +74,6 @@ export default class ProfileScreen extends React.Component{
       />;
     }
     else{
-      console.log("I have no posts");
       timeline = <Text style = {styles.noPostsText}>It seems you have no posts!</Text>;
     }
 

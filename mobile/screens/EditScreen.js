@@ -37,8 +37,6 @@ export default class EditScreen extends React.Component{
   });
 
   makeRequest(type, resource){
-      console.log(type);
-      console.log(resource);
       this.setState({loading: true});
 
       return fetch(url + resource, {
@@ -79,9 +77,6 @@ export default class EditScreen extends React.Component{
       jsonBody.picture = this.state.user.picture;
     }
 
-    console.log("json body");
-    console.log(JSON.stringify(jsonBody));
-    console.log(url + resource);
     fetch(url + resource, {
       method: type,
       headers: {

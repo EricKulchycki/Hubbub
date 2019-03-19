@@ -59,14 +59,10 @@ export default class HomeScreen extends React.Component {
     this.makeRequest('GET', Paths.getFriendsPosts + userID).then(response => {
       this.setState({postData: response});
     });
-    console.log("post data")
-    console.log(this.state.postData);
 
     this.makeRequest('GET', Paths.getFriends + userID).then(response => {
       this.setState({friendData: response});
     });
-    console.log("friend data")
-    console.log(this.state.friendData);
 
     this.setState({loading: false});
   }
@@ -108,7 +104,6 @@ export default class HomeScreen extends React.Component {
     }
 
     if(friendsList.length != 0){
-      console.log("Got posts from friends");
       timeline = <FlatList
         data = {this.state.postData}
         renderItem={({item}) => (
@@ -125,11 +120,8 @@ export default class HomeScreen extends React.Component {
       />;
     }
     else{
-      console.log("User doesn't have any friends");
       timeline = <Text style = {styles.noFriendsText}>Try Searching for Friends to see what is all the Hubbub!</Text>;
     }
-
-
 
     return (
       <View style={styles.container}>
