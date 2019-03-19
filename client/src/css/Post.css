@@ -1,13 +1,17 @@
 .post-style {
-	padding: 5px;
+	padding-bottom: 5px;
+	padding-left: 10px;
+	padding-right: 5px;
+	padding-top: 10px;
+	box-shadow: 0px 1px  #424949;
 }
 
 .post-username {
-	font-size: 16px;
+	font-size: 20px;
 }
 
 .post-title {
-	font-size: 13px;
+	font-size: 16px;
 }
 
 .post-category {
@@ -17,3 +21,16 @@
 .post-body {
 	font-size: 12px;
 }
+
+.post-profile-pic-style {
+	height: 25px;
+	width: 25px;
+	margin-bottom: 1px;
+}
+
+.rating-container{
+
+	text-align: right;
+	min-width: 100px;
+}
+

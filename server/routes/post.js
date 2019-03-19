@@ -20,18 +20,17 @@ module.exports = (app, db) => {
   //Create a new post
   app.post("/api/v1/post/create", validate(validation), (req, res, next) => {
     console.log("Requested new post creation");
-
-      console.log(req.body);
-      db.post.create({
-        title: req.body.title,
-        category: req.body.category,
-        body: req.body.body,
-        userId: req.body.userId,
-        rating: req.body.rating,
-        createdAt: new Date(),
-        updatedAt: new Date()
-      }).then( (result) => res.json(result) );
-
+	console.log(req.body);
+    db.post.create({
+      title: req.body.title,
+      category: req.body.category,
+      body: req.body.body,
+      userId: req.body.userId,
+      rating: req.body.rating,
+	  spoiler: req.body.spoiler,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    }).then( (result) => res.json(result) );
   });
 
 	//Get all posts of friends given a userId
