@@ -3,23 +3,30 @@ import Popup from "reactjs-popup";
 import axios from 'axios';
 import Rating from 'react-rating';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import '../css/Postform.css';
 import {
     Container, Col, Form,
     FormGroup, Label, Input,
-    Button,
-  } from 'reactstrap';
+    Button, FormText
+	} from 'reactstrap';
+	import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+	import { faPen } from '@fortawesome/free-solid-svg-icons';
 
-class PostForm extends Component {
+
+export class PostForm extends Component {
   constructor(props) {
     super(props)
 
     this.handleInputChange = this.handleInputChange.bind(this)
     this.handleFormSubmit = this.handleFormSubmit.bind(this)
-   
+	  this.toggleSpoiler = this.toggleSpoiler.bind(this)
+		
     this.state = {
-		category : '',
+		user: JSON.parse(window.sessionStorage.getItem("user")),
+		category : 'MOVIE',
 		title : '',
 		body : '',
+		spoiler: false,
 		isOpen: false
     }
   };
@@ -33,7 +40,8 @@ class PostForm extends Component {
   handleClose = () => {
     this.setState({ isOpen: false });
   }
- 
+
+
 	// manages changes in the post form
   handleInputChange(event) {
     const target = event.target;
@@ -42,8 +50,14 @@ class PostForm extends Component {
 
     this.setState({
       [name]: value
-    });
-  }
+
+		});
+	
+	}
+	
+	toggleSpoiler(){
+		this.setState({ spoiler: !this.state.spoiler });
+	}
 
 	// submits the user post to the server
   handleFormSubmit() {
@@ -51,8 +65,9 @@ class PostForm extends Component {
       title: this.state.title,
       category: this.state.category,
       body: this.state.body,
-      userId: this.props.user.id,	
-      rating: null
+			userId: this.state.user.id,
+			spoiler: this.state.spoiler,	
+			rating: null
   }).then(function (response) {
     })
     .catch(function (error) {
@@ -66,38 +81,27 @@ class PostForm extends Component {
         return  <Popup 
 					open={this.state.isOpen}
 					onOpen={this.handleOpen}
-					style={{ width: '100%', height: '45%', position:'relative'}}
-					trigger={<Button style={{ marginTop: '8px'}}> Post </Button>} 
+					className="popup-style"
+					trigger={<Button className="post-button-style"> <div className="post-text-style">Post     <FontAwesomeIcon icon={faPen} size="xs"/></div></Button>} 
 					modal
 				>
 				{close => (					
-					<Container style={{
-						position:'relative',
-						textAlign: 'left',
-						padding: '1em',
-						verticalAlign: 'middle',
-						marginLeft: 'auto',
-						marginRight: 'auto',
-						width: '100%',
-						height:'100%'
-						}} >
-						<Form style={{padding: '1em'}} className="form">
+					<Container className="container-form-style" >
+						<Form className="form-style">
 							<Col>
 							<FormGroup>
-								<Label style= {{    
-								display: 'flex',
-								fontWeight: '600'}}>Title</Label>
+								<Label className="form-label-style">Title</Label>
 								<Input
 								value={this.state.title}
 								onChange={this.handleInputChange}
 								name="title"
-								placeholder="Title"
 								/>
+								<FormText>e.g. Avengers: Endgame</FormText>
 							</FormGroup>
 							</Col>
 							<Col>
 							<FormGroup>
-								<Label >Category</Label>
+								<Label className="form-label-style">Category</Label>
 							<Input
 								type="select"
 								value={this.state.category}
@@ -115,25 +119,31 @@ class PostForm extends Component {
 							</Col> 
 								<Col> <Label>Rating:</Label><Rating initialRating={0} emptySymbol="fa fa-star-o fa-2x" fullSymbol="fa fa-star fa-2x"/>
 								</Col>
+								<Col>
+								<FormGroup >
+								<Label className="postform-checkbox" >
+									<Input  onChange={this.toggleSpoiler} type="checkbox" /> Contains Spoilers?
+								</Label>
+							</FormGroup>
+								</Col>
 							<Col>
 							<FormGroup>
-								<Label style= {{    
-								display: 'flex',
-								fontWeight: '600'}}>Body</Label>
+								<Label className="form-label-style">Body</Label>
 								<textarea  
-								style ={{width: '100%'}} className= 'Body'
+								className="form-body-textarea-style"
 								name="body"
 								value={this.state.body}
 								onChange={this.handleInputChange}
 								>
 								</textarea>
+								<FormText>e.g. This movie is something I have never seen before!</FormText>
 							</FormGroup>
 							</Col>
 							<Button color="secondary" onClick={this.handleFormSubmit}>Submit</Button>
 						</Form>
 						</Container>						
 				)}
-			</Popup>;
+			</Popup>
      
       } 
 }

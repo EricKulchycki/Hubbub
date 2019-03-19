@@ -1,5 +1,6 @@
 .application-background-primary {
 	background-color: #424949;
+	min-height: 1000px;
 }
 
 .application-background-secondary {

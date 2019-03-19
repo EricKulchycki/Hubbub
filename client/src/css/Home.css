@@ -1,19 +1,26 @@
 .p-style {
+  margin-top: 10px;
   text-align: right;
-  margin-right: 20%;
+  margin-right: 390px;
+  color: white
+}
+
+.desc-style {
+  text-align: right;
+  margin-right: 200px;
   color: white
 }
 
 .img-style {
-  margin-left: 10%;
-  margin-top: 10%;
-  width: 25%;
-  height: 25%;
+  margin-left: 100px;
+  margin-top: 40px;
+  width: 375px;
+  height: 375px;
   float: left;
 }
 
 .login {
-  background-color: #FF0000;
+  background-color: #7b241c;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
