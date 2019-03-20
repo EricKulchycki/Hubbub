@@ -72,14 +72,14 @@ class OAuth extends Component {
     const { disabled } = this.state
     
     return (
-      <div>
+      
           <div className='button-wrapper'>
               <button className={`${provider} ${disabled} google-button-style`} onClick={this.startAuth}>
                 <img className="google-style" src={googleIcon} alt="Google Icon"></img>
                 <div className="google-text-style">Google</div>
               </button>
           </div>
-      </div>
+      
     )
   }
 }

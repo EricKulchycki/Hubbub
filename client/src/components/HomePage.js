@@ -26,15 +26,11 @@ export class HomePage extends Component {
     return (
       <div className="login">
         <div >
-          <p className="p-style">Login</p>
-          <img src={logo} className="img-style" alt="logo" />
-		  {providers.map(provider => 
-			<OAuth 
-				provider={provider}
-				key={provider}
-				socket={socket}
-			/>
-       )}
+          <div >
+          <p className="p-style" >Login</p>
+          <OAuth provider={'google'} key={'google'}	socket={socket}/>
+          </div>
+          <div style={{height:'79%'}}><img src={logo} className="img-style" alt="logo" /></div>
           <p className="desc-style">Your friends share your taste. Keep up with the real critics.</p>
         </div>
       </div>
