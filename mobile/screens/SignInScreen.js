@@ -39,6 +39,7 @@ export default class SignInScreen extends React.Component {
           AuthSession.dismiss();
           console.log(this.state.user);
           this._storeData(JSON.stringify(this.state.user));
+
           this.props.navigation.navigate('Home', {user: this.state.user});
     });
   }
@@ -67,14 +68,6 @@ signIn = async() =>{
    )
  }
 }
-
-/*<GoogleSignInButton  onPress ={this.signIn}>
-     Sign In With Google!
-</GoogleSignInButton>*/
-
-/*<GoogleSignInButton  onPress ={() => this.props.navigation.navigate('App', {user: this.state.user})}>
-    Sign In With Google!
-</GoogleSignInButton>*/
 
 const styles = StyleSheet.create({
   container: {
