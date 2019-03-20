@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import '../css/Post.css';
 import '../css/Application.css';
 import Rating from 'react-rating';
+import DeletePost from './DeletePost';
 import {
  Col,Row
 } from 'reactstrap';
@@ -17,11 +18,12 @@ export class Post extends Component {
     this.toggleHidden = this.toggleHidden.bind(this)
 
     this.state = {
+      user: JSON.parse(window.sessionStorage.getItem("user")),
       isHidden: this.props.post.spoiler
     };
   }
 
-
+  // reveals the spoiler
   toggleHidden () {
     this.setState({
       isHidden: false
@@ -32,6 +34,7 @@ export class Post extends Component {
   render() {
     return  (
       <div className="post-style">
+      	<div>{this.state.user.id === this.props.post.user.id ? <DeletePost postId={this.props.post.id}/> : null} </div>
       <Row>
         <Col className= "username-container">
           <h1 className="post-username text-left margin-none"><img src={this.props.post.user.picture === null ? defaultPic : this.props.post.user.picture} className="post-profile-pic-style" alt="Profile Pic" /> {this.props.post.user.firstName} {this.props.post.user.lastName}</h1>
