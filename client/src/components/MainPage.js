@@ -13,6 +13,7 @@ export class MainPage extends Component {
   constructor(props) {
     super(props)
     this.componentDidMount = this.componentDidMount.bind(this)
+    this.getFriendsPosts = this.getFriendsPosts.bind(this)
 
     this.state = {
       user: JSON.parse(window.sessionStorage.getItem("user")),
