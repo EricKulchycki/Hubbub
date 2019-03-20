@@ -26,6 +26,7 @@ export class PostForm extends Component {
 		category : 'MOVIE',
 		title : '',
 		body : '',
+		rating: 0,
 		spoiler: false,
 		isOpen: false
     }
@@ -53,6 +54,7 @@ export class PostForm extends Component {
 
 		});
 	
+		console.log(this.state);
 	}
 	
 	toggleSpoiler(){
@@ -67,7 +69,7 @@ export class PostForm extends Component {
       body: this.state.body,
 			userId: this.state.user.id,
 			spoiler: this.state.spoiler,	
-			rating: null
+			rating: this.state.rating
   }).then(function (response) {
     })
     .catch(function (error) {
@@ -117,7 +119,8 @@ export class PostForm extends Component {
 							</Input>
 							</FormGroup>
 							</Col> 
-								<Col> <Label>Rating:</Label><Rating initialRating={0} emptySymbol="fa fa-star-o fa-2x" fullSymbol="fa fa-star fa-2x"/>
+								<Col> 
+									<Label>Rating:</Label><Rating initialRating={this.state.rating}  onChange={(value) => this.setState({rating: value})} emptySymbol="fa fa-star-o fa-2x" fullSymbol="fa fa-star fa-2x"/>
 								</Col>
 								<Col>
 								<FormGroup >
