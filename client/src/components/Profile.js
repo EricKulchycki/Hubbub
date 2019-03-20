@@ -104,8 +104,6 @@ export class Profile extends Component {
             this.setState({ age: this.state.user.age });
         }
 
-        this.setState({ picture: this.state.user.photo})
-
         this.getFriends()
         this.getUsersPosts()
     }
