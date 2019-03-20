@@ -1,6 +1,7 @@
 
   export const SERVER = "http://hubbub.gersh.in:4000";
   export const AUTH = "/google?socketId=";
+  export const DEFAULT_USER = "https://image.flaticon.com/icons/png/512/21/21294.png";
   export const getFriendsPosts = "/api/v1/posts/allFriends/";
   export const createPost = '/api/v1/post/create';
   export const getPostByID = '/api/v1/post/';
