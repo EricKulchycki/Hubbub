@@ -213,6 +213,23 @@ if(abort == false){
     //Delete a friendship
 
     //Delete a post
+    it('should delete an embarassing post with an id', function(done){
+      chai.request(server)
+        .post('/api/v1/post/delete')
+        .send({'id': 2})
+        .end(function(err,res){
+          res.should.have.status(200);
+          res = res.body;
+        });
+
+      chai.request(server)
+        .get('/api/v1/post/2')
+        .end(function(err,res){
+          res.should.have.status(400);
+        });
+
+        done();
+    });
 
     //Get all posts from a friend
 
