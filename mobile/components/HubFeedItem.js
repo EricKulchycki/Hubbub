@@ -1,14 +1,33 @@
 import React from 'react'
-import {View, Text, StyleSheet} from "react-native"
+import {View, Text, StyleSheet, Image} from "react-native"
 import {Rating} from 'react-native-elements'
+import {DEFAULT_USER} from '../constants/Paths';
 
 export default class HubFeedItem extends React.Component{
   render(){
+    if(this.props.picture === null){
+      pictureSource = DEFAULT_USER;
+    }
+    else{
+      pictureSource = this.props.picture;
+    }
     return(
       <View style={{paddingHorizontal: 5}}>
-        <Text style = {styles.name}>
-          {this.props.name}
-        </Text>
+        <View style = {styles.nameContainer}>
+          <Image
+              style ={styles.userImage}
+              source ={{uri: pictureSource}}
+          />
+          <View>
+            <Text style = {styles.name}>
+              {this.props.name}
+            </Text>
+            <Text style = {styles.createdTime}>
+              {this.props.time}
+            </Text>
+          </View>
+        </View>
+
         <Text style = {styles.title}>
           {this.props.title}
         </Text>
@@ -29,8 +48,11 @@ export default class HubFeedItem extends React.Component{
 
 const styles = StyleSheet.create({
   container:{},
-  imageContainer:{},
-  contentContainer:{},
+  nameContainer:{
+    width: '100%',
+    flex: 0,
+    flexDirection: 'row'
+  },
   name:{
     fontSize: 18
   },
@@ -43,5 +65,10 @@ const styles = StyleSheet.create({
   },
   body:{
     fontSize: 15
+  },
+  userImage:{
+    height: 50,
+    width: 50,
+    borderRadius: 50/2
   }
 });

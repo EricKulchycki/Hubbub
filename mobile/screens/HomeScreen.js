@@ -196,7 +196,7 @@ export default class HomeScreen extends React.Component {
       pictureSource = item.picture;
     }
     else{
-      pictureSource = 'https://image.flaticon.com/icons/png/512/21/21294.png';
+      pictureSource = Paths.DEFAULT_USER;
     }
     return(
         <ListItem
@@ -209,7 +209,6 @@ export default class HomeScreen extends React.Component {
 
 /*Set up and render the timeline*/
   renderTimeline = () => {
-    let friendsList;
     if(this.state.loading){
       return(
         <View style={{flex: 1, justifyContent: 'center', flexDirection: 'row'}}>
@@ -217,22 +216,20 @@ export default class HomeScreen extends React.Component {
         </View>
       );
     }
-    if(this.state.friendData !== undefined){
-      friendsList = this.state.friendData.map(function(item){
-        return item.user.id;
-      });
-    }
-    if(friendsList.length != 0){
+
+    if(this.state.friendData.length != 0){
       console.log("Got posts from friends");
       return(
         <FlatList
           data = {this.state.postData}
           renderItem={({item}) => (
             <HubFeedItem
-              name = {item.user.username}
+              name = {`${item.user.firstName} ${item.user.lastName}`}
               title = {item.title}
               rating = {item.rating}
               body = {item.body}
+              picture ={item.user.picture}
+              time = {item.createdAt}
             />
           )}
           ItemSeparatorComponent = {this.renderSeparator}
