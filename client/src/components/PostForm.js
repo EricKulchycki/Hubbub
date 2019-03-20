@@ -54,8 +54,7 @@ export class PostForm extends Component {
 
 		});
 	
-		console.log(this.state);
-	}
+		}
 	
 	toggleSpoiler(){
 		this.setState({ spoiler: !this.state.spoiler });
