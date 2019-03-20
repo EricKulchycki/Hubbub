@@ -78,7 +78,7 @@ export default class HomeScreen extends React.Component {
       this.setState({postData: response});
     });
 
-    this.makeRequest('GET', Paths.getFriends + userID).then(response => {
+    makeRequest('GET', Paths.getFriends + userID).then(response => {
       this.setState({friendData: response});
     });
 
@@ -107,7 +107,6 @@ export default class HomeScreen extends React.Component {
 
 /*Used by the searchbar to update its search results*/
   searchForUsers = text => {
-    console.log("searching");
     this.props.navigation.setParams({searchInput:text});
     if(text !== ""){
       const body = {"firstName": text};
