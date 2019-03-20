@@ -3,9 +3,7 @@ import '../css/Post.css';
 import '../css/Application.css';
 import Rating from 'react-rating';
 import DeletePost from './DeletePost';
-import {
- Col,Row
-} from 'reactstrap';
+import { Col,Row} from 'reactstrap';
 
 
 const defaultPic = "https://academist-app-production.s3.amazonaws.com/uploads/user/profile_image/8823/default_user_icon.png";

@@ -218,13 +218,9 @@ export class Profile extends Component {
                                     <TabPane tabId="2">
                                         <Row>
                                             <Col>
-                                            <div>						
-                                                {this.state.posts.map(post => (
-                                                <div key={post.id}>
-                                                <Post post={post} />    
+                                                <div>						
+                                                    {this.state.posts.map(post => (<div key={post.id}> <Post post={post}/> </div>))}
                                                 </div>
-                                                ))}
-                                            </div>
                                             </Col>
                                         </Row>
                                     </TabPane>
@@ -236,50 +232,28 @@ export class Profile extends Component {
                                                     <Col>
                                                     <FormGroup>
                                                         <Label>Firstname</Label>
-                                                        <Input
-                                                            value={this.state.tmpFirstName}
-                                                            onChange={this.handleInputChange}
-                                                            name="tmpFirstName"
-                                                            placeholder={this.state.tmpFirstName}
-                                                        />
+                                                        <Input value={this.state.tmpFirstName} onChange={this.handleInputChange} name="tmpFirstName" placeholder={this.state.tmpFirstName}/>
                                                         <FormText>e.g. John</FormText>
                                                     </FormGroup>
                                                     </Col>
                                                     <Col>
                                                     <FormGroup>
                                                         <Label>Lastname</Label>
-                                                        <Input
-                                                            value={this.state.tmpLastName}
-                                                            onChange={this.handleInputChange}
-                                                            name="tmpLastName"
-                                                            placeholder={this.state.tmpLastName}
-                                                        />
+                                                        <Input value={this.state.tmpLastName} onChange={this.handleInputChange} name="tmpLastName" placeholder={this.state.tmpLastName}/>
                                                         <FormText>e.g. Smith</FormText>
                                                     </FormGroup>
                                                     </Col>
                                                     <Col>
                                                     <FormGroup>
                                                         <Label >Age</Label>
-                                                        <Input
-                                                            value={this.state.tmpAge}
-                                                            onChange={this.handleInputChange}
-                                                            name="tmpAge"
-                                                            placeholder={this.state.tmpAge}
-                                                            type="number"
-                                                        />
+                                                        <Input value={this.state.tmpAge} onChange={this.handleInputChange} name="tmpAge" placeholder={this.state.tmpAge} type="number"/>
                                                         <FormText>e.g. 21</FormText>
                                                     </FormGroup>
                                                     </Col> 
                                                     <Col>
                                                     <FormGroup>
                                                         <Label >Picture (link)</Label>
-                                                        <Input
-                                                            value={this.state.tmpPicture}
-                                                            onChange={this.handleInputChange}
-                                                            name="tmpPicture"
-                                                            placeholder={this.state.tmpPicture}
-                                                            type="url"
-                                                        />
+                                                        <Input value={this.state.tmpPicture} onChange={this.handleInputChange} name="tmpPicture" placeholder={this.state.tmpPicture} type="url"/>
                                                         <FormText>e.g. http://catcatcat.com/images/catbleh.jpg</FormText>
                                                     </FormGroup>
                                                     </Col>
