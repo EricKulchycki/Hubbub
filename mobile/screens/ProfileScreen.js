@@ -10,6 +10,7 @@ import {
   Image,
 } from 'react-native';
 import {Header, Icon} from 'react-native-elements';
+import {makeRequest} from '../components/Utils'
 import * as Colors from '../constants/Colors';
 import * as Paths from '../constants/Paths';
 import HubFeedItem from '../components/HubFeedItem';
@@ -20,6 +21,9 @@ export default class ProfileScreen extends React.Component{
   constructor(props){
     super(props);
     this.state = {
+      username: '',
+      age: -1,
+      picture: '',
       user: this.props.navigation.getParam('user', {}),
       loading: false,
       postData: [],
@@ -30,27 +34,13 @@ export default class ProfileScreen extends React.Component{
     header: null,
   });
 
-  makeRequest(type, resource){
-      this.setState({loading: true});
-
-      return fetch(url + resource, {
-        method: type
-      })
-      .then((res) => res.json())
-      .then((resJson) => {
-        return resJson;
-      })
-      .catch(error => {
-        console.log("cannot get " + resource);
-      })
-  }
 
   refresh(){
     alert("REFRESH THE PAGE");
   }
 
   componentDidMount = () => {
-    this.makeRequest('GET', Paths.getPostByUserID + this.state.user.id).then(response => {
+    makeRequest('GET', Paths.getPostByUserID + this.state.user.id).then(response => {
       this.setState({postData: response});
     });
     this.setState({loading: false});
@@ -134,7 +124,7 @@ export default class ProfileScreen extends React.Component{
         <TouchableHighlight
           style={{position: 'absolute', alignSelf: 'flex-start', bottom: 0}}
           onPress={() => {
-            this.props.navigation.goBack();
+            this.props.navigation.navigate('Home', {user: this.state.user})
           }}>
           <Icon
             reverse
