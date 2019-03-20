@@ -23,7 +23,7 @@ export default class ProfileScreen extends React.Component{
     this.state = {
       username: '',
       age: -1,
-      picture: '',
+      picture: null,
       user: this.props.navigation.getParam('user', {}),
       loading: false,
       postData: [],
