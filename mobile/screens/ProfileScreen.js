@@ -57,6 +57,8 @@ export default class ProfileScreen extends React.Component{
             rating = {item.rating}
             body = {item.body}
             spoiler = {item.spoiler}
+            picture ={item.user.picture}
+            time = {item.createdAt}
           />
         )}
         ItemSeparatorComponent = {this.renderSeparator}
