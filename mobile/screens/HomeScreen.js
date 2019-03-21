@@ -236,6 +236,8 @@ export default class HomeScreen extends React.Component {
               spoiler = {item.spoiler}
               picture ={item.user.picture}
               time = {item.createdAt}
+              postID = {item.id}
+              myPosts = {false}
             />
           )}
           ItemSeparatorComponent = {this.renderSeparator}

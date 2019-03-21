@@ -1,7 +1,9 @@
-import React from 'react'
-import {View, Text, StyleSheet, Image} from "react-native"
-import {Rating} from 'react-native-elements'
+import React from 'react';
+import {View, Text, StyleSheet, Image, TouchableHighlight, Alert} from "react-native";
+import {Rating, Icon} from 'react-native-elements';
 import {DEFAULT_USER} from '../constants/Paths';
+import * as Colors from '../constants/Colors';
+import * as Paths from '../constants/Paths';
 
 export default class HubFeedItem extends React.Component{
 
@@ -10,7 +12,23 @@ export default class HubFeedItem extends React.Component{
     this.state = {pressStatus: false};
   }
 
+  deleteAPost(body){
+    this.setState({loading: true});
+    fetch(Paths.domain + Paths.deletePost, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(
+        body
+      ),
+    });
+    this.setState({loading: false});
+  }
+
   render(){
+    let title = this.props.title;
     let body;
     if(this.props.spoiler){
       body = <Text style = {
@@ -18,6 +36,8 @@ export default class HubFeedItem extends React.Component{
         ? styles.body
         : styles.bodySpoiler}
         onPress={() => this.setState({pressStatus: !this.state.pressStatus})}>{this.props.body}</Text>;
+
+        title += ' (SPOILER)';
     }
     else{
       body = <Text style = {styles.body}>{this.props.body}</Text>;
@@ -28,6 +48,40 @@ export default class HubFeedItem extends React.Component{
     else{
       pictureSource = this.props.picture;
     }
+
+    let deleteButton;
+    if(this.props.myPosts){
+      deleteButton =
+        <TouchableHighlight
+          style={{alignSelf: 'flex-end'}}
+          onPress={() => {
+            Alert.alert(
+              'Delete Post',
+              'Are you sure you want to delete this post?',
+              [
+                {
+                  text: 'Cancel',
+                  style: 'cancel'
+                },
+                {
+                  text: 'OK',
+                  onPress: () => this.deleteAPost({id: this.props.postID})
+                },
+              ],
+            );
+          }}>
+          <Icon
+            reverse
+            name='clear'
+            type='material'
+            size={12}
+            color= {Colors.MAIN_RED} />
+        </TouchableHighlight>
+    }
+
+    let time = this.props.time;
+    parseTime = time.substring(5,7) + '/' + time.substring(8,10) + '/' + time.substring(0,4);
+
     return(
       <View style={{paddingHorizontal: 5}}>
         <View style = {styles.nameContainer}>
@@ -40,13 +94,14 @@ export default class HubFeedItem extends React.Component{
               {this.props.name}
             </Text>
             <Text style = {styles.createdTime}>
-              {this.props.time}
+              {parseTime}
             </Text>
           </View>
+          {deleteButton}
         </View>
 
         <Text style = {styles.title}>
-          {this.props.title}
+          {title}
         </Text>
         <Rating
           startingValue = {this.props.rating}

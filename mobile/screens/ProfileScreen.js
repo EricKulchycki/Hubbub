@@ -52,13 +52,15 @@ export default class ProfileScreen extends React.Component{
         data = {this.state.postData}
         renderItem={({item}) => (
           <HubFeedItem
-            name = {item.user.username}
+            name = {`${item.user.firstName} ${item.user.lastName}`}
             title = {item.title}
             rating = {item.rating}
             body = {item.body}
             spoiler = {item.spoiler}
             picture ={item.user.picture}
             time = {item.createdAt}
+            postID = {item.id}
+            myPosts = {true}
           />
         )}
         ItemSeparatorComponent = {this.renderSeparator}

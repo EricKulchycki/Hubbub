@@ -11,4 +11,5 @@
   export const addFriend = '/api/v1/friend/create';
   export const removeFriend = '/api/v1/friend/delete';
   export const getAllUsers = '/api/v1/user/list';
+  export const deletePost = '/api/v1/post/delete';
   export const domain = 'http://142.93.147.148:4000';
