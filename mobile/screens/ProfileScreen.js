@@ -8,6 +8,7 @@ import {
   ScrollView,
   FlatList,
   Image,
+  AsyncStorage
 } from 'react-native';
 import {Header, Icon} from 'react-native-elements';
 import {makeRequest} from '../components/Utils'
@@ -35,8 +36,27 @@ export default class ProfileScreen extends React.Component{
   });
 
 
-  refresh(){
-    alert("REFRESH THE PAGE");
+  refresh = async() => {
+    this.setState({loading:true});
+    try{
+      userData = await AsyncStorage.getItem('USER');
+      if(userData !== null){
+        userData = JSON.parse(userData);
+        this.setState({
+          user: userData,
+          username: userData.username,
+          age: userData.age,
+          picture: userData.picture
+        });
+        makeRequest('GET', Paths.getPostByUserID + this.state.user.id).then(response => {
+          this.setState({postData: response});
+        });
+      }
+    }
+    catch(error){
+      console.log(error);
+    }
+    this.setState({loading:false});
   }
 
   componentDidMount = () => {
@@ -47,7 +67,14 @@ export default class ProfileScreen extends React.Component{
   }
 
   render() {
-    if(this.state.postData.length != 0){
+    if(this.state.loading){
+      return(
+        <View style={{flex: 1, justifyContent: 'center', flexDirection: 'row'}}>
+          <ActivityIndicator size='large' color="#d98880"/>
+        </View>
+      );
+    }
+    else if(this.state.postData.length != 0){
       timeline = <FlatList
         data = {this.state.postData}
         renderItem={({item}) => (
@@ -71,13 +98,7 @@ export default class ProfileScreen extends React.Component{
       timeline = <Text style = {styles.noPostsText}>It seems you have no posts!</Text>;
     }
 
-    if(this.state.loading){
-      return(
-        <View style={{flex: 1, justifyContent: 'center', flexDirection: 'row'}}>
-          <ActivityIndicator size='large' color="#d98880"/>
-        </View>
-      );
-    }
+
 
     return (
       <View style = {styles.container}>

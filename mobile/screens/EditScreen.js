@@ -10,11 +10,13 @@ import {
   Image,
   TextInput,
   KeyboardAvoidingView,
+  AsyncStorage
 } from 'react-native';
 import {Header, Icon} from 'react-native-elements';
 import * as Colors from '../constants/Colors';
 import * as Paths from '../constants/Paths';
 import HubFeedItem from '../components/HubFeedItem';
+import {makeRequest} from '../components/Utils'
 
 const url = Paths.domain;
 
@@ -36,22 +38,7 @@ export default class EditScreen extends React.Component{
     header: null,
   });
 
-  makeRequest(type, resource){
-      this.setState({loading: true});
-
-      return fetch(url + resource, {
-        method: type
-      })
-      .then((res) => res.json())
-      .then((resJson) => {
-        return resJson;
-      })
-      .catch(error => {
-        console.log("cannot get " + resource);
-      })
-  }
-
-  makePost(type, resource){
+  makePost = () => {
     this.setState({loading: true});
     const jsonBody = {
       userId: this.state.user.id,
@@ -77,19 +64,14 @@ export default class EditScreen extends React.Component{
       jsonBody.picture = this.state.user.picture;
     }
 
-    fetch(url + resource, {
-      method: type,
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(
-        jsonBody
-      ),
+    makeRequest('POST', Paths.updateUser, jsonBody).then(response => {
+       AsyncStorage.setItem('USER', JSON.stringify(response)).then(() =>{
+         this.setState({loading: false});
+         this.props.navigation.state.params.onGoBack();
+         this.props.navigation.goBack();
+       });
     });
-    this.setState({loading: false});
-    this.props.navigation.state.params.onGoBack();
-    this.props.navigation.goBack();
+
   }
 
   onAgeChanged(text){
@@ -186,7 +168,7 @@ export default class EditScreen extends React.Component{
         <TouchableHighlight
           style={{position: 'absolute', alignSelf: 'flex-end', bottom: 0}}
           onPress={() => {
-            this.makePost('POST', Paths.updateUser);
+            this.makePost();
           }}>
           <Icon
             reverse

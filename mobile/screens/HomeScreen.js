@@ -148,6 +148,7 @@ export default class HomeScreen extends React.Component {
 
 /*sends another get request for posts to update the feed*/
   refreshHubFeed = () => {
+    this.setState({loading: true});
     makeRequest('GET', Paths.getFriendsPosts + userID).then(response => {
       this.setState({postData: response});
     });
@@ -242,6 +243,8 @@ export default class HomeScreen extends React.Component {
           )}
           ItemSeparatorComponent = {this.renderSeparator}
           keyExtractor={item => item.id.toString()}
+          refreshing={this.state.loading}
+          onRefresh={this.refreshHubFeed}
         />
       );
     }
