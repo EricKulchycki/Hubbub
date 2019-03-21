@@ -27,7 +27,7 @@ export default class EditScreen extends React.Component{
       firstName: '',
       lastName: '',
       age: null,
-      picture: '',
+      picture: null,
       loading: false,
     };
   }
@@ -73,7 +73,7 @@ export default class EditScreen extends React.Component{
     if(this.state.age != null){
       jsonBody.age = parseInt(this.state.age);
     }
-    if(this.state.picture != ''){
+    if(this.state.picture != null){
       jsonBody.picture = this.state.user.picture;
     }
 

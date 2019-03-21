@@ -28,7 +28,6 @@ export default class HomeScreen extends React.Component {
     return {
       headerStyle:{
         backgroundColor: Colors.MAIN_RED,
-
       },
       headerLeft: (
         <Image
@@ -92,7 +91,9 @@ export default class HomeScreen extends React.Component {
   searchbar = () =>{
     return(
     <SearchBar
-      containerStyle = {{width:'100%'}}
+      containerStyle = {{backgroundColor: Colors.MAIN_RED, width:'100%'}}
+      inputContainerStyle = {{backgroundColor: '#FFF'}}
+      inputStyle = {{color: '#515a5a'}}
       placeholder = {"Search Here..."}
       lightTheme
       round
@@ -200,6 +201,7 @@ export default class HomeScreen extends React.Component {
     }
     return(
         <ListItem
+          containerStyle = {{borderColor: '#515a5a', borderWidth: 1, borderRadius: 10}}
           title={name}
           rightElement = {friendStatus}
           leftAvatar = {{source: {uri: pictureSource} }}
@@ -234,6 +236,8 @@ export default class HomeScreen extends React.Component {
               spoiler = {item.spoiler}
               picture ={item.user.picture}
               time = {item.createdAt}
+              postID = {item.id}
+              myPosts = {false}
             />
           )}
           ItemSeparatorComponent = {this.renderSeparator}
