@@ -38,7 +38,6 @@ export class PostForm extends Component {
     this.setState({ isOpen: false });
   }
 
-
 	// manages changes in the post form
   handleInputChange(event) {
     const target = event.target;
@@ -49,9 +48,9 @@ export class PostForm extends Component {
       [name]: value
 
 		});
-	
 		}
 	
+	// sets the spoiler to true
 	toggleSpoiler(){
 		this.setState({ spoiler: !this.state.spoiler });
 	}
@@ -71,7 +70,7 @@ export class PostForm extends Component {
       console.log(error);
 		});
 		
-	this.handleClose();
+		this.handleClose();
   }
 
   render(){
@@ -105,7 +104,7 @@ export class PostForm extends Component {
 								<Col>
 									<FormGroup >
 										<Label className="postform-checkbox" >
-											<Input  onChange={this.toggleSpoiler} type="checkbox" /> Contains Spoilers?
+											<Input onChange={this.toggleSpoiler} type="checkbox" /> Contains Spoilers?
 										</Label>
 									</FormGroup>
 								</Col>

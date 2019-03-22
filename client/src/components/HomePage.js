@@ -12,8 +12,6 @@ export class HomePage extends Component {
     data: ''
   }
   componentDidMount = () => {
-    // Make sure to change the (localhost) on the line bellow 
-    // to the public DNS of your EC2 instance
     axios.get(`http://localhost:4000/sayHello`)
     .then(res => {
       const dataFromServer = res.data;
@@ -29,7 +27,7 @@ export class HomePage extends Component {
           <p className="p-style" >Login</p>
           <OAuth provider={'google'} key={'google'}	socket={socket}/>
           </div>
-          <div style={{height:'79%'}}><img src={logo} className="img-style" alt="logo" /></div>
+          <div><img src={logo} className="img-style" alt="logo" /></div>
           <p className="desc-style">Your friends share your taste. Keep up with the real critics.</p>
         </div>
       </div>

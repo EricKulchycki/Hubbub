@@ -57,7 +57,6 @@ export class Profile extends Component {
 
         this.setState({
             [name]: value
-
         });
         }
 
@@ -178,7 +177,7 @@ export class Profile extends Component {
                             <Row className="container-left-column-first-row"><img onError={this.backToDefault} className="avatar-style" src={this.state.user.picture === null ? this.state.user.photo : this.state.user.picture} alt="logo"/></Row>
                             <Row >
                                 <div >
-                                <p style={{margin: '1rem'}}>{this.state.firstName} {this.state.lastName}, {this.state.age}</p>
+                                <p className="user-info-style">{this.state.firstName} {this.state.lastName}, {this.state.age}</p>
                                 </div>
                             </Row>
                         </Col>

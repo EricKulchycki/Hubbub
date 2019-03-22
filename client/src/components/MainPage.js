@@ -6,9 +6,6 @@ import '../css/MainPage.css';
 import axios from 'axios';
 import PostForm from './PostForm';
 
-
-
-
 export class MainPage extends Component {
   constructor(props) {
     super(props)
@@ -24,7 +21,7 @@ export class MainPage extends Component {
   
   componentDidMount() {
     this.getFriendsPosts();
-}
+  }
 
   // retrieve posts of the user's friends
   getFriendsPosts() {

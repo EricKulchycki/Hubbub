@@ -8,9 +8,10 @@
 }
 
 .button-wrapper {
-    margin-top: 10px;
-text-align: right;
-margin-right: 12%;
+    margin-top: 15px;
+    text-align: right;
+    margin-right: 12%;
+    width: 78%;
 }
 
 .google-button-style {

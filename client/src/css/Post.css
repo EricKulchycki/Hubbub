@@ -29,8 +29,16 @@
 }
 
 .rating-container{
-
 	text-align: right;
 	min-width: 100px;
+}
+
+.date-style {
+	font-size: 10px;
+	text-align: right;
+}
+
+.spoiler-style {
+	cursor: pointer;
 }
 
