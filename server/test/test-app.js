@@ -37,19 +37,15 @@ var abort = false;
 describe('Testing environment',function(){
 
 
-  it('should only be running in a test environment',function(done){
-    if(process.env.NODE_ENV !== 'test'){
-    console.log("not running test in testing environment! Killing test to safeguard DB \n NODE_ENV="+process.env.NODE_ENV);
-    chai.assert.fail();
-    abort = true;
-    }
-    done();
-  });
+  	it('should only be running in a test environment',function(done){
+		if(process.env.NODE_ENV !== 'test'){
+			console.log("not running test in testing environment! Killing test to safeguard DB \n NODE_ENV="+process.env.NODE_ENV);
+			chai.assert.fail();
+			abort = true;
+    	}
+    	done();
+  	});
 });
-
-
-
-
 
 if(abort == false){
   describe('API Endpoints', function() {
@@ -59,47 +55,47 @@ if(abort == false){
     let user, post;
 
     beforeEach(async (done) => {
-      //await truncate();
-      for(let x = 0; x < 5; x++) {
-        user = await createUser();
-        post = await createPost();
-      }
-      done();
+
+      	for(let x = 0; x < 5; x++) {
+			user = await createUser();
+			post = await createPost();
+      	}
+      	done();
     });
 
     afterEach(async (done) => {
-      await truncate();
-      done();
+		await truncate();
+		done();
     });
 
     it('should return user with specified id', function(done) {
 
-      chai.request(server)
-        .get('/api/v1/user/1')
-        .end(function(err, res){
-          res.should.have.status(200);
-          res.should.be.json;
-          res = res.body;
+		chai.request(server)
+			.get('/api/v1/user/1')
+			.end(function(err, res){
+				res.should.have.status(200);
+				res.should.be.json;
+				res = res.body;
 
-          res.should.have.property('id');
-          res.should.have.property('username');
-          res.should.have.property('password');
-          res.should.have.property('email');
-          res.should.have.property('firstName');
-          res.should.have.property('lastName');
-          res.should.have.property('picture');
+				res.should.have.property('id');
+				res.should.have.property('username');
+				res.should.have.property('password');
+				res.should.have.property('email');
+				res.should.have.property('firstName');
+				res.should.have.property('lastName');
+				res.should.have.property('picture');
 
-          res.id.should.equal(1);
+				res.id.should.equal(1);
 
-          res.username.should.be.a('string');
+				res.username.should.be.a('string');
 
-          res.email.should.be.a('string');
+				res.email.should.be.a('string');
 
-          res.firstName.should.be.a('string');
+				res.firstName.should.be.a('string');
 
-          res.lastName.should.be.a('string');
-          done();
-        });
+				res.lastName.should.be.a('string');
+				done();
+			});
     });
 
     it('should return list of all users with specified firstname', function(done){
@@ -127,75 +123,75 @@ if(abort == false){
     });
 
     it('should make a post for user 1', function(done){
-      chai.request(server)
-      .post('/api/v1/post/create')
-      .send({ 'title': 'title1',
-              'category': 'movie',
-              'body': 'body1',
-              'userId': 1,
-              'rating': 5})
-      .end(function(err,res){
-        res.should.have.status(200);
-        res = res.body;
+		chai.request(server)
+		.post('/api/v1/post/create')
+		.send({ 'title': 'title1',
+				'category': 'movie',
+				'body': 'body1',
+				'userId': 1,
+				'rating': 5})
+		.end(function(err,res){
+			res.should.have.status(200);
+			res = res.body;
 
-        res.should.have.property('title');
-        res.should.have.property("category");
-        res.should.have.property("body");
-        res.should.have.property("userId");
-        res.should.have.property("rating");
+			res.should.have.property('title');
+			res.should.have.property("category");
+			res.should.have.property("body");
+			res.should.have.property("userId");
+			res.should.have.property("rating");
 
-        res.title.should.equal('title1');
-        res.category.should.equal('movie');
-        res.body.should.equal('body1');
-        res.userId.should.equal(1);
-        res.rating.should.equal(5);
+			res.title.should.equal('title1');
+			res.category.should.equal('movie');
+			res.body.should.equal('body1');
+			res.userId.should.equal(1);
+			res.rating.should.equal(5);
 
-        done();
-      });
+			done();
+		});
     });
 
     it('should fail to make a post for user 1', function(done){
-      chai.request(server)
-      .post('/api/v1/post/create')
-      .send({ 'title': 'title1',
-              'category': 'movie',
-              'description': 10,
-              'userId': 1,
-              'rating': 5})
-      .end(function(err,res){
-        res.should.have.status(400);
-      });
-      done();
+		chai.request(server)
+		.post('/api/v1/post/create')
+		.send({ 'title': 'title1',
+				'category': 'movie',
+				'description': 10,
+				'userId': 1,
+				'rating': 5})
+		.end(function(err,res){
+			res.should.have.status(400);
+		});
+		done();
     });
 
     it('should fail to make a user without an email', function(done){
-      chai.request(server)
-      .post('/api/v1/user/create')
-      .send({ 'username': 'dude mcguy',
-              'password': 'ISureHopeWeArentStoringPlainTextPasswords'})
-      .end(function(err,res){
-        res.should.have.status(400);
-      });
-      done();
+		chai.request(server)
+		.post('/api/v1/user/create')
+		.send({ 'username': 'dude mcguy',
+				'password': 'ISureHopeWeArentStoringPlainTextPasswords'})
+		.end(function(err,res){
+			res.should.have.status(400);
+		});
+		done();
     });
 
     it('should get all posts of a category and only posts of that category', function(done){
-      chai.request(server)
-      .get('/api/v1/posts/categories/movie')
-      .end(function(err,res){
-        res.should.have.status(200);
-        res = res.body;
-        res.should.be.a('array');
+		chai.request(server)
+		.get('/api/v1/posts/categories/movie')
+		.end(function(err,res){
+			res.should.have.status(200);
+			res = res.body;
+			res.should.be.a('array');
 
-        //Iterate over posts in this category and check they're what we're looking for
-        for(i=0;i<res.length;i++){
-          validPost(res[i]);
-          chai.assert.equal(res[i].category.toLowerCase(),'movie', "category should be movie");
-        }
+			//Iterate over posts in this category and check they're what we're looking for
+			for(i=0;i<res.length;i++){
+			validPost(res[i]);
+			chai.assert.equal(res[i].category.toLowerCase(),'movie', "category should be movie");
+			}
 
-        done();
+			done();
 
-      });
+		});
     });
 
     it('should get a particular post with an id', function(done){
@@ -210,28 +206,24 @@ if(abort == false){
     		});
     });
 
-    //Delete a friendship
-
     //Delete a post
     it('should delete an embarassing post with an id', function(done){
-      chai.request(server)
-        .post('/api/v1/post/delete')
-        .send({'id': 2})
-        .end(function(err,res){
-          res.should.have.status(200);
-          res = res.body;
-        });
+		chai.request(server)
+			.post('/api/v1/post/delete')
+			.send({'id': 2})
+			.end(function(err,res){
+				res.should.have.status(200);
+				res = res.body;
+			});
 
-      chai.request(server)
-        .get('/api/v1/post/2')
-        .end(function(err,res){
-          res.should.have.status(400);
-        });
+		chai.request(server)
+			.get('/api/v1/post/2')
+			.end(function(err,res){
+			res.should.have.status(400);
+			});
 
         done();
     });
-
-    //Get all posts from a friend
 
   });
 
