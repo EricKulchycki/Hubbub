@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
-import logo from './images/alpha-h-box2.png'
+import logo from './images/hubbub_logo_favicon.png'
 import '../css/Header.css';
 import '../css/Application.css';
 import Search from './Search';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import PostForm from './PostForm';
 import {withRouter} from 'react-router';
-import {Col, Row, Button,} from 'reactstrap';
+import { Row, Button,} from 'reactstrap';
 import axios from 'axios';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {faUser} from '@fortawesome/free-solid-svg-icons';
 
 export class Header extends Component {
   constructor(props) {
@@ -109,22 +111,18 @@ export class Header extends Component {
  
   render() {
     return (
-      <header className="background-primary header-layout">
-        <Row>
-          <Col >    
-            <input type="image" onClick={this.returnToMain} className="logo-style" alt="logo" src={logo}>
-            </input>
-          </Col>
-          <Col>
+      <header className="header-layout">
+        <Row className = "header-bar" >
+          <div className ="icon-container">    
+            <img onClick={this.returnToMain} className="logo-style" alt="logo" src={logo} />
+          </div>
+          <div className="search-container">
             <Search ser={this.state.people} user={this.state.user} searchUsers={this.searchUsers} 
         checkFriend={this.checkFriend} addFriend={this.addFriend} deleteFriend={this.deleteFriend}/>
-          </Col>
-          <Col>
-            <Button className="btn-style" onClick={this.switchToProfile} color="secondary">Profile</Button>{' '}
-          </Col>
-          <Col>
-            <PostForm user={this.props.user}/>
-          </Col>
+          </div>
+          <div className="profile-container">
+            <Button className="prof-style" onClick={this.switchToProfile} color="secondary"><div className="prof-text-style">Profile     <FontAwesomeIcon icon={faUser} size="xs"/></div></Button>{' '}
+          </div>
         </Row>
       </header>
     );

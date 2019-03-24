@@ -1,5 +1,21 @@
 .post-list-layout {
-	margin-right: 25%;
-	margin-left: 25%;
+	margin-right: 20%;
+	margin-left: 20%;
+	border-right: 1px solid black; 
+	border-left: 1px solid black;
 	list-style: none;
+	margin-top: 20px;
+	min-width: 364px;
+}
+
+.header-layout {
+	position: sticky;
+	top: 0;
+	z-index: 10000;
+	height: 53px
+}
+
+.mainpage-background{
+	background-color: #424949;
+	min-width: 645px;
 }

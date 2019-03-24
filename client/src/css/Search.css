@@ -1,7 +1,9 @@
 .search-style {
     display: block;
-    margin: 0 auto;
-    width: 450px;
+    margin-left: 10px;
+    width: 100%;
+    height: 25px;
+    margin-top: 14px
 }
 
 .list-style {
@@ -11,7 +13,7 @@
 }
 
 .div-style {
-    width: 450px;
+    width: 420px;
     margin: 0 auto;
     position: relative;
 }
@@ -19,11 +21,18 @@
 .ulist-style {
     background-color: white;
     position: absolute;
-    width: 450px;
+    width: 420px;
     padding-left: 0pt;
     list-style-type: none;
     overflow: auto;
     max-height: 100px;
     cursor: pointer;
     z-index: 10000;
+    margin-left: 5px;
+}
+
+.display-pic-style {
+    height: 23px;
+    width: 23px;
+    margin-bottom: 1px;
 }
