@@ -4,8 +4,9 @@
 }
 
 .logo-style {
-	margin-left: 80%;
-	margin-top: 4px;
+	height: 80%;
+	margin-left: 65%;
+	margin-top: 7px;
 	min-height: 30px;
 	min-width: 30px;
 	cursor: pointer;
@@ -14,8 +15,8 @@
 .prof-style {
 	margin-top: 5px;
 	margin-left: 70px;
-	width: 90px;
-	height: 30px;
+	width: 82px;
+	height: 43px;
 	padding: 0px;
 	line-height: 40px
 }
@@ -23,4 +24,24 @@
 .prof-text-style {
 	margin-top: -4px;
 	margin-left: -4px
+}
+
+
+.header-bar{
+	height: 100%;
+}
+
+.icon-container{
+	width: 25%;
+	height: 100%;
+}
+
+.search-container{
+	width: 50%;
+	height: 100%;
+}
+
+.profile-container{
+	width: 25%;
+	height: 100%;
 }

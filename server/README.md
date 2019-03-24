@@ -11,7 +11,11 @@ CD into the server folder and run `npm install`
 
 CD into the server folder and run `node app.js`
 
-## Testing
+## Run Automated Tests
+
+CD into the server folder and run 'npm test'
+
+## In-Browser Testing
 
 Install the ARC ([Advanced Rest Client](https://chrome.google.com/webstore/detail/advanced-rest-client/hgmloofddffdnphfgcellkdfbfbjeloo/)) in your chrome browser:
 
@@ -124,6 +128,16 @@ Body: JSON: {
     body:
     userId:
     rating:
+}
+
+### Delete a post
+
+POST:
+
+/api/v1/post/delete
+
+Body: JSON: {
+    id:
 }
 
 ### Get all of a users friends posts

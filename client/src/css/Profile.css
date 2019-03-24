@@ -1,11 +1,13 @@
 .main-container-style {
-    height: 100%;
-    
+    min-height: 1000px;
 }
 
 .container-left-column-style {
     max-width: 150px;
+    margin-top: 20px;
+    margin-right: 20px;
     border-right: 1px solid;
+    max-height: 230px;
 }
 
 .container-left-column-first-row {
@@ -15,11 +17,11 @@
 .avatar-style {
     width: 100%;
     height: 100%;
-
 }
 
 .container-right-column-style {
     padding: 0px;
+    margin-top: 20px;
 }
 
 .container-nav-style {
@@ -28,7 +30,7 @@
 }
 
 .container-nav-tab-style {
-    border: 0px
+    border-bottom: 1px solid black;
 } 
 
 .containter-right-column-edit-container-style {
@@ -51,10 +53,18 @@
 }
 
 .friend-list-style {
-    margin-top: 2px;
+    margin-top: 15px;
 }
 
 .friend-profile-pic-style {
     width: 25px;
     height: 25px;
+}
+
+.nav-tab {
+    border-right: 1px solid black;
+}
+
+.user-info-style {
+    margin: 1rem;
 }

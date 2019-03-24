@@ -3,6 +3,9 @@ module.exports = (app, db) => {
   const Op = db.sequelize.Op;
   const friendModule = require("../modules/friends/friend");
   
+  var validate = require('express-validation');
+  var validation = require('../validation/post.js');
+
   //Get a post given an id
   app.get("/api/v1/post/:id", (req, res) => {
   	console.log("Requested post " + req.params.id);
@@ -13,9 +16,24 @@ module.exports = (app, db) => {
 	  	include: [db.user]
   	}).then( (result) => res.json(result) );
   });
+
+  app.post("/api/v1/post/delete", (req,res) =>{
+    console.log("Requested post deletion: "+req.body.id);
+    
+    if( !req.body.id ){
+      res.send("Could not delete post! Missing ID");
+    }
+
+    db.post.destroy({
+      where: {
+        id: req.body.id
+      }
+    }).then( (result) => res.json(result));
+
+  });
   
   //Create a new post
-  app.post("/api/v1/post/create", (req, res) => {
+  app.post("/api/v1/post/create", validate(validation), (req, res, next) => {
     console.log("Requested new post creation");
 	console.log(req.body);
     db.post.create({

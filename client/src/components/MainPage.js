@@ -6,13 +6,11 @@ import '../css/MainPage.css';
 import axios from 'axios';
 import PostForm from './PostForm';
 
-
-
-
 export class MainPage extends Component {
   constructor(props) {
     super(props)
     this.componentDidMount = this.componentDidMount.bind(this)
+    this.getFriendsPosts = this.getFriendsPosts.bind(this)
 
     this.state = {
       user: JSON.parse(window.sessionStorage.getItem("user")),
@@ -23,7 +21,7 @@ export class MainPage extends Component {
   
   componentDidMount() {
     this.getFriendsPosts();
-}
+  }
 
   // retrieve posts of the user's friends
   getFriendsPosts() {
@@ -32,8 +30,7 @@ export class MainPage extends Component {
     .then((response) => {
       
     if(response.data != null){
-      this.setState({ posts : response.data.reverse()});
-      console.log(this.state.posts);  
+      this.setState({ posts : response.data.reverse()}); 
     }
     })
     .catch(function (error) {
@@ -44,13 +41,13 @@ export class MainPage extends Component {
   render() {
     return (
 		// load a list of posts. In the posts themselves, define how they should look. Then have the container just display that
-		<div> 
+		<div className="mainpage-background"> 
 			<div className="header-layout">
         <Header />
 			</div>
 			<div className="application-background-primary">
 				<div className="application-background-secondary post-list-layout">
-					<h1 className="text-center">Activity Feed</h1>
+					<h1 className="activity-feed">Activity Feed</h1>
 					<div>
 						{this.state.posts.map(post => (
 							<li key={post.id}>
@@ -59,7 +56,7 @@ export class MainPage extends Component {
             ))}
 					</div>
 				</div>
-        <PostForm user={this.props.user}/>
+        <PostForm />
 			</div>
     </div>
     
