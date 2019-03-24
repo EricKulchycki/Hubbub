@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
 	    title: DataTypes.STRING,
       rating: DataTypes.INTEGER,
       body: DataTypes.STRING,
+      spoiler: DataTypes.BOOLEAN,
     },
     {
       freezeTableName: true,
