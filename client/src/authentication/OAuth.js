@@ -31,6 +31,7 @@ class OAuth extends Component {
     };
   }
 
+  // checks if the popup is open
   checkPopup() {
     const check = setInterval(() => {
       const { popup } = this
@@ -41,6 +42,7 @@ class OAuth extends Component {
     }, 1000)
   }
 
+  // opens the popup
   openPopup() {
     const { provider, socket } = this.props
     const width = 600, height = 600
@@ -55,6 +57,7 @@ class OAuth extends Component {
     )
   }
 
+  // initiate the authorization/login process
   startAuth = () => {
     if (!this.state.disabled) {
       this.popup = this.openPopup()  
@@ -63,23 +66,17 @@ class OAuth extends Component {
     }
   }
 
-  closeCard = () => {
-    this.setState({user: {}})
-  }
-
   render() {
     const { provider } = this.props
     const { disabled } = this.state
     
     return (
-      <div>
           <div className='button-wrapper'>
               <button className={`${provider} ${disabled} google-button-style`} onClick={this.startAuth}>
                 <img className="google-style" src={googleIcon} alt="Google Icon"></img>
                 <div className="google-text-style">Google</div>
               </button>
           </div>
-      </div>
     )
   }
 }

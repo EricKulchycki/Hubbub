@@ -11,9 +11,9 @@ export class AddDeleteFriend extends Component {
 
   // add or delete a friend
   addDeleteFriend() {
-      //if (this.props.friend.id === this.props.user.id) { // if id is equal to the user' id, do nothing
-      //  return null
-      //}
+      if (this.props.friend.id === this.props.user.id) { // if id is equal to the user's id, do nothing
+        return null
+      }
 
       if (!this.props.checkFriend(this.props.friend) ) { // if id does not exist in the user's friends list, return add button
         return <FontAwesomeIcon icon={faUserPlus} size="lg" className="add-delete-btn-style"  

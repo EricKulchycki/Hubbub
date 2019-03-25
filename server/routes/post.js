@@ -13,6 +13,37 @@ module.exports = (app, db) => {
   			id: req.params.id
   		},
 	  	include: [db.user]
+  	}).then( (result) => res.json(result) );
+  });
+
+  app.post("/api/v1/post/delete", (req,res) =>{
+    console.log("Requested post deletion: "+req.body.id);
+    
+    if( !req.body.id ){
+      res.send("Could not delete post! Missing ID");
+    }
+
+    db.post.destroy({
+      where: {
+        id: req.body.id
+      }
+    }).then( (result) => res.json(result));
+
+  });
+  
+  //Create a new post
+  app.post("/api/v1/post/create", validate(validation), (req, res, next) => {
+    console.log("Requested new post creation");
+	console.log(req.body);
+    db.post.create({
+      title: req.body.title,
+      category: req.body.category,
+      body: req.body.body,
+      userId: req.body.userId,
+      rating: req.body.rating,
+	  spoiler: req.body.spoiler,
+      createdAt: new Date(),
+      updatedAt: new Date()
 		}).then( (result) => {
 			if(result != null) {
 				res.json(result);

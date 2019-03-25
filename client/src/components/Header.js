@@ -70,6 +70,9 @@ export class Header extends Component {
       userId: this.state.user.id, friendId: newFriend.id
     }).then(() => {this.getFriends(); this.getFriendsPosts()} );
     })
+  
+  
+    
   }
 
   // unfriend the other user
@@ -78,6 +81,9 @@ export class Header extends Component {
       userId: this.state.user.id, friendId: byeFriend.id
     }).then(() => {this.getFriends(); this.getFriendsPosts()} );
     })
+
+
+   
   }
 
   // retrieve posts of the user's friends
@@ -88,6 +94,8 @@ export class Header extends Component {
       
     if(response.data != null){
       this.setState({ posts : response.data});
+
+      window.location.reload();
       }
     })
     .catch(function (error) {

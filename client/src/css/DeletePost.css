@@ -1,0 +1,33 @@
+.dropdown-button-style {
+    background-color: #CCD1D1;
+    border: 0;
+    float: right;
+    padding-left: 10px;
+    padding-right: 2px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+.dropdown-pic-style {
+    color: black;
+}
+
+.dropdown-group-style {
+    float: right;
+}
+
+.delete-button-style {
+    min-width: 1px;
+    width: 75px;
+    height: 34px;
+}
+
+.delete-container-style {
+    margin-top: -7px;
+    text-align: left;
+    cursor: pointer;
+}
+
+.delete-text-style {
+    margin-left: -11px;
+}
