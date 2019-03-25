@@ -214,10 +214,11 @@ if(abort == false){
     it('should delete an embarassing post with an id', function(done){
       chai.request(server)
         .post('/api/v1/post/delete')
-        .send({'id': 2})
+        .send({'id':2})
         .end(function(err,res){
           res.should.have.status(200);
           res = res.body;
+          
         });
 
       chai.request(server)
@@ -229,6 +230,32 @@ if(abort == false){
           res.message.should.equal('post does not exist');
         });
         done();
+    });
+
+    //in progress
+    it('should try to delete a post that doesnt exist (wrong name)', function(done){
+    	chai.request(server)
+        .post('/api/v1/post/delete')
+        .send({'userId': 1})
+    		.end(function(err,res){
+    			res.should.have.status(400);
+          res = res.body;
+          
+          res.message.should.equal('Could not delete post! Missing ID');
+    			done();
+    		});
+    });
+
+    it('should try to delete a post that doesnt exist (no body sent)', function(done){
+    	chai.request(server)
+        .post('/api/v1/post/delete')
+    		.end(function(err,res){
+    			res.should.have.status(400);
+          res = res.body;
+          
+          res.message.should.equal('Could not delete post! Missing ID');
+    			done();
+    		});
     });
 
     it('should get all posts from a friend', function(done){

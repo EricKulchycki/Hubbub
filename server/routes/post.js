@@ -36,15 +36,13 @@ module.exports = (app, db) => {
 
 	app.post("/api/v1/post/delete", (req, res) => {
 			if (!req.body.id) {
-					res.send("Could not delete post! Missing ID");
+				return res.status(400).json({'message':"Could not delete post! Missing ID"});
 			}
-
 			db.post.destroy({
-					where: {
-							id: req.body.id
-					}
+				where: {
+					id: req.body.id
+				}
 			}).then((result) => res.json(result));
-
 	});
 
 	//Create a new post
