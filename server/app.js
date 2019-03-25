@@ -1,12 +1,12 @@
 // Libraries
-var bodyParser = require("body-parser"); 
+var bodyParser = require("body-parser");
 var createError = require('http-errors');
 var express = require('express');
-var validate = require('express-validation'); 
+var validate = require('express-validation');
 var path = require('path');
 var cookieParser = require('cookie-parser');
-const url = require('url');  
-const querystring = require('querystring'); 
+const url = require('url');
+const querystring = require('querystring');
 const morgan = require('morgan');
 const passport = require('passport')
 const session = require('express-session')
@@ -38,13 +38,13 @@ passportInit();
 // Accept requests from our client
 app.use(cors({
   origin: CLIENT_ORIGIN
-})) 
+}))
 
 // saveUninitialized: true allows us to attach the socket id to the session
 // before we have athenticated the user
-app.use(session({ 
-  secret: "super-secret-session-key-here", 
-  resave: true, 
+app.use(session({
+  secret: "super-secret-session-key-here",
+  resave: true,
   saveUninitialized: true
 }))
 
@@ -52,7 +52,7 @@ app.use(session({
 app.use(function(err,req,res,next){
 	res.status(400).json(err);
 });
-// Connecting sockets to the server and adding them to the request 
+// Connecting sockets to the server and adding them to the request
 // so that we can access them later in the controller
 const io = socketio(server)
 app.set('io', io)
