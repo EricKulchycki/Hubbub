@@ -101,6 +101,12 @@ module.exports = (app, db) => {
 							userId: req.params.id
 					},
 					include: [db.user]
-			}).then((result) => res.json(result));
+			}).then((result) => {
+				if(result.length != 0) {
+					res.json(result)
+				} else {
+					return res.status(400).json({ message: "user does not exist" });
+				}
+			});
 	});
 }

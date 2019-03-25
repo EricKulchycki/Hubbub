@@ -323,6 +323,36 @@ if(abort == false){
         });
     });
 
+    it('should get all posts for user 1', function(done) {
+      chai.request(server)
+        .get('/api/v1/posts/user/1')
+        .end(function(err, res) {
+          res.should.have.status(200);
+          res = res.body;
+          res.should.be.a('array');
+
+          res.length.should.equal(5);
+
+          for(let p = 0; p < 5; p++) {
+            res[p].id.should.equal(p+1);
+          }
+
+          done();
+        });
+    });
+
+    it('should try to get all posts for a non exsisting user', function(done) {
+      chai.request(server)
+        .get('/api/v1/posts/user/1000000')
+        .end(function(err, res) {
+          res.should.have.status(400);
+          res = res.body;
+
+          res.message.should.equal('user does not exist');
+          done();
+        });
+    });
+
 
   });
 
