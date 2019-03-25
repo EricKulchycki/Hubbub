@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import {Header, Icon} from 'react-native-elements';
 import {makeRequest} from '../components/Utils'
+import {DEFAULT_USER} from '../constants/Paths';
 import * as Colors from '../constants/Colors';
 import * as Paths from '../constants/Paths';
 import HubFeedItem from '../components/HubFeedItem';
@@ -98,7 +99,13 @@ export default class ProfileScreen extends React.Component{
       timeline = <Text style = {styles.noPostsText}>It seems you have no posts!</Text>;
     }
 
-
+    let pictureSource;
+    if(this.state.user.picture === null){
+      pictureSource = DEFAULT_USER;
+    }
+    else{
+      pictureSource = this.state.user.picture;
+    }
 
     return (
       <View style = {styles.container}>
@@ -113,7 +120,7 @@ export default class ProfileScreen extends React.Component{
         <Image
           style = {{width: 150, height: 150, alignSelf: 'center',
             borderColor: Colors.MAIN_RED, borderWidth: 5, overflow: 'hidden'}}
-          source = {{uri: this.state.user.picture}}
+          source = {{uri: pictureSource}}
         />
 
         <View style={{paddingHorizontal: 5}}>
