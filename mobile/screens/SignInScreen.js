@@ -2,7 +2,7 @@ import React from 'react'
 import { StyleSheet, AsyncStorage, Text, View, Image, Button, Platform } from "react-native"
 import {Icon} from 'react-native-elements';
 import * as Constants from 'expo-constants';
-import {AuthSession} from 'expo';
+import {WebBrowser} from 'expo';
 import GoogleSignInButton from "../components/GoogleSignInButton";
 import io from 'socket.io-client';
 import * as Paths from '../constants/Paths';
@@ -36,7 +36,7 @@ export default class SignInScreen extends React.Component {
           this.setState({
             user: response,
           });
-          AuthSession.dismiss();
+          WebBrowser.dismissBrowser();
           this.storeData(JSON.stringify(this.state.user));
 
           this.props.navigation.navigate('Home', {user: this.state.user});
@@ -45,10 +45,7 @@ export default class SignInScreen extends React.Component {
 
 signIn = async() =>{
   let url = (Paths.SERVER + Paths.AUTH + socket.id);
-  let result = await AuthSession.startAsync({
-    authUrl: url
-  });
-
+  let result = await WebBrowser.openBrowserAsync(url);
 }
 
  render() {
