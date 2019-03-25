@@ -3,7 +3,6 @@ var models = require('../../models');
 
 const post = async (props = {}) => {
     const defaultProps = {
-        //id: faker.random.uuid(),
         category: 'MOVIE',
         title: faker.random.word(),
         rating: 5,
