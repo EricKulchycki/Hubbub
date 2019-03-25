@@ -1,0 +1,62 @@
+{
+  "project_info": {
+    "project_number": "95848856284",
+    "firebase_url": "https://hubbub-230907.firebaseio.com",
+    "project_id": "hubbub-230907",
+    "storage_bucket": "hubbub-230907.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:95848856284:android:769e97f8e0d8fd8d",
+        "android_client_info": {
+          "package_name": "com.expo.Hubbub"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "95848856284-62c7270741hi5dvc9c5tbe6rr90nag2v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.expo.Hubbub",
+            "certificate_hash": "7310dcaf1f3c9a011d5917cb6a11d804a8cfabe4"
+          }
+        },
+        {
+          "client_id": "95848856284-4bdqo0t8ru9ifgckfqgqqd130941v9pp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAWRY1Uaq09yhnlgnmJ0CYYzTxfMq9EM6o"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "95848856284-4bdqo0t8ru9ifgckfqgqqd130941v9pp.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "95848856284-mo1fa9cfmojhjionnbq548sm3eoqfubo.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "host.exp.exponent"
+              }
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

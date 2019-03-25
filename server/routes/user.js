@@ -1,5 +1,5 @@
 module.exports = (app, db) => {
-
+  
     const Op = db.sequelize.Op;
 
     var validate = require('express-validation');
@@ -55,6 +55,5 @@ module.exports = (app, db) => {
             }).then((result) => res.json(result));
         });
     });
-
 
 }
