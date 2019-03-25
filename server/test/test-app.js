@@ -353,6 +353,18 @@ if(abort == false){
         });
     });
 
+    it('should try to get all posts for a category that doesnt exist (string)', function(done) {
+      chai.request(server)
+        .get('/api/v1/posts/categories/vodka')
+        .end(function(err, res) {
+          res.should.have.status(400);
+          res = res.body;
+
+          res.message.should.equal('user does not exist');
+          done();
+        });
+    });
+
 
   });
 
