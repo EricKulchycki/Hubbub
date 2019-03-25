@@ -7,45 +7,42 @@ import axios from 'axios';
 import PostForm from './PostForm';
 
 
-
-
 export class MainPage extends Component {
-  constructor(props) {
-    super(props)
-    this.componentDidMount = this.componentDidMount.bind(this)
+	constructor(props) {
+		super(props)
+		this.componentDidMount = this.componentDidMount.bind(this)
 
-    this.state = {
-      user: JSON.parse(window.sessionStorage.getItem("user")),
-      posts: [],
-      friends: [],
-    };
-  }
+		this.state = {
+			user: JSON.parse(window.sessionStorage.getItem("user")),
+			posts: [],
+			friends: [],
+		};
+	}
   
-  componentDidMount() {
-    this.getFriendsPosts();
-}
+	componentDidMount() {
+		this.getFriendsPosts();
+	}
 
-  // retrieve posts of the user's friends
-  getFriendsPosts() {
-    let reqURI = "http://localhost:4000/api/v1/posts/allFriends/" + this.state.user.id;
-    axios.get(reqURI)
-    .then((response) => {
-      
-    if(response.data != null){
-      this.setState({ posts : response.data.reverse()}); 
-    }
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-  }
+  	// retrieve posts of the user's friends
+	getFriendsPosts() {
+		let reqURI = "http://localhost:4000/api/v1/posts/allFriends/" + this.state.user.id;
+		axios.get(reqURI)
+		.then((response) => {
+			if(response.data != null){
+				this.setState({ posts : response.data.reverse()}); 
+			}
+		})
+		.catch(function (error) {
+			console.log(error);
+		});
+	}
 
-  render() {
-    return (
-		// load a list of posts. In the posts themselves, define how they should look. Then have the container just display that
-		<div className="mainpage-background"> 
-			<div className="header-layout">
-        <Header />
+	render() {
+		return (
+			// load a list of posts. In the posts themselves, define how they should look. Then have the container just display that
+			<div className="mainpage-background"> 
+				<div className="header-layout">
+				<Header />
 			</div>
 			<div className="application-background-primary">
 				<div className="application-background-secondary post-list-layout">
@@ -55,15 +52,15 @@ export class MainPage extends Component {
 							<li key={post.id}>
 								<Post post={post} />
 							</li>
-            ))}
+						))}
 					</div>
 				</div>
-        <PostForm />
+				<PostForm />
 			</div>
-    </div>
-    
-    );
-  }
+		</div>
+		
+		);
+	}
 }
 
 export default MainPage;

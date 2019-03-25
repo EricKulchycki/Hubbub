@@ -5,13 +5,13 @@ import HomePage from './HomePage';
 import Profile from './Profile';
 
 const Routes = () => (
-  <main>
-    <Switch>
-      <Route exact path='/' component={HomePage}/>
-      <Route path='/main' component={MainPage}/>
-      <Route path='/profile' component={Profile} />
-    </Switch>
-  </main>
+	<main>
+		<Switch>
+			<Route exact path='/' component={HomePage}/>
+			<Route path='/main' component={MainPage}/>
+			<Route path='/profile' component={Profile} />
+		</Switch>
+	</main>
 )
 
 export default Routes
