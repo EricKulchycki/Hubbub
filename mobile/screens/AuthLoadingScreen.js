@@ -7,7 +7,7 @@ export default class AuthLoadingScreen extends React.Component{
     user: {}
   };
 
-  _retrieveData = async() => {
+  retrieveData = async() => {
     try{
       const value = await AsyncStorage.getItem('USER');
       if (value != null){
@@ -25,7 +25,7 @@ export default class AuthLoadingScreen extends React.Component{
   }
 
   componentDidMount(){
-    this._retrieveData();
+    this.retrieveData();
   }
   // Render any loading content that you like here
   render() {

@@ -19,7 +19,7 @@ export default class SignInScreen extends React.Component {
   }
 
 
-  _storeData = async (data) => {
+  storeData = async (data) => {
     try{
       await AsyncStorage.setItem('USER', data);
     } catch(error){
@@ -37,8 +37,7 @@ export default class SignInScreen extends React.Component {
             user: response,
           });
           AuthSession.dismiss();
-          console.log(this.state.user);
-          this._storeData(JSON.stringify(this.state.user));
+          this.storeData(JSON.stringify(this.state.user));
 
           this.props.navigation.navigate('Home', {user: this.state.user});
     });
@@ -46,7 +45,6 @@ export default class SignInScreen extends React.Component {
 
 signIn = async() =>{
   let url = (Paths.SERVER + Paths.AUTH + socket.id);
-  console.log(Paths.SERVER);
   let result = await AuthSession.startAsync({
     authUrl: url
   });

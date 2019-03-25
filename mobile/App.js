@@ -2,6 +2,7 @@ import React from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import AppNavigator from './navigation/AppNavigator';
 
+/*Main app is ran from AppNavigator*/
 export default class App extends React.Component {
   render() {
       return (

@@ -9,11 +9,9 @@ import { createAppContainer, createStackNavigator, createSwitchNavigator } from 
 
 const AppStack = createStackNavigator({Home: HomeScreen, Profile: ProfileScreen, Edit: EditScreen});
 export default createAppContainer(createSwitchNavigator({
-  // You could add another route here for authentication.
-  // Read more at https://reactnavigation.org/docs/en/auth-flow.html
-  AuthLoading: AuthLoadingScreen,
+  AuthLoading: AuthLoadingScreen, //On-start screen that checks if user already logged in.
   Auth: SignInScreen,
-  App: AppStack,
+  App: AppStack, //Main App
 
 },
 {

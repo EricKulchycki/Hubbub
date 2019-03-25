@@ -74,7 +74,7 @@ export default class HomeScreen extends React.Component {
   componentDidMount = () => {
     userID = this.state.user.id;
     makeRequest('GET', Paths.getFriendsPosts + userID).then(response => {
-      this.setState({postData: response});
+      this.setState({postData: response.reverse()});
     });
 
     makeRequest('GET', Paths.getFriends + userID).then(response => {
@@ -107,8 +107,8 @@ export default class HomeScreen extends React.Component {
   };
 
 /*Used by the searchbar to update its search results*/
-  searchForUsers = text => {
-    this.props.navigation.setParams({searchInput:text});
+  searchForUsers = (text) => {
+    this.props.navigation.setParams({searchInput: `${text}`});
     if(text !== ""){
       const body = {"firstName": text};
       makeRequest('POST', Paths.getAllUsers, body).then(response => {
@@ -130,9 +130,12 @@ export default class HomeScreen extends React.Component {
     body = {userId: this.state.user.id, friendId: friendID};
     makeRequest('POST', Paths.addFriend, body);
     makeRequest('GET', Paths.getFriends + this.state.user.id).then(response => {
-      this.setState({friendData: response});
+      this.setState({
+        friendData: response,
+        loading:true
+      });
+      this.refreshHubFeed();
     });
-    this.refreshHubFeed();
   }
 
   removeFriend = (friend) => {
@@ -141,16 +144,18 @@ export default class HomeScreen extends React.Component {
     body = {userId: this.state.user.id, friendId: friendID};
     makeRequest('POST', Paths.removeFriend, body);
     makeRequest('GET', Paths.getFriends + this.state.user.id).then(response => {
-      this.setState({friendData: response});
+      this.setState({
+        friendData: response,
+        loading: true
+      });
+      this.refreshHubFeed();
     });
-    this.refreshHubFeed();
   }
 
 /*sends another get request for posts to update the feed*/
   refreshHubFeed = () => {
-    this.setState({loading: true});
     makeRequest('GET', Paths.getFriendsPosts + userID).then(response => {
-      this.setState({postData: response});
+      this.setState({postData: response.reverse()});
     });
     this.setState({loading: false});
   }
