@@ -304,7 +304,6 @@ if(abort == false){
         .end(function(err, res) {
           res.should.have.status(200);
           res = res.body;
-          console.log(res);
 
           res.should.have.property('id');
           res.should.have.property('username');
@@ -360,7 +359,19 @@ if(abort == false){
           res.should.have.status(400);
           res = res.body;
 
-          res.message.should.equal('user does not exist');
+          res.message.should.equal('category does not exist');
+          done();
+        });
+    });
+
+    it('should try to get all posts for a category that doesnt exist (number)', function(done) {
+      chai.request(server)
+        .get('/api/v1/posts/categories/15')
+        .end(function(err, res) {
+          res.should.have.status(400);
+          res = res.body;
+
+          res.message.should.equal('category does not exist');
           done();
         });
     });

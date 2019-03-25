@@ -91,7 +91,13 @@ module.exports = (app, db) => {
 							category: req.params.cat
 					},
 					include: [db.user]
-			}).then((result) => res.json(result));
+			}).then((result) => {
+				if(result.length != 0) {
+					res.json(result)
+				} else {
+					return res.status(400).json({ message: "category does not exist" });
+				}
+			});
 	});
 
 	//Get all posts for a specified user
