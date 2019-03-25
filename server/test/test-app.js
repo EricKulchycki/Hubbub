@@ -228,16 +228,18 @@ if(abort == false){
         done();
     });
 
-    //Get all posts from a friend
     it('should get all posts from a friend', function(done){
     	chai.request(server)
-    		.get('/api/v1/posts/allFriends/2')
+    		.get('/api/v1/posts/allFriends/1')
     		.end(function(err,res){
     			res.should.have.status(200);
           res = res.body;
           res.should.be.a('array');
 
-    			//validPost(res[0]);
+          for(let iter = 0; iter < 5; iter++) {
+            validPost(res[iter]);
+          }
+
     			done();
     		});
     });
