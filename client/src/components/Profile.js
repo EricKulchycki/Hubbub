@@ -43,11 +43,11 @@ export class Profile extends Component {
     // shows the currently selected tab
     toggle(tab) {
         if (this.state.activeTab !== tab) {
-          this.setState({
-            activeTab: tab
-          });
+			this.setState({
+				activeTab: tab
+			});
         }
-      }
+    }
 
     // manages changes in the profile form
     handleInputChange(event) {
@@ -59,22 +59,22 @@ export class Profile extends Component {
             [name]: value
 
         });
-        }
+    }
 
     // retrieve a list of user's friends
     getFriends() {
         let friendUri = "http://localhost:4000/api/v1/friend/" + this.state.user.id
         axios.get(friendUri)
-        .then((response) => {
-    
-          if(response.data === null){
-            return this.setState({ friends : []});
-          }
-          this.setState({ friends : response.data});   
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+			.then((response) => {
+		
+				if(response.data === null){
+					return this.setState({ friends : []});
+				}
+				this.setState({ friends : response.data});   
+			})
+			.catch(function (error) {
+				console.log(error);
+			});
     }
 
     // retrieve posts made by the user
@@ -83,12 +83,12 @@ export class Profile extends Component {
         axios.get(reqURI)
         .then((response) => {
             
-          if(response.data != null){
-            this.setState({ posts : response.data});
-          }})
-          .catch(function (error) {
-            console.log(error);
-          });
+			if(response.data != null){
+				this.setState({ posts : response.data});
+			}})
+			.catch(function (error) {
+				console.log(error);
+			});
     }
     
     componentDidMount() {
@@ -104,8 +104,8 @@ export class Profile extends Component {
             this.setState({ age: this.state.user.age });
         }
 
-        this.setState({ picture: this.state.user.photo})
-
+		this.setState({ picture: this.state.user.photo})
+		
         this.getFriends()
         this.getUsersPosts()
     }
@@ -130,16 +130,16 @@ export class Profile extends Component {
             newPicture = this.state.picture
   
         axios.post('http://localhost:4000/api/v1/user/update',{ 
-          userId: this.state.user.id,
-          firstName: newFirstName,
-          lastName: newLastName,
-          age: newAge,
-          picture: newPicture
+			userId: this.state.user.id,
+			firstName: newFirstName,
+			lastName: newLastName,
+			age: newAge,
+			picture: newPicture
         }).then(((response) => {
             this.profileReload()
         }))
         .catch(function (error) {
-          console.log(error);
+          	console.log(error);
         });
     }
 
@@ -147,10 +147,10 @@ export class Profile extends Component {
     profileReload() {
         let userUri = "http://localhost:4000/api/v1/user/" + this.state.user.id
         axios.get(userUri).then((response) => {
-        window.sessionStorage.setItem("user", JSON.stringify(response.data))
-        this.setState({user: JSON.parse(window.sessionStorage.getItem("user"))})
-        
-        window.location.reload();
+			window.sessionStorage.setItem("user", JSON.stringify(response.data))
+			this.setState({user: JSON.parse(window.sessionStorage.getItem("user"))})
+			
+			window.location.reload();
         })
     }
 
@@ -159,12 +159,12 @@ export class Profile extends Component {
         axios.post('http://localhost:4000/api/v1/user/update',{
             userId: this.state.user.id,
             picture: defaultPic
-          }).then((response) => {
+        }).then((response) => {
             this.profileReload()
-          })
-          .catch(function (error) {
+        })
+        .catch(function (error) {
             console.log(error);
-          });
+        });
     }
 
     render() {
@@ -180,7 +180,7 @@ export class Profile extends Component {
                             <Row className="container-left-column-first-row"><img onError={this.backToDefault} className="avatar-style" src={this.state.user.picture === null ? this.state.user.photo : this.state.user.picture} alt="logo"/></Row>
                             <Row >
                                 <div >
-                                <p style={{margin: '1rem'}}>{this.state.firstName} {this.state.lastName}, {this.state.age}</p>
+                                	<p style={{margin: '1rem'}}>{this.state.firstName} {this.state.lastName}, {this.state.age}</p>
                                 </div>
                             </Row>
                         </Col>
@@ -206,27 +206,28 @@ export class Profile extends Component {
                                 <TabContent  activeTab={this.state.activeTab}>
                                     <TabPane tabId="1">
                                         <Row>
-                                        <Col sm="12" >
-                                        <ul>
-                                        {this.state.friends.map(friend => (
-                                            <p key={friend.user.id} className="friend-list-style">
-                                                <img src={friend.user.picture === null ? defaultPic : friend.user.picture} className="friend-profile-pic-style" alt="Profile Pic" /> {friend.user.firstName} {friend.user.lastName} &nbsp;
-                                            </p>
-                                            ))}
-                                        </ul>
-                                        </Col>
+											<Col sm="12" >
+												<ul>
+												{this.state.friends.map(friend => (
+													<p key={friend.user.id} className="friend-list-style">
+														<img src={friend.user.picture === null ? defaultPic : friend.user.picture} 
+															className="friend-profile-pic-style" alt="Profile Pic" /> {friend.user.firstName} {friend.user.lastName} &nbsp;
+													</p>
+												))}
+												</ul>
+											</Col>
                                         </Row>
                                     </TabPane>
                                     <TabPane tabId="2">
                                         <Row>
                                             <Col>
-                                            <div>						
-                                                {this.state.posts.map(post => (
-                                                <div key={post.id}>
-                                                <Post post={post} />    
-                                                </div>
-                                                ))}
-                                            </div>
+												<div>						
+													{this.state.posts.map(post => (
+													<div key={post.id}>
+														<Post post={post} />    
+													</div>
+													))}
+												</div>
                                             </Col>
                                         </Row>
                                     </TabPane>
@@ -234,59 +235,59 @@ export class Profile extends Component {
                                         <Row>
                                             <Col>
                                                 <Container className="containter-right-column-edit-container-style" >
-                                                <Form className="form containter-right-column-edit-container-form-style">
-                                                    <Col>
-                                                    <FormGroup>
-                                                        <Label>Firstname</Label>
-                                                        <Input
-                                                            value={this.state.tmpFirstName}
-                                                            onChange={this.handleInputChange}
-                                                            name="tmpFirstName"
-                                                            placeholder={this.state.tmpFirstName}
-                                                        />
-                                                        <FormText>e.g. John</FormText>
-                                                    </FormGroup>
-                                                    </Col>
-                                                    <Col>
-                                                    <FormGroup>
-                                                        <Label>Lastname</Label>
-                                                        <Input
-                                                            value={this.state.tmpLastName}
-                                                            onChange={this.handleInputChange}
-                                                            name="tmpLastName"
-                                                            placeholder={this.state.tmpLastName}
-                                                        />
-                                                        <FormText>e.g. Smith</FormText>
-                                                    </FormGroup>
-                                                    </Col>
-                                                    <Col>
-                                                    <FormGroup>
-                                                        <Label >Age</Label>
-                                                        <Input
-                                                            value={this.state.tmpAge}
-                                                            onChange={this.handleInputChange}
-                                                            name="tmpAge"
-                                                            placeholder={this.state.tmpAge}
-                                                            type="number"
-                                                        />
-                                                        <FormText>e.g. 21</FormText>
-                                                    </FormGroup>
-                                                    </Col> 
-                                                    <Col>
-                                                    <FormGroup>
-                                                        <Label >Picture (link)</Label>
-                                                        <Input
-                                                            value={this.state.tmpPicture}
-                                                            onChange={this.handleInputChange}
-                                                            name="tmpPicture"
-                                                            placeholder={this.state.tmpPicture}
-                                                            type="url"
-                                                        />
-                                                        <FormText>e.g. http://catcatcat.com/images/catbleh.jpg</FormText>
-                                                    </FormGroup>
-                                                    </Col>
-                                                    <Button color="secondary" onClick={this.handleProfileEdit}>Save</Button>
-                                                </Form>
+													<Form className="form containter-right-column-edit-container-form-style">
+														<Col>
+															<FormGroup>
+																<Label>Firstname</Label>
+																<Input
+																	value={this.state.tmpFirstName}
+																	onChange={this.handleInputChange}
+																	name="tmpFirstName"
+																	placeholder={this.state.tmpFirstName}
+																/>
+																<FormText>e.g. John</FormText>
+															</FormGroup>
+														</Col>
+														<Col>
+															<FormGroup>
+																<Label>Lastname</Label>
+																<Input
+																	value={this.state.tmpLastName}
+																	onChange={this.handleInputChange}
+																	name="tmpLastName"
+																	placeholder={this.state.tmpLastName}
+																/>
+																<FormText>e.g. Smith</FormText>
+															</FormGroup>
+														</Col>
+														<Col>
+															<FormGroup>
+																<Label >Age</Label>
+																<Input
+																	value={this.state.tmpAge}
+																	onChange={this.handleInputChange}
+																	name="tmpAge"
+																	placeholder={this.state.tmpAge}
+																	type="number"
+																/>
+																<FormText>e.g. 21</FormText>
+															</FormGroup>
+														</Col> 
+														<Col>
+															<FormGroup>
+																<Label >Picture (link)</Label>
+																<Input
+																	value={this.state.tmpPicture}
+																	onChange={this.handleInputChange}
+																	name="tmpPicture"
+																	placeholder={this.state.tmpPicture}
+																	type="url"
+																/>
+																<FormText>e.g. http://catcatcat.com/images/catbleh.jpg</FormText>
+															</FormGroup>
+														</Col>
+														<Button color="secondary" onClick={this.handleProfileEdit}>Save</Button>
+													</Form>
                                                 </Container>
                                             </Col>
                                         </Row>
@@ -296,12 +297,11 @@ export class Profile extends Component {
                         </Col>
                     </Row>
                 </Container>
-                </div>
+            </div>
         </div>
         );
     
     }
-
 }
 
 export default Profile;

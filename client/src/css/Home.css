@@ -1,35 +1,27 @@
 .p-style {
-  margin-top: 10px;
-  text-align: right;
-  margin-right: 390px;
-  color: white
+	margin-top: 10px;
+	text-align: right;
+	margin-right: 390px;
+	color: white;
 }
 
 .desc-style {
-  text-align: right;
-  margin-right: 200px;
-  color: white
+	text-align: right;
+	margin-right: 200px;
+	color: white;
 }
 
 .img-style {
-  margin-left: 100px;
-  margin-top: 40px;
-  width: 375px;
-  height: 375px;
-  float: left;
+	margin-left: 100px;
+	margin-top: 40px;
+	width: 375px;
+	height: 375px;
+	float: left;
 }
 
 .login {
-  background-color: #7b241c;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+	background-color: #7b241c;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
 }
-
-/* Button reset */
-
-
-/* Shared button styles */
-
-
-

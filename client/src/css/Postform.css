@@ -1,24 +1,22 @@
 .post-button-style {
-    margin-top: 5px;
-    width: 75px;
-    height: 75px;
-    margin: 0px;
-    top: auto;
-    right: 66px;
-    bottom: 20px;
-    left: auto;
-    position: fixed;
-
-
+	position: fixed;
+	margin-top: 5px;
+	width: 75px;
+	height: 75px;
+	margin: 0px;
+	top: auto;
+	right: 66px;
+	bottom: 20px;
+	left: auto;
   }
 
   .post-text-style {
-    margin-top: -4px;
-    margin-left: -2px;
+	margin-top: -4px;
+	margin-left: -2px;
 }
 
 .popup-style {
-    position: relative;
+	position: relative;
 }
 
 .container-form-style {
@@ -46,7 +44,5 @@
 }
 
 .postform-checkbox{
-
-margin-left: 20px;
-
+	margin-left: 20px;
 }
