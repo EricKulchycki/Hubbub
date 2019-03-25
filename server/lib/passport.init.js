@@ -19,8 +19,5 @@ module.exports = () => {
   const callback = (accessToken, refreshToken, profile, cb) => cb(null, profile)
 
   // Adding each OAuth provider's strategy to passport
-  //passport.use(new TwitterStrategy(TWITTER_CONFIG, callback))
   passport.use(new GoogleStrategy(GOOGLE_CONFIG, callback))
-  //passport.use(new FacebookStrategy(FACEBOOK_CONFIG, callback))
-  //passport.use(new GithubStrategy(GITHUB_CONFIG, callback))
 }
