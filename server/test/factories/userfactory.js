@@ -3,7 +3,6 @@ var models = require('../../models');
 
 const user = async (props = {}) => {
     const defaultProps = {
-        //id: faker.random.uuid(),
         username: faker.internet.userName(),
         password: faker.internet.password(),
         email: faker.internet.email(),

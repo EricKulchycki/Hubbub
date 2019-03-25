@@ -4,6 +4,8 @@ process.env.NODE_ENV = 'test';
 var truncate = require('../test/truncate');
 var createUser = require('../test/factories/userfactory');
 var createPost = require('../test/factories/postfactory');
+var createFriend = require('../test/factories/friendfactory');
+
 
 
 var chai = require('chai');
@@ -20,7 +22,6 @@ function validPost( res ){
 	res.should.have.property('category');
 	res.should.have.property('title');
 	res.should.have.property('body');
-	//Rating is allowed to be null, do not check
 	res.should.have.property('userId');
 } 
 
@@ -48,9 +49,6 @@ describe('Testing environment',function(){
 });
 
 
-
-
-
 if(abort == false){
   describe('API Endpoints', function() {
 
@@ -64,6 +62,7 @@ if(abort == false){
         user = await createUser();
         post = await createPost();
       }
+      friend = await createFriend();
       done();
     });
 
@@ -109,7 +108,7 @@ if(abort == false){
     		.end(function(err,res){
     			res.should.have.status(200);
     			res = res.body;
-    			res.should.be.a('array');
+          res.should.be.a('array');
     			done();
     		});
     });
@@ -120,7 +119,6 @@ if(abort == false){
     		.end(function(err,res){
     			res.should.have.status(200);
     			res = res.body;
-
     			res.should.be.a('array');
     			done();
     		});
@@ -210,9 +208,6 @@ if(abort == false){
     		});
     });
 
-    //Delete a friendship
-
-    //Delete a post
     it('should delete an embarassing post with an id', function(done){
       chai.request(server)
         .post('/api/v1/post/delete')
@@ -226,12 +221,26 @@ if(abort == false){
         .get('/api/v1/post/2')
         .end(function(err,res){
           res.should.have.status(400);
+          res = res.body;
+          res.should.have.property('message');
+          res.message.should.equal('post does not exist');
         });
-
         done();
     });
 
     //Get all posts from a friend
+    it('should get all posts from a friend', function(done){
+    	chai.request(server)
+    		.get('/api/v1/posts/allFriends/2')
+    		.end(function(err,res){
+    			res.should.have.status(200);
+          res = res.body;
+          res.should.be.a('array');
+
+    			//validPost(res[0]);
+    			done();
+    		});
+    });
 
   });
 

@@ -14,7 +14,14 @@ module.exports = (app, db) => {
   			id: req.params.id
   		},
 	  	include: [db.user]
-  	}).then( (result) => res.json(result) );
+		}).then( (result) => {
+			if(result != null) {
+				res.json(result);
+			} else {
+				return res.status(400).json({ message: "post does not exist" });
+			}
+			
+		})
   });
 
   app.post("/api/v1/post/delete", (req,res) =>{
