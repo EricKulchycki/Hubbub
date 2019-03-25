@@ -13,7 +13,8 @@
     "database": "test",
     "host": "142.93.147.148",
     "dialect": "mysql",
-	"operatorsAliases": "false"
+	"operatorsAliases": "false",
+	"logging": false
   },
   "production": {
     "username": "hubbub",
