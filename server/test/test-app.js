@@ -109,6 +109,7 @@ if(abort == false){
     			res.should.have.status(200);
     			res = res.body;
           res.should.be.a('array');
+          res.length.should.equal(5)
     			done();
     		});
     });
@@ -238,11 +239,87 @@ if(abort == false){
 
           for(let iter = 0; iter < 5; iter++) {
             validPost(res[iter]);
+            res[iter].id.should.equal(iter + 1);
           }
-
     			done();
     		});
     });
+
+    it('should get all friends for user 1', function(done) {
+      chai.request(server)
+        .get('/api/v1/friend/1')
+        .end(function(err, res) {
+          res.should.have.status(200);
+          res = res.body;
+          res.should.be.a('array');
+
+          res.length.should.equal(1);
+          done();
+        });
+    });
+
+
+    it('should delete an embarassing post with an id', function(done){
+      chai.request(server)
+        .post('/api/v1/friend/delete')
+        .send({'id': 2, 'userId': 2})
+        .end(function(err,res){
+          res.should.have.status(200);
+          res = res.body;
+        });
+
+      chai.request(server)
+        .get('/api/v1/friend/1')
+        .end(function(err, res) {
+          res.should.have.status(200);
+          res = res.body;
+          res.should.be.a('array');
+
+          res.length.should.equal(0);
+      });
+      done();
+    });
+
+    it('should update a users information', function(done){
+      chai.request(server)
+        .post('/api/v1/user/update')
+        .send({'userId': 1, 'username': 'squirt', 'age': 69})
+        .end(function(err,res){
+          res.should.have.status(200);
+          res = res.body;
+          //validate user
+          res.should.have.property('id');
+          res.should.have.property('username');
+          res.should.have.property('password');
+          res.should.have.property('firstName');
+          res.should.have.property('lastName');
+          res.should.have.property('picture');
+          res.should.have.property('age');
+
+          res.id.should.equal(1);
+          res.username.should.equal('squirt');
+          res.age.should.equal(69);
+        });
+
+      chai.request(server)
+        .get('/api/v1/user/1')
+        .end(function(err, res) {
+          res.should.have.status(200);
+          res = res.body;
+          res.should.have.property('id');
+          res.should.have.property('username');
+          res.should.have.property('age');
+
+          res.id.should.equal(1);
+          res.username.should.equal('squirt');
+          res.age.should.equal(69);
+      });
+      done();
+    });
+
+    
+    
+
 
   });
 
