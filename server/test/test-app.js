@@ -131,6 +131,7 @@ if(abort == false){
       .send({ 'title': 'title1',
               'category': 'movie',
               'body': 'body1',
+              'spoiler': false,
               'userId': 1,
               'rating': 5})
       .end(function(err,res){
@@ -294,7 +295,6 @@ if(abort == false){
         .send({'userId': 2, 'friendId': 1})
         .end(function(err,res){
           res.should.have.status(200);
-          res = res.body;
         });
 
       chai.request(server)
@@ -307,6 +307,32 @@ if(abort == false){
           res.length.should.equal(1);
           done();
       });
+    });
+
+    it('should fail to delete a friendship in an incomplete request', function(done){
+
+      chai.request(server)
+        .post('/api/v1/friend/delete')
+        .send({'friendId':2})
+        .end(function(err,res){
+          res.should.have.status(400);
+          res.message.should.equal('Missing userId or friendId');
+          done();
+        });
+
+    });
+
+    it('should fail to delete a friendship in an empty request', function(done){
+
+      chai.request(server)
+        .post('/api/v1/friend/delete')
+        .send({})
+        .end(function(err,res){
+          res.should.have.status(400);
+          res.message.should.equal('Missing userId or friendId');
+          done();
+        });
+
     });
 
     it('should create a new user', function(done) {
