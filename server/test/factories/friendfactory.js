@@ -4,7 +4,7 @@ var models = require('../../models');
 const friend = async (props = {}) => {
     const defaultProps = {
         id: 2,
-        userId: 1,
+        userId: 1
     };
     return Object.assign({}, defaultProps, props);
   };

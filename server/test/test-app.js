@@ -57,7 +57,7 @@ if(abort == false){
     let user, post;
 
     beforeEach(async (done) => {
-      //await truncate();
+      await truncate();
       for(let x = 0; x < 5; x++) {
         user = await createUser();
         post = await createPost();
@@ -109,6 +109,7 @@ if(abort == false){
     			res.should.have.status(200);
     			res = res.body;
           res.should.be.a('array');
+          res.length.should.equal(5)
     			done();
     		});
     });
@@ -130,6 +131,7 @@ if(abort == false){
       .send({ 'title': 'title1',
               'category': 'movie',
               'body': 'body1',
+              'spoiler': false,
               'userId': 1,
               'rating': 5})
       .end(function(err,res){
@@ -162,8 +164,9 @@ if(abort == false){
               'rating': 5})
       .end(function(err,res){
         res.should.have.status(400);
+        done();
       });
-      done();
+
     });
 
     it('should fail to make a user without an email', function(done){
@@ -173,8 +176,9 @@ if(abort == false){
               'password': 'ISureHopeWeArentStoringPlainTextPasswords'})
       .end(function(err,res){
         res.should.have.status(400);
+        done();
       });
-      done();
+
     });
 
     it('should get all posts of a category and only posts of that category', function(done){
@@ -211,10 +215,11 @@ if(abort == false){
     it('should delete an embarassing post with an id', function(done){
       chai.request(server)
         .post('/api/v1/post/delete')
-        .send({'id': 2})
+        .send({'id':2})
         .end(function(err,res){
           res.should.have.status(200);
           res = res.body;
+          
         });
 
 
@@ -230,19 +235,202 @@ if(abort == false){
         done();
     });
 
-    //Get all posts from a friend
+    //in progress
+    it('should try to delete a post that doesnt exist (wrong name)', function(done){
+    	chai.request(server)
+        .post('/api/v1/post/delete')
+        .send({'userId': 1})
+    		.end(function(err,res){
+    			res.should.have.status(400);
+          res = res.body;
+          
+          res.message.should.equal('Could not delete post! Missing ID');
+    			done();
+    		});
+    });
+
+    it('should try to delete a post that doesnt exist (no body sent)', function(done){
+    	chai.request(server)
+        .post('/api/v1/post/delete')
+    		.end(function(err,res){
+    			res.should.have.status(400);
+          res = res.body;
+          
+          res.message.should.equal('Could not delete post! Missing ID');
+    			done();
+    		});
+    });
+
     it('should get all posts from a friend', function(done){
     	chai.request(server)
-    		.get('/api/v1/posts/allFriends/2')
+    		.get('/api/v1/posts/allFriends/1')
     		.end(function(err,res){
     			res.should.have.status(200);
           res = res.body;
           res.should.be.a('array');
 
-    			//validPost(res[0]);
+          for(let iter = 0; iter < 5; iter++) {
+            validPost(res[iter]);
+            res[iter].id.should.equal(iter + 1);
+          }
     			done();
     		});
     });
+
+    it('should get all friends for user 1', function(done) {
+      chai.request(server)
+        .get('/api/v1/friend/1')
+        .end(function(err, res) {
+          res.should.have.status(200);
+          res = res.body;
+          res.should.be.a('array');
+
+          res.length.should.equal(1);
+          done();
+        });
+    });
+
+
+    it('should delete a friendship', function(done){
+      chai.request(server)
+        .post('/api/v1/friend/delete')
+        .send({'userId': 2, 'friendId': 1})
+        .end(function(err,res){
+          res.should.have.status(200);
+        });
+
+      chai.request(server)
+        .get('/api/v1/friend/1')
+        .end(function(err, res) {
+          res.should.have.status(200);
+          res = res.body;
+          res.should.be.a('array');
+
+          res.length.should.equal(1);
+          done();
+      });
+    });
+
+    it('should fail to delete a friendship in an incomplete request', function(done){
+
+      chai.request(server)
+        .post('/api/v1/friend/delete')
+        .send({'friendId':2})
+        .end(function(err,res){
+          res.should.have.status(400);
+          res.message.should.equal('Missing userId or friendId');
+          done();
+        });
+
+    });
+
+    it('should fail to delete a friendship in an empty request', function(done){
+
+      chai.request(server)
+        .post('/api/v1/friend/delete')
+        .send({})
+        .end(function(err,res){
+          res.should.have.status(400);
+          res.message.should.equal('Missing userId or friendId');
+          done();
+        });
+
+    });
+
+    it('should create a new user', function(done) {
+      chai.request(server)
+        .post('/api/v1/user/create')
+        .send({'username': 'newUser', 'password': 'plaintextpassword', 'email':'fakeemail@gmail.com'})
+        .end(function(err, res) {
+          res.should.have.status(200);
+          res = res.body;
+
+          res.id.should.equal(6);
+          res.username.should.equal('newUser');
+          res.email.should.equal('fakeemail@gmail.com');
+          done();
+        });
+    });
+
+    it('should update the first user', function(done) {
+      chai.request(server)
+        .post('/api/v1/user/update')
+        .send({'username': 'updateUser', 'userId': 1, 'age':40})
+        .end(function(err, res) {
+          res.should.have.status(200);
+          res = res.body;
+
+          res.should.have.property('id');
+          res.should.have.property('username');
+          res.should.have.property('password');
+          res.should.have.property('email');
+          res.should.have.property('firstName');
+          res.should.have.property('lastName');
+          res.should.have.property('age');
+          res.should.have.property('picture');
+  
+          res.id.should.equal(1);
+          res.username.should.equal('updateUser');
+          res.age.should.equal(40)
+
+          done();
+        });
+    });
+
+    it('should get all posts for user 1', function(done) {
+      chai.request(server)
+        .get('/api/v1/posts/user/1')
+        .end(function(err, res) {
+          res.should.have.status(200);
+          res = res.body;
+          res.should.be.a('array');
+
+          res.length.should.equal(5);
+
+          for(let p = 0; p < 5; p++) {
+            res[p].id.should.equal(p+1);
+          }
+
+          done();
+        });
+    });
+
+    it('should try to get all posts for a non exsisting user', function(done) {
+      chai.request(server)
+        .get('/api/v1/posts/user/1000000')
+        .end(function(err, res) {
+          res.should.have.status(400);
+          res = res.body;
+
+          res.message.should.equal('user does not exist');
+          done();
+        });
+    });
+
+    it('should try to get all posts for a category that doesnt exist (string)', function(done) {
+      chai.request(server)
+        .get('/api/v1/posts/categories/vodka')
+        .end(function(err, res) {
+          res.should.have.status(400);
+          res = res.body;
+
+          res.message.should.equal('category does not exist');
+          done();
+        });
+    });
+
+    it('should try to get all posts for a category that doesnt exist (number)', function(done) {
+      chai.request(server)
+        .get('/api/v1/posts/categories/15')
+        .end(function(err, res) {
+          res.should.have.status(400);
+          res = res.body;
+
+          res.message.should.equal('category does not exist');
+          done();
+        });
+    });
+
 
   });
 
