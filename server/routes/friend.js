@@ -22,8 +22,7 @@ module.exports = (app, db) => {
 
     app.post("/api/v1/friend/delete", (req, res) => {
         if (!req.body.userId || !req.body.friendId) {
-            res.send("Missing userId or friendId");
-            return;
+            return res.status(400).json({'message':"Missing userId or friendId"});
         }
         db.friend.destroy({
             where: {
