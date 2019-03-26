@@ -131,6 +131,7 @@ if(abort == false){
       .send({ 'title': 'title1',
               'category': 'movie',
               'body': 'body1',
+              'spoiler': false,
               'userId': 1,
               'rating': 5})
       .end(function(err,res){
