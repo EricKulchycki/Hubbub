@@ -318,7 +318,7 @@ if(abort == false){
         .send({'friendId':2})
         .end(function(err,res){
           res.should.have.status(400);
-          res.message.should.equal('Missing userId or friendId');
+          res.body.message.should.equal('Missing userId or friendId');
           done();
         });
 
@@ -331,7 +331,7 @@ if(abort == false){
         .send({})
         .end(function(err,res){
           res.should.have.status(400);
-          res.message.should.equal('Missing userId or friendId');
+          res.body.message.should.equal('Missing userId or friendId');
           done();
         });
 
