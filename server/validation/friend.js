@@ -3,8 +3,8 @@ var Joi = require('joi');
 module.exports = {
 	body: {
 
-		userId: Joi.integer().required(),
-		friendId: Joi.integer().required()
+		userId: Joi.number().integer().required(),
+		friendId: Joi.number().integer().required()
 
 	}
 }; 
