@@ -264,9 +264,9 @@ export default class HomeScreen extends React.Component {
 /*Render the search result list*/
   renderSearchResults = () => {
     return(
-      <View style = {{position:'absolute',alignSelf:'center',top:0,flex: 0, width: 250, backgroundColor: '#FFFF'}}>
+      <View style = {{position:'absolute',alignSelf:'center',top:0,flex:1,maxHeight:500, width: 250, backgroundColor: 'transparent'}}>
         <FlatList
-            style = {{width: 250}}
+            style = {{width: 250, flex:1, overflow: 'hidden'}}
             data = {this.state.searchResults}
             renderItem = {({item}) => this.renderSearchResultItem({item})}
             ItemSeparatorComponent = {this.renderSeparator}
