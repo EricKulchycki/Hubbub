@@ -10,7 +10,7 @@ const [twitterURL, googleURL, facebookURL, githubURL] = callbacks
 
 exports.CLIENT_ORIGIN = process.env.NODE_ENV === 'production'
   ? 'http://localhost:3000'
-  : ['http://127.0.0.1:3000', 'http://localhost:3000']
+  : ['http://127.0.0.1:3000', 'http://localhost:3000', 'http://hubbub.gersh.in:3000', 'http://142.93.147.148:3000']
 
 exports.TWITTER_CONFIG = {
   consumerKey: process.env.TWITTER_KEY,
