@@ -5,10 +5,6 @@ Hubbub is a social media platform that allows users to share and review media th
 
 To hit the endpoints on our backend server, please use the address http://142.93.147.148:4000
 
-[Link for mobile apk:](https://expo.io/artifacts/65bdf30e-1a1d-4e92-8ba4-d87c19a70551)
-
-All mobile code for sprint 1 is in modile_s1.
-
 Instructions to Run:
 
 1. Enter server folder ( 'cd server' )
@@ -24,3 +20,12 @@ Instructions to Run:
 
 Client should now be running at localhost:3000. A browser window should open on it's own in a few moments.
 If this does not happen, open a web browser of your choice and enter "localhost:3000" in the address bar.
+
+Instructions to Run on mobile:
+
+1. Install 'Expo' on your device from Google Play or App Store
+  - iOS: https://itunes.apple.com/ca/app/expo-client/id982107779?mt=8
+  - Android:  https://play.google.com/store/apps/details?id=host.exp.exponent&hl=en_CA
+2. In a browser, enter the following link: https://exp.host/@j_erasmo/Hubbub
+
+The app will launch within Expo on both Android or iOS.
