@@ -34,14 +34,14 @@ export class Header extends Component {
       this.setState({ people: []});
       return;
     }
-    axios.post("http://localhost:4000/api/v1/user/list", {
+    axios.post(JSON.parse(window.sessionStorage.getItem("address")) +"/api/v1/user/list", {
       firstName: firstName
     }).then(res => { this.setState({ people: res.data}); });
     }
 
   // retrieve a list of user's friends
   getFriends() {
-    let friendUri = "http://localhost:4000/api/v1/friend/" + this.state.user.id
+    let friendUri = JSON.parse(window.sessionStorage.getItem("address")) +"/api/v1/friend/" + this.state.user.id
     axios.get(friendUri).then((response) => {
 
       if(response.data === null){
@@ -66,7 +66,7 @@ export class Header extends Component {
 
   // add other user as a friend
   addFriend = (newFriend) => {
-    new Promise (() => {axios.post("http://localhost:4000/api/v1/friend/create", {
+    new Promise (() => {axios.post(JSON.parse(window.sessionStorage.getItem("address")) +"/api/v1/friend/create", {
       userId: this.state.user.id, friendId: newFriend.id
     }).then(() => {this.getFriends(); this.getFriendsPosts()} );
     })
@@ -77,7 +77,7 @@ export class Header extends Component {
 
   // unfriend the other user
   deleteFriend = (byeFriend) => {
-    new Promise (() => {axios.post("http://localhost:4000/api/v1/friend/delete", {
+    new Promise (() => {axios.post(JSON.parse(window.sessionStorage.getItem("address")) +"/api/v1/friend/delete", {
       userId: this.state.user.id, friendId: byeFriend.id
     }).then(() => {this.getFriends(); this.getFriendsPosts()} );
     })
@@ -88,7 +88,7 @@ export class Header extends Component {
 
   // retrieve posts of the user's friends
   getFriendsPosts() {
-    let reqURI = "http://localhost:4000/api/v1/posts/allFriends/" + this.state.user.id;
+    let reqURI = JSON.parse(window.sessionStorage.getItem("address")) +"/api/v1/posts/allFriends/" + this.state.user.id;
     axios.get(reqURI)
     .then((response) => {
       

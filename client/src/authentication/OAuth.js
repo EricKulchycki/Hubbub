@@ -9,14 +9,16 @@ class OAuth extends Component {
   
   state = {
     user: {},
+    address: 'http://localhost:4000',  //http://hubbub.gersh.in:4000  or  http://localhost:4000
     disabled: ''
   }  
 
   componentDidMount() {
     const { socket, provider } = this.props
+    window.sessionStorage.setItem("address", JSON.stringify(this.state.address))
     socket.on(provider, user => {
 		if(this.popup) {
-			this.popup.close()
+      this.popup.close()
       window.sessionStorage.setItem("user", JSON.stringify(user))
       this.props.history.push({
         pathname: '/main',

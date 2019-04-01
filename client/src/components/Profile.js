@@ -62,7 +62,7 @@ export class Profile extends Component {
 
     // retrieve a list of user's friends
     getFriends() {
-        let friendUri = "http://localhost:4000/api/v1/friend/" + this.state.user.id
+        let friendUri = JSON.parse(window.sessionStorage.getItem("address")) +"/api/v1/friend/" + this.state.user.id
         axios.get(friendUri)
         .then((response) => {
     
@@ -78,7 +78,7 @@ export class Profile extends Component {
 
     // retrieve posts made by the user
     getUsersPosts() {
-        let reqURI = "http://localhost:4000/api/v1/posts/user/" + this.state.user.id;
+        let reqURI = JSON.parse(window.sessionStorage.getItem("address")) +"/api/v1/posts/user/" + this.state.user.id;
         axios.get(reqURI)
         .then((response) => {
             
@@ -126,7 +126,7 @@ export class Profile extends Component {
         if(this.state.tmpPicture === '')
             newPicture = this.state.picture
   
-        axios.post('http://localhost:4000/api/v1/user/update',{ 
+        axios.post(JSON.parse(window.sessionStorage.getItem("address")) +'/api/v1/user/update',{ 
           userId: this.state.user.id,
           firstName: newFirstName,
           lastName: newLastName,
@@ -142,7 +142,7 @@ export class Profile extends Component {
 
     // refreshes the page to get the updated profle info
     profileReload() {
-        let userUri = "http://localhost:4000/api/v1/user/" + this.state.user.id
+        let userUri = JSON.parse(window.sessionStorage.getItem("address")) +"/api/v1/user/" + this.state.user.id
         axios.get(userUri).then((response) => {
         window.sessionStorage.setItem("user", JSON.stringify(response.data))
         this.setState({user: JSON.parse(window.sessionStorage.getItem("user"))})
@@ -153,7 +153,7 @@ export class Profile extends Component {
 
     // change picture back to default if the new picture is not valid
     backToDefault () {
-        axios.post('http://localhost:4000/api/v1/user/update',{
+        axios.post(JSON.parse(window.sessionStorage.getItem("address")) +'/api/v1/user/update',{
             userId: this.state.user.id,
             picture: defaultPic
           }).then((response) => {

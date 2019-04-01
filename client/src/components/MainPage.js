@@ -25,7 +25,7 @@ export class MainPage extends Component {
 
   // retrieve posts of the user's friends
   getFriendsPosts() {
-    let reqURI = "http://localhost:4000/api/v1/posts/allFriends/" + this.state.user.id;
+    let reqURI = JSON.parse(window.sessionStorage.getItem("address")) + "/api/v1/posts/allFriends/" + this.state.user.id;
     axios.get(reqURI)
     .then((response) => {
       

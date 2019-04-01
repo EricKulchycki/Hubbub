@@ -57,7 +57,7 @@ export class PostForm extends Component {
 
 	// submits the user post to the server
   handleFormSubmit() {
-    axios.post('http://localhost:4000/api/v1/post/create',{ 
+    axios.post( JSON.parse(window.sessionStorage.getItem("address")) +'/api/v1/post/create',{ 
       title: this.state.title,
       category: this.state.category,
       body: this.state.body,

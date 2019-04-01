@@ -24,7 +24,7 @@ export class DeletePost extends Component {
 
   // deletes a user's post based on the post's id
   deletePost(delPost) {
-    axios.post('http://localhost:4000/api/v1/post/delete', {
+    axios.post( JSON.parse(window.sessionStorage.getItem("address")) +'/api/v1/post/delete', {
       id: delPost
     }).then(function (response) {
     })
