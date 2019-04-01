@@ -7,7 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {withRouter} from 'react-router';
 import { Row, Button,} from 'reactstrap';
 import axios from 'axios';
-
+import { ToastContainer, toast } from "react-toastify";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faUser} from '@fortawesome/free-solid-svg-icons';
 
@@ -132,6 +132,7 @@ export class Header extends Component {
             <Button className="prof-style" onClick={this.switchToProfile} color="secondary"><div className="prof-text-style">Profile     <FontAwesomeIcon icon={faUser} size="xs"/></div></Button>{' '}
           </div>
         </Row>
+	  <ToastContainer />
       </header>
     );
   }

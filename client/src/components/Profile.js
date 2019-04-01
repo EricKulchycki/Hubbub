@@ -7,8 +7,14 @@ import Header from './Header'
 import classnames from 'classnames';
 import Post from '../components/Post';
 import {Container, Col, Row, Nav, NavItem, NavLink, TabContent, TabPane, Form, FormGroup, Label, Input, Button, FormText} from 'reactstrap';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-const defaultPic = "https://academist-app-production.s3.amazonaws.com/uploads/user/profile_image/8823/default_user_icon.png"
+const defaultPic = "https://academist-app-production.s3.amazonaws.com/uploads/user/profile_image/8823/default_user_icon.png";
+const MAX_PICTURE_LENGTH = "1024";
+const MAX_AGE_LENGTH = "3";
+const MAX_FIRST_NAME_LENGTH = "256";
+const MAX_LAST_NAME_LENGTH = "256";
 
 export class Profile extends Component {
     constructor(props){
@@ -109,11 +115,12 @@ export class Profile extends Component {
 
     // submits the profile changes to the server 
     handleProfileEdit() {
+		toast.dismiss();
         var newAge = this.state.tmpAge
         var newFirstName = this.state.tmpFirstName
         var newLastName = this.state.tmpLastName
         var newPicture = this.state.tmpPicture
-
+		var errors = 0;
         if(this.state.tmpAge === '')
             newAge = this.state.age
 
@@ -125,6 +132,38 @@ export class Profile extends Component {
         
         if(this.state.tmpPicture === '')
             newPicture = this.state.picture
+		
+		if(newPicture.length > MAX_PICTURE_LENGTH) {
+			toast.error("The URL is too long! Try a shorter URL.", {
+                position: toast.POSITION.TOP_CENTER
+            });
+			errors++;
+		}
+		
+		if(newAge.length > MAX_AGE_LENGTH) {
+			toast.error("The age you entered is too long! Max is 3 numbers.", {
+                position: toast.POSITION.TOP_CENTER
+            });
+			errors++;
+		}
+		
+		if(newFirstName.length > MAX_FIRST_NAME_LENGTH) {
+			toast.error("The first name you entered is too long! Max is 256 characters.", {
+                position: toast.POSITION.TOP_CENTER
+            });
+			errors++;
+		}
+		
+		if(newLastName.length > MAX_LAST_NAME_LENGTH) {
+			toast.error("The last name you entered is too long! Max is 256 characters.", {
+                position: toast.POSITION.TOP_CENTER
+            });
+			errors++;
+		}
+		
+		if(errors > 0) {
+			return;
+		}
   
         axios.post(JSON.parse(window.sessionStorage.getItem("address")) +'/api/v1/user/update',{ 
           userId: this.state.user.id,
