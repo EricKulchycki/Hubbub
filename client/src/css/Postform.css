@@ -8,8 +8,6 @@
     bottom: 20px;
     left: auto;
     position: fixed;
-
-
   }
 
   .post-text-style {
@@ -33,20 +31,18 @@
 }
 
 .form-style {
-  padding: 1em;
+    padding: 1em;
 }
 
 .form-label-style {
-  display: flex;
-  font-weight: 600;
+    display: flex;
+    font-weight: 600;
 }
 
 .form-body-textarea-style {
-  width: 100%
+   width: 100%
 }
 
 .postform-checkbox{
-
-margin-left: 20px;
-
+    margin-left: 20px;
 }

@@ -217,6 +217,8 @@ if(abort == false){
           res = res.body;
         });
 
+
+
       chai.request(server)
         .get('/api/v1/post/2')
         .end(function(err,res){

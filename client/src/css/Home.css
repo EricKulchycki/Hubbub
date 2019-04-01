@@ -1,22 +1,25 @@
 .p-style {
   margin-top: 10px;
   text-align: right;
-  margin-right: 390px;
-  color: white
+  margin-right: 15%;
+  color: white;
+  width: 75%;
 }
 
 .desc-style {
   text-align: right;
-  margin-right: 200px;
-  color: white
+  margin-right: 12%;
+  color: white;
+  margin-top: 90px;
 }
 
 .img-style {
-  margin-left: 100px;
-  margin-top: 40px;
-  width: 375px;
-  height: 375px;
+  margin-left: 5%;
+  width: 100%;
+  height: 100%;
   float: left;
+  max-width: 375px;
+  max-height: 375px;
 }
 
 .login {
@@ -25,11 +28,3 @@
   display: flex;
   flex-direction: column;
 }
-
-/* Button reset */
-
-
-/* Shared button styles */
-
-
-

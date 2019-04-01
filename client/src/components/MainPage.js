@@ -6,13 +6,11 @@ import '../css/MainPage.css';
 import axios from 'axios';
 import PostForm from './PostForm';
 
-
-
-
 export class MainPage extends Component {
   constructor(props) {
     super(props)
     this.componentDidMount = this.componentDidMount.bind(this)
+    this.getFriendsPosts = this.getFriendsPosts.bind(this)
 
     this.state = {
       user: JSON.parse(window.sessionStorage.getItem("user")),
@@ -23,7 +21,7 @@ export class MainPage extends Component {
   
   componentDidMount() {
     this.getFriendsPosts();
-}
+  }
 
   // retrieve posts of the user's friends
   getFriendsPosts() {
@@ -49,7 +47,7 @@ export class MainPage extends Component {
 			</div>
 			<div className="application-background-primary">
 				<div className="application-background-secondary post-list-layout">
-					<h1 className="text-center">Activity Feed</h1>
+					<h1 className="activity-feed">Activity Feed</h1>
 					<div>
 						{this.state.posts.map(post => (
 							<li key={post.id}>
