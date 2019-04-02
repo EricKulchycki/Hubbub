@@ -9,7 +9,7 @@ class OAuth extends Component {
   
   state = {
     user: {},
-    address: 'http://localhost:4000',  //http://hubbub.gersh.in:4000  or  http://localhost:4000
+    address: 'http://hubbub.gersh.in:4000',  //http://hubbub.gersh.in:4000  or  http://localhost:4000
     disabled: ''
   }  
 
