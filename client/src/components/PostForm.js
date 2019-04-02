@@ -67,38 +67,38 @@ export class PostForm extends Component {
 
     // submits the user post to the server
     handleFormSubmit() {
-		toast.dismiss();
-		var errors = 0;
-		
-		if(!this.state.title || this.state.title.length === 0) {
-			toast.error("Post is missing a title!", {
+        toast.dismiss();
+        var errors = 0;
+
+        if (!this.state.title || this.state.title.length === 0) {
+            toast.error("Post is missing a title!", {
                 position: toast.POSITION.TOP_CENTER
             });
-			errors++;
-		}
-		
-		if(!this.state.body || this.state.body.length === 0) {
-			this.state.body = " ";
-		}
-		
-		if(this.state.title.length > MAX_TITLE_LENGTH) {
-			toast.error("Post title is too long! Try a shorter title.", {
+            errors++;
+        }
+
+        if (!this.state.body || this.state.body.length === 0) {
+            this.state.body = " ";
+        }
+
+        if (this.state.title.length > MAX_TITLE_LENGTH) {
+            toast.error("Post title is too long! Try a shorter title.", {
                 position: toast.POSITION.TOP_CENTER
             });
-			errors++;
-		}
-		
-		if(this.state.body.length > MAX_BODY_LENGTH) {
-			toast.error("Post body is too long! Try a shorter body.", {
+            errors++;
+        }
+
+        if (this.state.body.length > MAX_BODY_LENGTH) {
+            toast.error("Post body is too long! Try a shorter body.", {
                 position: toast.POSITION.TOP_CENTER
             });
-			errors++;
-		}
-		
-		if(errors > 0) {
-			return;
-		}
-		
+            errors++;
+        }
+
+        if (errors > 0) {
+            return;
+        }
+
         axios.post(JSON.parse(window.sessionStorage.getItem("address")) + '/api/v1/post/create', {
                 title: this.state.title,
                 category: this.state.category,

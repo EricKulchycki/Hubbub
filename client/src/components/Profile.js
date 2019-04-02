@@ -17,7 +17,7 @@ const MAX_FIRST_NAME_LENGTH = "256";
 const MAX_LAST_NAME_LENGTH = "256";
 
 export class Profile extends Component {
-    constructor(props){
+    constructor(props) {
         super(props)
         this.handleInputChange = this.handleInputChange.bind(this)
         this.handleProfileEdit = this.handleProfileEdit.bind(this)
@@ -30,30 +30,30 @@ export class Profile extends Component {
             user: JSON.parse(window.sessionStorage.getItem("user")),
             activeTab: '1',
             friends: [],
-            posts:[],
+            posts: [],
 
-            
+
             firstName: 'John',
             lastName: 'Smith',
             age: 'Not listed',
             picture: '',
 
-            tmpAge:'',
-            tmpBio:'',
-            tmpFirstName:'',
-            tmpLastName:'',
-            tmpPicture:''
+            tmpAge: '',
+            tmpBio: '',
+            tmpFirstName: '',
+            tmpLastName: '',
+            tmpPicture: ''
         };
     }
 
     // shows the currently selected tab
     toggle(tab) {
         if (this.state.activeTab !== tab) {
-          this.setState({
-            activeTab: tab
-          });
+            this.setState({
+                activeTab: tab
+            });
         }
-      }
+    }
 
     // manages changes in the profile form
     handleInputChange(event) {
@@ -64,49 +64,62 @@ export class Profile extends Component {
         this.setState({
             [name]: value
         });
-        }
+    }
 
     // retrieve a list of user's friends
     getFriends() {
-        let friendUri = JSON.parse(window.sessionStorage.getItem("address")) +"/api/v1/friend/" + this.state.user.id
+        let friendUri = JSON.parse(window.sessionStorage.getItem("address")) + "/api/v1/friend/" + this.state.user.id
         axios.get(friendUri)
-        .then((response) => {
-    
-          if(response.data === null){
-            return this.setState({ friends : []});
-          }
-          this.setState({ friends : response.data});   
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+            .then((response) => {
+
+                if (response.data === null) {
+                    return this.setState({
+                        friends: []
+                    });
+                }
+                this.setState({
+                    friends: response.data
+                });
+            })
+            .catch(function(error) {
+                console.log(error);
+            });
     }
 
     // retrieve posts made by the user
     getUsersPosts() {
-        let reqURI = JSON.parse(window.sessionStorage.getItem("address")) +"/api/v1/posts/user/" + this.state.user.id;
+        let reqURI = JSON.parse(window.sessionStorage.getItem("address")) + "/api/v1/posts/user/" + this.state.user.id;
         axios.get(reqURI)
-        .then((response) => {
-            
-          if(response.data != null){
-            this.setState({ posts : response.data});
-          }})
-          .catch(function (error) {
-            console.log(error);
-          });
+            .then((response) => {
+
+                if (response.data != null) {
+                    this.setState({
+                        posts: response.data
+                    });
+                }
+            })
+            .catch(function(error) {
+                console.log(error);
+            });
     }
-    
+
     componentDidMount() {
-        if(this.state.user.firstName != null){
-            this.setState({ firstName: this.state.user.firstName });
+        if (this.state.user.firstName != null) {
+            this.setState({
+                firstName: this.state.user.firstName
+            });
         }
 
-        if(this.state.user.lastName != null){
-            this.setState({ lastName: this.state.user.lastName });
+        if (this.state.user.lastName != null) {
+            this.setState({
+                lastName: this.state.user.lastName
+            });
         }
-        
-        if(this.state.user.age != null){
-            this.setState({ age: this.state.user.age });
+
+        if (this.state.user.age != null) {
+            this.setState({
+                age: this.state.user.age
+            });
         }
 
         this.getFriends()
@@ -115,92 +128,94 @@ export class Profile extends Component {
 
     // submits the profile changes to the server 
     handleProfileEdit() {
-		toast.dismiss();
+        toast.dismiss();
         var newAge = this.state.tmpAge
         var newFirstName = this.state.tmpFirstName
         var newLastName = this.state.tmpLastName
         var newPicture = this.state.tmpPicture
-		var errors = 0;
-        if(this.state.tmpAge === '')
+        var errors = 0;
+        if (this.state.tmpAge === '')
             newAge = this.state.age
 
-        if(this.state.tmpFirstName === '')
+        if (this.state.tmpFirstName === '')
             newFirstName = this.state.firstName
 
-        if(this.state.tmpLastName === '')
+        if (this.state.tmpLastName === '')
             newLastName = this.state.lastName
-        
-        if(this.state.tmpPicture === '')
+
+        if (this.state.tmpPicture === '')
             newPicture = this.state.picture
-		
-		if(newPicture.length > MAX_PICTURE_LENGTH) {
-			toast.error("The URL is too long! Try a shorter URL.", {
+
+        if (newPicture.length > MAX_PICTURE_LENGTH) {
+            toast.error("The URL is too long! Try a shorter URL.", {
                 position: toast.POSITION.TOP_CENTER
             });
-			errors++;
-		}
-		
-		if(newAge.length > MAX_AGE_LENGTH) {
-			toast.error("The age you entered is too long! Max is 3 numbers.", {
+            errors++;
+        }
+
+        if (newAge.length > MAX_AGE_LENGTH) {
+            toast.error("The age you entered is too long! Max is 3 numbers.", {
                 position: toast.POSITION.TOP_CENTER
             });
-			errors++;
-		}
-		
-		if(newFirstName.length > MAX_FIRST_NAME_LENGTH) {
-			toast.error("The first name you entered is too long! Max is 256 characters.", {
+            errors++;
+        }
+
+        if (newFirstName.length > MAX_FIRST_NAME_LENGTH) {
+            toast.error("The first name you entered is too long! Max is 256 characters.", {
                 position: toast.POSITION.TOP_CENTER
             });
-			errors++;
-		}
-		
-		if(newLastName.length > MAX_LAST_NAME_LENGTH) {
-			toast.error("The last name you entered is too long! Max is 256 characters.", {
+            errors++;
+        }
+
+        if (newLastName.length > MAX_LAST_NAME_LENGTH) {
+            toast.error("The last name you entered is too long! Max is 256 characters.", {
                 position: toast.POSITION.TOP_CENTER
             });
-			errors++;
-		}
-		
-		if(errors > 0) {
-			return;
-		}
-  
-        axios.post(JSON.parse(window.sessionStorage.getItem("address")) +'/api/v1/user/update',{ 
-          userId: this.state.user.id,
-          firstName: newFirstName,
-          lastName: newLastName,
-          age: newAge,
-          picture: newPicture
-        }).then(((response) => {
-            this.profileReload()
-        }))
-        .catch(function (error) {
-          console.log(error);
-        });
+            errors++;
+        }
+
+        if (errors > 0) {
+            return;
+        }
+
+        axios.post(JSON.parse(window.sessionStorage.getItem("address")) + '/api/v1/user/update', {
+                userId: this.state.user.id,
+                firstName: newFirstName,
+                lastName: newLastName,
+                age: newAge,
+                picture: newPicture
+            }).then(((response) => {
+                this.profileReload()
+            }))
+            .catch(function(error) {
+                console.log(error);
+            });
     }
 
     // refreshes the page to get the updated profle info
     profileReload() {
-        let userUri = JSON.parse(window.sessionStorage.getItem("address")) +"/api/v1/user/" + this.state.user.id
+        let userUri = JSON.parse(window.sessionStorage.getItem("address")) + "/api/v1/user/" + this.state.user.id
         axios.get(userUri).then((response) => {
-        window.sessionStorage.setItem("user", JSON.stringify(response.data))
-        this.setState({user: JSON.parse(window.sessionStorage.getItem("user"))})
-        
-        window.location.reload();
+            window.sessionStorage.setItem("user", JSON.stringify(response.data))
+            this.setState({
+                user: JSON.parse(window.sessionStorage.getItem("user"))
+            })
+
+            window.location.reload();
         })
     }
 
     // change picture back to default if the new picture is not valid
-    backToDefault () {
-        axios.post(JSON.parse(window.sessionStorage.getItem("address")) +'/api/v1/user/update',{
-            userId: this.state.user.id,
-            picture: defaultPic
-          }).then((response) => {
-            this.profileReload()
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
+    backToDefault() {
+        axios.post(JSON.parse(window.sessionStorage.getItem("address")) + '/api/v1/user/update', {
+                userId: this.state.user.id,
+                picture: defaultPic
+            }).then((response) => {
+                this.profileReload()
+            })
+            .catch(function(error) {
+                console.log(error);
+            });
     }
 
     render() {
