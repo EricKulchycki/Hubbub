@@ -7,7 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {withRouter} from 'react-router';
 import { Row, Button,} from 'reactstrap';
 import axios from 'axios';
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faUser} from '@fortawesome/free-solid-svg-icons';
 

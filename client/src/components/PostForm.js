@@ -68,27 +68,29 @@ export class PostForm extends Component {
     // submits the user post to the server
     handleFormSubmit() {
         toast.dismiss();
+		var newBody = this.state.body;
+		var newTitle = this.state.title;
         var errors = 0;
 
-        if (!this.state.title || this.state.title.length === 0) {
+        if (!newTitle || newTitle.length === 0) {
             toast.error("Post is missing a title!", {
                 position: toast.POSITION.TOP_CENTER
             });
             errors++;
         }
 
-        if (!this.state.body || this.state.body.length === 0) {
-            this.state.body = " ";
+        if (!newBody || newBody.length === 0) {
+            newBody = " ";
         }
 
-        if (this.state.title.length > MAX_TITLE_LENGTH) {
+        if (newTitle.length > MAX_TITLE_LENGTH) {
             toast.error("Post title is too long! Try a shorter title.", {
                 position: toast.POSITION.TOP_CENTER
             });
             errors++;
         }
 
-        if (this.state.body.length > MAX_BODY_LENGTH) {
+        if (newBody.length > MAX_BODY_LENGTH) {
             toast.error("Post body is too long! Try a shorter body.", {
                 position: toast.POSITION.TOP_CENTER
             });
@@ -100,9 +102,9 @@ export class PostForm extends Component {
         }
 
         axios.post(JSON.parse(window.sessionStorage.getItem("address")) + '/api/v1/post/create', {
-                title: this.state.title,
+                title: newTitle,
                 category: this.state.category,
-                body: this.state.body,
+                body: newBody,
                 userId: this.state.user.id,
                 spoiler: this.state.spoiler,
                 rating: this.state.rating
