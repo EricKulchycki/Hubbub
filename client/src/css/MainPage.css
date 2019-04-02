@@ -11,7 +11,7 @@
 .header-layout {
 	position: sticky;
 	top: 0;
-	z-index: 10000;
+	z-index: 2;
 	height: 53px
 }
 

@@ -46,3 +46,7 @@
 	width: 25%;
 	height: 100%;
 }
+
+.popup-style{
+	z-index: 10000;
+}
