@@ -25,7 +25,6 @@
     overflow: auto;
     max-height: 100px;
     cursor: pointer;
-    z-index: 10000;
     margin-left: 10px;
 }
 
