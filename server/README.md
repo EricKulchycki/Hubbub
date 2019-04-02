@@ -109,6 +109,7 @@ Where :cat is one of
 - 'tv-show'
 - 'video game'
 - 'comic'
+- 'anime'
 
 ### Get post by id
 
