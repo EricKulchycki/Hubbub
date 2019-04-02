@@ -113,21 +113,24 @@ export class Header extends Component {
  
   render() {
     return (
-      <header className="header-layout">
-        <Row className = "header-bar" >
-          <div className ="icon-container">    
-            <img onClick={this.returnToMain} className="logo-style" alt="logo" src={logo} />
-          </div>
-          <div className="search-container">
-            <Search ser={this.state.people} user={this.state.user} searchUsers={this.searchUsers} 
-        checkFriend={this.checkFriend} addFriend={this.addFriend} deleteFriend={this.deleteFriend}/>
-          </div>
-          <div className="profile-container">
-            <Button className="prof-style" onClick={this.switchToProfile} color="secondary"><div className="prof-text-style">Profile     <FontAwesomeIcon icon={faUser} size="xs"/></div></Button>{' '}
-          </div>
-        </Row>
-	  <ToastContainer />
-      </header>
+      <div>
+        <header className="header-layout">
+          <Row className = "header-bar" >
+            <div className ="icon-container">    
+              <img onClick={this.returnToMain} className="logo-style" alt="logo" src={logo} />
+            </div>
+            <div className="search-container">
+              <Search ser={this.state.people} user={this.state.user} searchUsers={this.searchUsers} 
+          checkFriend={this.checkFriend} addFriend={this.addFriend} deleteFriend={this.deleteFriend}/>
+            </div>
+            <div className="profile-container">
+              <Button className="prof-style" onClick={this.switchToProfile} color="secondary"><div className="prof-text-style">Profile     <FontAwesomeIcon icon={faUser} size="xs"/></div></Button>{' '}
+            </div>
+          </Row>
+          
+        </header>
+        <ToastContainer className="popup-style"/>
+      </div>
     );
   }
 }

@@ -42,7 +42,7 @@ export class MainPage extends Component {
     return (
 		// load a list of posts. In the posts themselves, define how they should look. Then have the container just display that
 		<div className="mainpage-background"> 
-			<div className="header-layout">
+			<div >
         <Header />
 			</div>
 			<div className="application-background-primary">
